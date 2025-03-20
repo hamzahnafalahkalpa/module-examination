@@ -1,0 +1,34 @@
+{
+    "name": "gii/module-examination",
+    "description": "module for examination in klinik or puskesmas",
+    "type": "library",
+    "require": {
+        "zahzah/laravel-support": "1.x",
+        "zahzah/module-transaction": "1.x",
+        "zahzah/module-patient": "1.x",
+        "gii/module-service": "1.x",
+        "zahzah/module-summary": "1.x",
+        "gii/module-disease": "1.x"
+    },
+    "autoload": {
+        "psr-4": {
+            "Gii\\ModuleExamination\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Gii\\ModuleExamination\\ModuleExaminationServiceProvider"
+            ]
+        }
+    },
+    "authors": [
+        {
+            "name": "Alghi",
+            "email": "alghi@mvi.co.id"
+        }
+    ],
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": false
+}

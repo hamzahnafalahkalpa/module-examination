@@ -1,0 +1,21 @@
+<?php
+
+namespace Gii\ModuleExamination\Models\Form;
+
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Zahzah\LaravelHasProps\Concerns\HasProps;
+use Zahzah\LaravelSupport\Models\BaseModel;
+
+class FormHasAnatomy extends BaseModel{
+    use HasUlids, HasProps;
+
+    public $incrementing  = false;
+    public $timestamps    = false;
+    protected $primaryKey = 'id';
+    protected $keyType    = 'string';
+    protected $list       = ['id', 'anatomy_id', 'form_id', 'props'];
+    protected $show       = [];
+
+    public function anatomy(){return $this->belongsToModel('Anatomy');}
+    public function form(){return $this->belongsToModel('Form');}
+}

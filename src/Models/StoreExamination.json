@@ -1,0 +1,191 @@
+{
+    "visit_examination_id": 1, //required, exists: visit_examinations,id
+    "practitioner_evaluation_id": 1, //required, exists: practitioner_evaluations,id. GET FROM SHOW VISIT EXAMINATION
+    "examination": {
+        "Symptom": {
+            "data": [
+                //gak perlu ngirim data kalau ngga ada perubahan
+                //hanya kirim ketika ada create, update, delete.
+                //create dan update wajib ada value, update wajib ada id
+                {
+                    "id": null, //nullable, string, exists: symptoms, id
+                    "value": "Demam", //required without is_delete, string
+                    "is_delete": true //required without value, boolean
+                }
+            ]
+        },
+        "PainScale": { //nullable
+            "data": {
+                // 0 => 'Wong-Baker Faces Pain Scale',
+                // 1 => 'Numerical Rating Scale',
+                // 2 => 'Faces Pain Scale',
+                // 3 => 'Visual Analog Scale'
+                "type": 0, //required, GET FROM EXAMINATION STUFF - PainScale Type
+                "value": 5, //required_without:is_delete, numeric, min:0, max:10
+                "is_delete": true //required_without:value for remove from db, boleh dipake boleh ngga, jaga2 takutnya user minta
+            }
+        },
+        "VitalSign": {
+            "data": {
+                "systolic": 120, //required, numeric, min:0, max:500
+                "diastolic": 80, //required, numeric, min:0, max:500,
+                "pulse_rate": 60, //nullable numeric min: 0, max: 200 
+                "heart_rate": 120, //nullable numeric min: 0, max: 200
+                "temperature": 36.8, //nullable, required_with temperature_type, decimal:2, digits_between: 0.00, 50.00
+                "temperature_type": "ARMPIT", //nullable, required_with temperature, in:ARMPIT, EAR, INFRARED, ORAL, RECTAL
+                "respiration_rate": 60, //nullable numeric min: 0, max: 200 
+                "oxygen_saturation": 60, //nullable numeric min: 0, max: 200
+                "sars_cov2_rt": null, //nullable, in:1,0, not boolean, supaya bisa tau kalau dilakukan tesnya atau tidak
+                "loc": 12 //level of consciousness, tingkat kesadaran, GET FROM EXAMINATION STUFF - VitalSign loc
+                                        //nullable, in: COMA, COMPOS MENTIS, SOMNOLENCE, SOPOR, SEMI COMA, COMA, 
+            }
+        },
+        "Anthropometry": {
+            "data": {
+                "weight": 70, //required, numeric, min: 0, max: 300
+                "height": 168, //required, numeric, min:0, max: 300
+                "wrist_circumference": 120, //nullable, numeric, min:0, max: 300
+                "head_circumference": 60, //nullable, numeric, min:0, max: 300
+                "chest_circumference": 100, //nullable, numeric, min:0, max: 300
+                "waist_circumference": 100, //nullable, numeric, min:0, max: 300
+                "hip_circumference": 100, //nullable, numeric, min:0, max: 300
+                "arm_circumference": 50, //nullable, numeric, min:0, max: 300
+                "calf_circumference": 50, //nullable, numeric, min:0, max: 300
+                "skinfold_thickness": 30, //nullable, numeric, min:0, max: 300
+            }
+        },
+        "Allergy": {
+            "data": [
+                {
+                    "id": null, //nullable, string, exists: allergies, id
+                    "allergy_type_id": 1, //required, GET FROM EXAMINATION STUFF - Allergy Type
+                    "name": "Alergi Udang", //required, string, max: 255
+                    "allergy_scale": 1, //required, 0: Tidak ada gejala alergi
+                    // 1: Gejala alergi ringan (gatal-gatal, ruam kulit)
+                    // 2: Gejala alergi sedang (batuk, sesak napas, mual)
+                    // 3: Gejala alergi berat (anafilaksis, syok)
+                    // 4: Gejala alergi sangat berat (gagal napas, kematian)
+                    "allergen": "", //zat/substance penyebab alergi
+                    "is_delete": true //nullable, boolean
+                }
+            ]
+        },
+        "GCS": {
+            "data": {
+                "eyes": 3, //required, exists: examination_stuff,id GET FROM EXAMINATION STUFF - GCS EYES
+                "verbal": 3, //required, exists: examination_stuff,id GET FROM EXAMINATION STUFF - GCS VERBAL
+                "motor": 3 //required, exists: examination_stuff,id GET FROM EXAMINATION STUFF - GCS MOTORIC
+            }
+        },
+        "Alloanamnese": { //nullable if patient menyampaikan keluhannya sendiri
+            "data": {
+                "is_alloanamnese": true, //required kalau butuh alloanamnese, boolean, in: true,false
+                "source_name": "Santia", //required_with:is_alloanamnese true, string 
+                "relationship_as": "Ayah" //required_with:is_alloanamnese true, string 
+            }
+        },
+        "InitialDiagnose": {
+            "data": {
+                "id": null, //nullable, required_with value or is_delete
+                "value": "Demam Typhoid", //required_without:is_delete, string, exists: diagnoses, name, GET DISEASE LIST
+                "is_delete": true //required_without:value
+            }
+        },
+        "PrimaryDiagnose": {
+            "data": {
+                "id": null, //nullable, required_with value or is_delete
+                "value": "Demam Typhoid", //required_without:is_delete, string, exists: diagnoses, name, GET DISEASE LIST
+                "is_delete": true //required_without:value
+            }
+        },
+        "SecondaryDiagnose": {
+            "data": [
+                {
+                    "id": null, //nullable, required_with value or is_delete
+                    "value": "Demam Typhoid", //required_without:is_delete, string, exists: diagnoses, name, GET DISEASE LIST
+                    "is_delete": true //required_without:value
+                }
+            ]
+        },
+        "HistoryIllness": {
+            "data": [
+                {
+                    "id": null, //nullable, required_with value or is_delete
+                    "value": "Demam Typhoid", //required_without:is_delete, string, exists: diagnoses, name, GET DISEASE LIST
+                    "since": [
+                        "2024"
+                    ],
+                    "since_type": "YEAR", //YEAR/MONTH/DATE 
+                    "is_delete": true //required_without:value
+                }
+            ]
+        },
+        "FamilyIllness": {
+            "data": [
+                {
+                    "id": null, //nullable, required_with value or is_delete
+                    "value": "Demam Typhoid", //required_without:is_delete, string, exists: diagnoses, name, GET DISEASE LIST
+                    "role_in_family": "AYAH", //required, ENUM FAMILY RELATIONSHIP
+                    "family_name": "Agus", //required
+                    "patient_id": "asdfasfasdf", //nullable
+                    "child_position": null, //nullable, numeric, min:1, max:100
+                    "is_delete": true //required_without:value
+                }
+            ]
+        },
+        "Tirage": {
+            "data": {
+                "triage_id": 1 //required, exists: examination_stuffs, GET EXAMINATION STUFF - Triage
+            }
+        },
+        "PhysicalExamination": {
+            "data": [
+                {
+                    "id": null,
+                    "anatomy_id": 1, //required 
+                    "condition": "tes", //required
+                    "is_permanent": false, //required boolean
+                    "coodinate": [
+                        2,
+                        4
+                    ] // nullable
+                }
+            ]
+        },
+        "SOAP": {
+            "data": [
+                {
+                    "subject": {
+                        "value": "tes",
+                        "objects": [
+                            {
+                                "value": "tes"
+                            }
+                        ],
+                        "assessments": [
+                            {
+                                "value": "sdfg"
+                            }
+                        ],
+                        "planning": [
+                            {
+                                "type": "plain-text",
+                                "value": "tes"
+                            },
+                            {
+                                "type": "treatment",
+                                "prop": {
+                                    "id": 1,
+                                    "name": "tes",
+                                    "treatment_at": "2025"
+                                }
+                            }
+                        ]
+                    },
+                    "assessment": "tes",
+                    "planning": "tes"
+                }
+            ]
+        }
+    }
+}
