@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Hanafalah\ModulePatient\Models\EMR\VisitExamination;
 use Hanafalah\ModuleExamination\Models\Examination\Prescription;
 use Hanafalah\ModuleExamination\Models\PatientSummary;
-use Gilanggustina\ModuleTreatment\Models\Treatment\Treatment;
+use Hanafalah\ModuleTreatment\Models\Treatment\Treatment;
 use Hanafalah\ModulePatient\Models\EMR\ExaminationSummary;
 
 return new class extends Migration
