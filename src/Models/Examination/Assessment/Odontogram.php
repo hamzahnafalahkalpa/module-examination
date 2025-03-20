@@ -1,8 +1,9 @@
 <?php
 
-namespace Gii\ModuleExamination\Models\Examination\Assessment;
+namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
 
-class Odontogram extends Assessment {
+class Odontogram extends Assessment
+{
     protected $table = 'assessments';
     public $specific = [
         'anatomies'

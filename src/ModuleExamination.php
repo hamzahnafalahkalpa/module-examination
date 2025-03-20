@@ -1,9 +1,7 @@
 <?php
 
-namespace Gii\ModuleExamination;
+namespace Hanafalah\ModuleExamination;
 
-use Zahzah\LaravelSupport\Supports\PackageManagement;
+use Hanafalah\LaravelSupport\Supports\PackageManagement;
 
-class ModuleExamination extends PackageManagement{
-
-}
+class ModuleExamination extends PackageManagement {}

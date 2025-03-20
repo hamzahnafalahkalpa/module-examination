@@ -1,8 +1,7 @@
 <?php
 
-namespace Gii\ModuleExamination\Contracts\Examination\Assessment\Treatment;
+namespace Hanafalah\ModuleExamination\Contracts\Examination\Assessment\Treatment;
 
-use Gii\ModuleExamination\Contracts\Examination\Assessment\Assessment;
+use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\Assessment;
 
-interface TrxTreatment extends Assessment{
-}
+interface TrxTreatment extends Assessment {}

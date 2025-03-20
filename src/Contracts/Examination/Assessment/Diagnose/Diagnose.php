@@ -1,8 +1,7 @@
 <?php
 
-namespace Gii\ModuleExamination\Contracts\Examination\Assessment\Diagnose;
+namespace Hanafalah\ModuleExamination\Contracts\Examination\Assessment\Diagnose;
 
-use Gii\ModuleExamination\Contracts\Examination\Assessment\Assessment;
+use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\Assessment;
 
-interface Diagnose extends Assessment{
-}
+interface Diagnose extends Assessment {}

@@ -1,8 +1,7 @@
 <?php
 
-namespace Gii\ModuleExamination\Contracts;
+namespace Hanafalah\ModuleExamination\Contracts;
 
-use Zahzah\LaravelSupport\Contracts\DataManagement;
+use Hanafalah\LaravelSupport\Contracts\DataManagement;
 
-interface Form extends DataManagement{
-}
+interface Form extends DataManagement {}

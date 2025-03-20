@@ -1,20 +1,21 @@
 <?php
 
-use Gii\ModuleExamination\Models\Examination\Assessment\Assessment;
-use Zahzah\ModulePatient\Models\EMR\ExaminationSummary;
-use Gii\ModuleExamination\Models\PatientSummary;
+use Hanafalah\ModuleExamination\Models\Examination\Assessment\Assessment;
+use Hanafalah\ModulePatient\Models\EMR\ExaminationSummary;
+use Hanafalah\ModuleExamination\Models\PatientSummary;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Zahzah\ModulePatient\Models\EMR\VisitExamination;
+use Hanafalah\ModulePatient\Models\EMR\VisitExamination;
 
 return new class extends Migration
 {
-   use Zahzah\LaravelSupport\Concerns\NowYouSeeMe;
+    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
 
     private $__table;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->__table = app(config('database.models.Assessment', Assessment::class));
     }
 
@@ -26,18 +27,18 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()){
+        if (!$this->isTableExists()) {
             Schema::create($table_name, function (Blueprint $table) {
                 $visit_examination   = app(config('database.models.VisitExamination', VisitExamination::class));
-                $examination_summary = app(config('database.models.ExaminationSummary', ExaminationSummary::class)); 
-                $patient_summary     = app(config('database.models.PatientSummary', PatientSummary::class)); 
-                
+                $examination_summary = app(config('database.models.ExaminationSummary', ExaminationSummary::class));
+                $patient_summary     = app(config('database.models.PatientSummary', PatientSummary::class));
+
                 $table->ulid("id")->primary()->collation("utf8mb4_bin");
 
                 $table->foreignIdFor($visit_examination::class)
                     ->nullable()->index('ve_as')->constrained()
                     ->cascadeOnUpdate()->restrictOnDelete();
-                
+
                 $table->foreignIdFor($examination_summary::class)->collation("utf8mb4_bin")
                     ->nullable()->index('es_as')->constrained()
                     ->cascadeOnUpdate()->restrictOnDelete();
@@ -46,17 +47,17 @@ return new class extends Migration
                     ->nullable()->index('ps_as')->constrained('summaries')
                     ->cascadeOnUpdate()->restrictOnDelete();
 
-                $table->string('morph',50)->nullable();
+                $table->string('morph', 50)->nullable();
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
             });
 
-            Schema::table($table_name, function (Blueprint $table) use ($table_name){
-                $table->foreignIdFor($this->__table,'parent_id')
-                      ->nullable()->after('id')
-                      ->index()->constrained($table_name)
-                      ->cascadeOnUpdate()->restrictOnDelete();
+            Schema::table($table_name, function (Blueprint $table) use ($table_name) {
+                $table->foreignIdFor($this->__table, 'parent_id')
+                    ->nullable()->after('id')
+                    ->index()->constrained($table_name)
+                    ->cascadeOnUpdate()->restrictOnDelete();
             });
         }
     }

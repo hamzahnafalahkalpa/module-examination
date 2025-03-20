@@ -1,18 +1,24 @@
 <?php
 
-namespace Gii\ModuleExamination\Models\Examination\Assessment\Diagnose;
+namespace Hanafalah\ModuleExamination\Models\Examination\Assessment\Diagnose;
 
-class HistoryIllness extends Diagnose {
+class HistoryIllness extends Diagnose
+{
     protected $table = 'assessments';
 
     public $response_model   = 'array';
 
     public $specific = [
-        'name','disease_type','disease_id','classification_disease_id',
-        'since_type', 'since'
+        'name',
+        'disease_type',
+        'disease_id',
+        'classification_disease_id',
+        'since_type',
+        'since'
     ];
 
-    public function getExamResults($model): array{
+    public function getExamResults($model): array
+    {
         return [
             'name'                => $model->name,
             'disease_type'        => $model->disease_type,

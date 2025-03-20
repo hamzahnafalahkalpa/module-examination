@@ -1,21 +1,22 @@
 <?php
 
-use Gii\ModuleExamination\Models\Examination\Assessment\Diagnose\Diagnose;
-use Zahzah\ModulePatient\Models\EMR\ExaminationSummary;
-use Gii\ModuleExamination\Models\PatientSummary;
+use Hanafalah\ModuleExamination\Models\Examination\Assessment\Diagnose\Diagnose;
+use Hanafalah\ModulePatient\Models\EMR\ExaminationSummary;
+use Hanafalah\ModuleExamination\Models\PatientSummary;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Zahzah\LaravelSupport\Concerns\NowYouSeeMe;
-use Zahzah\ModulePatient\Models\EMR\VisitExamination;
+use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+use Hanafalah\ModulePatient\Models\EMR\VisitExamination;
 
 return new class extends Migration
 {
-   use NowYouSeeMe;
+    use NowYouSeeMe;
 
     private $__table;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->__table = app(config('database.models.Diagnose', Diagnose::class));
     }
 
@@ -27,12 +28,12 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()){
+        if (!$this->isTableExists()) {
             Schema::create($table_name, function (Blueprint $table) {
-                $visit_examination   = app(config('database.models.VisitExamination', VisitExamination::class)); 
-                $examination_summary = app(config('database.models.ExaminationSummary', ExaminationSummary::class)); 
-                $patient_summary     = app(config('database.models.PatientSummary', PatientSummary::class)); 
-                
+                $visit_examination   = app(config('database.models.VisitExamination', VisitExamination::class));
+                $examination_summary = app(config('database.models.ExaminationSummary', ExaminationSummary::class));
+                $patient_summary     = app(config('database.models.PatientSummary', PatientSummary::class));
+
                 $table->ulid("id")->primary()->collation("utf8mb4_bin");
                 $table->foreignIdFor($visit_examination::class)
                     ->nullable()->index('ve_dg')->constrained()

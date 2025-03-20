@@ -1,6 +1,5 @@
 <?php
 
-namespace Gii\ModuleExamination\Contracts\Examination\Assessment;
+namespace Hanafalah\ModuleExamination\Contracts\Examination\Assessment;
 
-interface EyeExamination extends Assessment{
-}
+interface EyeExamination extends Assessment {}

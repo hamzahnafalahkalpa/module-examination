@@ -1,17 +1,25 @@
 <?php
 
-namespace Gii\ModuleExamination\Models\Examination\Assessment\Diagnose;
+namespace Hanafalah\ModuleExamination\Models\Examination\Assessment\Diagnose;
 
-class FamilyIllness extends Diagnose {
+class FamilyIllness extends Diagnose
+{
     protected $table = 'assessments';
 
     public $response_model   = 'array';
     public $specific = [
-        'name','disease_type','disease_id','classification_disease_id',
-        'family_role_id', 'family_patient_id', 'family_name', 'child_position'
+        'name',
+        'disease_type',
+        'disease_id',
+        'classification_disease_id',
+        'family_role_id',
+        'family_patient_id',
+        'family_name',
+        'child_position'
     ];
 
-    public function getExamResults($model): array{
+    public function getExamResults($model): array
+    {
         $family_role = $this->ExaminationStuffModel()->find($model->family_role_id);
         return [
             'name'                      => $model->name,
@@ -25,5 +33,4 @@ class FamilyIllness extends Diagnose {
             'child_position'            => $model->child_position ?? null
         ];
     }
-
 }

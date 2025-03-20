@@ -1,10 +1,11 @@
 <?php
 
-namespace Gii\ModuleExamination\Models\Examination\Assessment\MedicalSupport;
+namespace Hanafalah\ModuleExamination\Models\Examination\Assessment\MedicalSupport;
 
-use Gii\ModuleExamination\Models\Examination\Assessment\Assessment;
+use Hanafalah\ModuleExamination\Models\Examination\Assessment\Assessment;
 
-class TrxMedicalSupport extends Assessment {
+class TrxMedicalSupport extends Assessment
+{
     protected $table = 'assessments';
 
     public $response_model   = 'array';

@@ -1,20 +1,21 @@
 <?php
 
-use Gii\ModuleExamination\Models\Examination\PatientIllness;
-use Zahzah\ModulePatient\Models\EMR\ExaminationSummary;
-use Gii\ModuleExamination\Models\PatientSummary;
+use Hanafalah\ModuleExamination\Models\Examination\PatientIllness;
+use Hanafalah\ModulePatient\Models\EMR\ExaminationSummary;
+use Hanafalah\ModuleExamination\Models\PatientSummary;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Zahzah\ModulePatient\Models\Patient\Patient;
+use Hanafalah\ModulePatient\Models\Patient\Patient;
 
 return new class extends Migration
 {
-   use Zahzah\LaravelSupport\Concerns\NowYouSeeMe;
+    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
 
     private $__table;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->__table = app(config('database.models.PatientIllness', PatientIllness::class));
     }
 
@@ -26,16 +27,16 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()){
+        if (!$this->isTableExists()) {
             Schema::create($table_name, function (Blueprint $table) {
-                $examination_summary = app(config('database.models.ExaminationSummary', ExaminationSummary::class)); 
-                $patient_summary     = app(config('database.models.PatientSummary', PatientSummary::class)); 
-                $patient             = app(config('database.models.Patient', Patient::class)); 
-                
+                $examination_summary = app(config('database.models.ExaminationSummary', ExaminationSummary::class));
+                $patient_summary     = app(config('database.models.PatientSummary', PatientSummary::class));
+                $patient             = app(config('database.models.Patient', Patient::class));
+
                 $table->ulid("id")->primary()->collation("utf8mb4_bin");
 
-                $table->string('reference_type',50)->nullable(false);
-                $table->string('reference_id',36)->nullable(false);
+                $table->string('reference_type', 50)->nullable(false);
+                $table->string('reference_id', 36)->nullable(false);
                 $table->string('name')->nullable(false);
 
                 $table->foreignIdFor($patient::class)->collation("utf8mb4_bin")
@@ -50,22 +51,22 @@ return new class extends Migration
                     ->nullable()->index('ps_pi')->constrained('summaries')
                     ->cascadeOnUpdate()->restrictOnDelete();
 
-                $table->string('disease_type',50)->nullable(false);
-                $table->string('disease_id',36)->nullable(false);
+                $table->string('disease_type', 50)->nullable(false);
+                $table->string('disease_id', 36)->nullable(false);
                 $table->string('disease_name')->nullable(false);
 
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
 
-                $table->index(['reference_type','reference_id'],'ref_pi');
-                $table->index(['disease_type','disease_id'],'disease_pi');
+                $table->index(['reference_type', 'reference_id'], 'ref_pi');
+                $table->index(['disease_type', 'disease_id'], 'disease_pi');
             });
 
-            Schema::table($table_name,function (Blueprint $table) use ($table_name){
-                $table->foreignIdFor($this->__table::class,'classification_disease_id')
+            Schema::table($table_name, function (Blueprint $table) use ($table_name) {
+                $table->foreignIdFor($this->__table::class, 'classification_disease_id')
                     ->collation("utf8mb4_bin")->after('disease_name')->nullable()->index()
-                    ->constrained($table_name,'id','cd_pi')
+                    ->constrained($table_name, 'id', 'cd_pi')
                     ->cascadeOnUpdate()->restrictOnDelete();
             });
         }

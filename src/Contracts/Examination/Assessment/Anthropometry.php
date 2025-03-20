@@ -1,8 +1,7 @@
 <?php
 
-namespace Gii\ModuleExamination\Contracts\Examination\Assessment;
+namespace Hanafalah\ModuleExamination\Contracts\Examination\Assessment;
 
 
 
-interface Anthropometry extends Assessment{
-}
+interface Anthropometry extends Assessment {}

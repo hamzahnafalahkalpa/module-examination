@@ -1,14 +1,16 @@
 <?php
 
-namespace Gii\ModuleExamination\Models;
+namespace Hanafalah\ModuleExamination\Models;
 
-class ServiceLabel extends ExaminationStuff {
+class ServiceLabel extends ExaminationStuff
+{
     protected $table = 'examination_stuffs';
 
-    protected static function booted(): void{
+    protected static function booted(): void
+    {
         parent::booted();
-        static::addGlobalScope('service-label',function($query){
-            $query->where('flag','ServiceLabel');
+        static::addGlobalScope('service-label', function ($query) {
+            $query->where('flag', 'ServiceLabel');
         });
     }
 }

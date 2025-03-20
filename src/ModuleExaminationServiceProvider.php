@@ -1,14 +1,16 @@
 <?php
 
-namespace Gii\ModuleExamination;
+namespace Hanafalah\ModuleExamination;
 
-use Gii\ModuleDisease\Contracts\Disease;
-use Zahzah\LaravelSupport\Providers\BaseServiceProvider;
-use Gii\ModuleExamination\Contracts\Examination\Assessment as ContractAssessment;
-use Gii\ModuleExamination\Contracts\Examination\Assessment\{
-    Treatment, Prescription, Diagnose
+use Hanafalah\ModuleDisease\Contracts\Disease;
+use Hanafalah\LaravelSupport\Providers\BaseServiceProvider;
+use Hanafalah\ModuleExamination\Contracts\Examination\Assessment as ContractAssessment;
+use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\{
+    Treatment,
+    Prescription,
+    Diagnose
 };
-use Gii\ModuleExamination\Schemas\Examination\Assessment as SchemasAssessment;
+use Hanafalah\ModuleExamination\Schemas\Examination\Assessment as SchemasAssessment;
 
 class ModuleExaminationServiceProvider extends BaseServiceProvider
 {
@@ -20,10 +22,10 @@ class ModuleExaminationServiceProvider extends BaseServiceProvider
     public function register()
     {
         $this->registerMainClass(ModuleExamination::class)
-             ->registerCommandService(Providers\CommandServiceProvider::class)
-             ->registers([           
+            ->registerCommandService(Providers\CommandServiceProvider::class)
+            ->registers([
                 '*',
-                'Services'  => function(){
+                'Services'  => function () {
                     $this->binds([
                         Contracts\ModuleExamination::class                          => ModuleExamination::class,
                         Contracts\Examination::class                                => Schemas\Examination::class,
@@ -69,11 +71,12 @@ class ModuleExaminationServiceProvider extends BaseServiceProvider
                         Contracts\MasterVaccine::class                              => Schemas\MasterVaccine::class
                     ]);
                 }
-             ]);
+            ]);
         $this->setupExaminationLists();
     }
 
-    private function setupExaminationLists(): self{
+    private function setupExaminationLists(): self
+    {
         $examination_lists = config('database.examinations', []);
         $lists = config('module-examination.examinations', []);
         $examination_lists = array_merge($examination_lists, $lists);
@@ -81,11 +84,13 @@ class ModuleExaminationServiceProvider extends BaseServiceProvider
         return $this;
     }
 
-    protected function dir(): string{
-        return __DIR__.'/';
+    protected function dir(): string
+    {
+        return __DIR__ . '/';
     }
 
-    protected function migrationPath(string $path = ''): string{
+    protected function migrationPath(string $path = ''): string
+    {
         return database_path($path);
     }
 }

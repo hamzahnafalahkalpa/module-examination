@@ -1,14 +1,23 @@
 <?php
 
-namespace Gii\ModuleExamination\Models\Examination;
+namespace Hanafalah\ModuleExamination\Models\Examination;
 
-use Gii\ModuleExamination\Models\Examination;
+use Hanafalah\ModuleExamination\Models\Examination;
 
-class ExaminationTreatment extends Examination {
+class ExaminationTreatment extends Examination
+{
     protected $list = [
-        'id','name','visit_examination_id','examination_summary_id',
-        'patient_summary_id','reference_type','reference_id', 
-        'qty','price','treatment_id', 'props'
+        'id',
+        'name',
+        'visit_examination_id',
+        'examination_summary_id',
+        'patient_summary_id',
+        'reference_type',
+        'reference_id',
+        'qty',
+        'price',
+        'treatment_id',
+        'props'
     ];
     protected $show = [];
 
@@ -16,11 +25,12 @@ class ExaminationTreatment extends Examination {
         'name' => 'string'
     ];
 
-    protected static function booted(): void{
+    protected static function booted(): void
+    {
         parent::booted();
-        static::created(function($query){
+        static::created(function ($query) {
             $visit_examination  = $query->visitExamination;
-            $visit_registration = $visit_examination->visitRegistration; 
+            $visit_registration = $visit_examination->visitRegistration;
             $transaction        = $visit_registration->visitPatient->transaction;
 
             //CREATE TRANSACTION ITEM
@@ -30,7 +40,7 @@ class ExaminationTreatment extends Examination {
                 'item_name'      => $query->name,
                 'transaction_id' => $transaction->getKey(),
             ]);
-            
+
             //CREATE PAYMENT DETAIL
             $payment_summary    = $visit_registration->paymentSummary;
             $treatment          = $query->treatment;
@@ -42,7 +52,7 @@ class ExaminationTreatment extends Examination {
             $transaction_item->paymentDetail()->firstOrCreate([
                 'payment_summary_id'  => $payment_summary->getKey(),
                 'transaction_item_id' => $transaction_item->getKey()
-            ],[
+            ], [
                 'qty'                 => $qty,
                 'cogs'                => $treatment->cogs ?? 0,
                 'tax'                 => $tax,
@@ -52,22 +62,29 @@ class ExaminationTreatment extends Examination {
                 'price'               => $price
             ]);
         });
-        static::deleted(function($query){
-            if ($query->isDirty('deleted_at')){
+        static::deleted(function ($query) {
+            if ($query->isDirty('deleted_at')) {
                 $transaction_item = $query->transaction_item;
                 $payment_detail   = $transaction_item->paymentDetail;
-                if (!isset($payment_detail->payment_history_id)){
+                if (!isset($payment_detail->payment_history_id)) {
                     $transaction_item->delete();
                 }
             }
         });
     }
-    
+
     //EIGER SECTION
-    public function treatment(){return $this->belongsToModel("Treatment",'treatment_id');}
-    public function reference(){return $this->morphTo();}
-    public function transactionItem(){
-        return $this->hasOneModel('TransactionItem','item_id','reference_id')
-                    ->where('item_type',$this->reference_type);
+    public function treatment()
+    {
+        return $this->belongsToModel("Treatment", 'treatment_id');
+    }
+    public function reference()
+    {
+        return $this->morphTo();
+    }
+    public function transactionItem()
+    {
+        return $this->hasOneModel('TransactionItem', 'item_id', 'reference_id')
+            ->where('item_type', $this->reference_type);
     }
 }

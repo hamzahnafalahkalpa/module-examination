@@ -1,14 +1,16 @@
 <?php
 
-namespace Gii\ModuleExamination\Schemas\Examination\Assessment\Diagnose;
+namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment\Diagnose;
 
-use Gii\ModuleExamination\Contracts\Examination\Assessment\Diagnose\PrimaryDiagnose as ContractsPrimaryDiagnose;
+use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\Diagnose\PrimaryDiagnose as ContractsPrimaryDiagnose;
 use Illuminate\Database\Eloquent\Builder;
 
-class PrimaryDiagnose extends Diagnose implements ContractsPrimaryDiagnose{
+class PrimaryDiagnose extends Diagnose implements ContractsPrimaryDiagnose
+{
     protected string $__entity   = 'PrimaryDiagnose';
-    public function diagnose(): Builder{
+    public function diagnose(): Builder
+    {
         $this->booting();
-        return $this->PrimaryDiagnoseModel()->withParameters('or')->orderBy('props->name','asc');
+        return $this->PrimaryDiagnoseModel()->withParameters('or')->orderBy('props->name', 'asc');
     }
 }

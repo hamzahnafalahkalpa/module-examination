@@ -1,9 +1,10 @@
 <?php
 
-namespace Gii\ModuleExamination\Schemas\Examination\Assessment;
+namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment;
 
-use Gii\ModuleExamination\Contracts\Examination\Assessment\EarExamination as AssessmentEarExamination;
+use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\EarExamination as AssessmentEarExamination;
 
-class EarExamination extends Assessment implements AssessmentEarExamination{
+class EarExamination extends Assessment implements AssessmentEarExamination
+{
     protected string $__entity   = 'EarExamination';
 }

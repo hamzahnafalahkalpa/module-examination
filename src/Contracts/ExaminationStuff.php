@@ -1,12 +1,13 @@
 <?php
 
-namespace Gii\ModuleExamination\Contracts;
+namespace Hanafalah\ModuleExamination\Contracts;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Zahzah\LaravelSupport\Contracts\DataManagement;
+use Hanafalah\LaravelSupport\Contracts\DataManagement;
 
-interface ExaminationStuff extends DataManagement{
+interface ExaminationStuff extends DataManagement
+{
     public function prepareViewExaminationStuffList(mixed $flag, mixed $attributes = null): Collection;
     public function viewExaminationStuffList(mixed $flag): array;
     public function viewMultipleExaminationStuffList(mixed $flags): array;

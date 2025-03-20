@@ -1,8 +1,9 @@
 <?php
 
-namespace Gii\ModuleExamination\Enums\Form;
+namespace Hanafalah\ModuleExamination\Enums\Form;
 
-enum Type: string{
+enum Type: string
+{
     case VITAL_SIGN         = 'VITAL_SIGN';
     case INITIAL_DIAGNOSE   = 'INITIAL_DIAGNOSE';
     case SECONDARY_DIAGNOSE = 'SECONDARY_DIAGNOSE';

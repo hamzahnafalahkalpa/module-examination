@@ -1,13 +1,15 @@
 <?php
 
-namespace Gii\ModuleExamination\Models\Examination\Assessment;
+namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
 
-use Gii\ModuleExamination\Models\Examination\Assessment\Assessment;
+use Hanafalah\ModuleExamination\Models\Examination\Assessment\Assessment;
 
-class EyeRefractionExamination extends EyeExamination {
+class EyeRefractionExamination extends EyeExamination
+{
     protected $table = 'assessments';
 
     public $specific = [
-        'Autoref', 'Refraksi Subjektif'
+        'Autoref',
+        'Refraksi Subjektif'
     ];
 }

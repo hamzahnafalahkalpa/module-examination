@@ -1,12 +1,13 @@
 <?php
 
-namespace Gii\ModuleExamination\Seeders;
+namespace Hanafalah\ModuleExamination\Seeders;
 
-use Gii\ModuleExamination\Models\ExaminationStuff;
+use Hanafalah\ModuleExamination\Models\ExaminationStuff;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
-class ExaminationStuffSeeder extends Seeder{
+class ExaminationStuffSeeder extends Seeder
+{
     private $__examination_stuff;
 
     /**
@@ -20,25 +21,25 @@ class ExaminationStuffSeeder extends Seeder{
         $stuffs = [
             $this->model('GCS') => [
                 'eyes' => [
-                    ['value' => 'Tidak ada response','prop'  => ['ordering'=>1,'score' => 1]],
-                    ['value' => 'Reaksi Terhadap Nyeri','prop'  => ['ordering'=>2,'score' => 2]],
-                    ['value' => 'Reaksi Terhadap Suara','prop'  => ['ordering'=>3,'score' => 3]],
-                    ['value' => 'Spontan','prop'  => ['ordering'=>4,'score' => 4]]
+                    ['value' => 'Tidak ada response', 'prop'  => ['ordering' => 1, 'score' => 1]],
+                    ['value' => 'Reaksi Terhadap Nyeri', 'prop'  => ['ordering' => 2, 'score' => 2]],
+                    ['value' => 'Reaksi Terhadap Suara', 'prop'  => ['ordering' => 3, 'score' => 3]],
+                    ['value' => 'Spontan', 'prop'  => ['ordering' => 4, 'score' => 4]]
                 ],
                 'verbal' => [
-                    ['value' => 'Tidak Ada Respon','prop'  => ['ordering'=>1,'score' => 1]],
-                    ['value' => 'Suara tidak jelas','prop'  => ['ordering'=>2,'score' => 2]],
-                    ['value' => 'Kata-kata tidak teratur','prop'  => ['ordering'=>3,'score' => 3]],
-                    ['value' => 'Bicara kacau /bingung','prop'  => ['ordering'=>4,'score' => 4]],
-                    ['value' => 'Orientasi Baik','prop'  => ['ordering'=>5,'score' => 5]]
+                    ['value' => 'Tidak Ada Respon', 'prop'  => ['ordering' => 1, 'score' => 1]],
+                    ['value' => 'Suara tidak jelas', 'prop'  => ['ordering' => 2, 'score' => 2]],
+                    ['value' => 'Kata-kata tidak teratur', 'prop'  => ['ordering' => 3, 'score' => 3]],
+                    ['value' => 'Bicara kacau /bingung', 'prop'  => ['ordering' => 4, 'score' => 4]],
+                    ['value' => 'Orientasi Baik', 'prop'  => ['ordering' => 5, 'score' => 5]]
                 ],
                 'motor' => [
-                    ['value' => 'Tidak Ada Respon', 'prop' => ['ordering'=>1,'score' => 1]],
-                    ['value' => 'Esktensi', 'prop' => ['ordering'=>2,'score' => 2]],
-                    ['value' => 'Fleksi Abnormal', 'prop' => ['ordering'=>3,'score' => 3]],
-                    ['value' => 'Fleksi Normal', 'prop' => ['ordering'=>4,'score' => 4]],
-                    ['value' => 'Melokalisir Nyeri', 'prop' => ['ordering'=>5,'score' => 5]],
-                    ['value' => 'Ikut Perintah', 'prop' => ['ordering'=>6,'score' => 6]]
+                    ['value' => 'Tidak Ada Respon', 'prop' => ['ordering' => 1, 'score' => 1]],
+                    ['value' => 'Esktensi', 'prop' => ['ordering' => 2, 'score' => 2]],
+                    ['value' => 'Fleksi Abnormal', 'prop' => ['ordering' => 3, 'score' => 3]],
+                    ['value' => 'Fleksi Normal', 'prop' => ['ordering' => 4, 'score' => 4]],
+                    ['value' => 'Melokalisir Nyeri', 'prop' => ['ordering' => 5, 'score' => 5]],
+                    ['value' => 'Ikut Perintah', 'prop' => ['ordering' => 6, 'score' => 6]]
                 ]
             ],
             $this->model('Allergy') => [
@@ -221,19 +222,20 @@ class ExaminationStuffSeeder extends Seeder{
             ]
         ];
         $this->createStuff($stuffs);
-
     }
 
-    private function model(string $model): string{
-        return app(config('database.models.'.$model))->getMorphClass();
+    private function model(string $model): string
+    {
+        return app(config('database.models.' . $model))->getMorphClass();
     }
 
-    private function createStuff($stuffs,$parent_id=null){
+    private function createStuff($stuffs, $parent_id = null)
+    {
         foreach ($stuffs as $key => $stuff) {
             foreach ($stuff as $type => $value) {
-                if (!is_numeric($type)){
-                    $flag = Str::upper($key.'_'.$type);
-                }else{
+                if (!is_numeric($type)) {
+                    $flag = Str::upper($key . '_' . $type);
+                } else {
                     $flag = Str::upper($key);
                     $value = [$value];
                 }
@@ -244,12 +246,12 @@ class ExaminationStuffSeeder extends Seeder{
                         'name' => $val['value']
                     ]);
 
-                    if (isset($val['prop']) && count($val['prop']) > 0){
+                    if (isset($val['prop']) && count($val['prop']) > 0) {
                         foreach ($val['prop'] as $prop_key => $prop) $stuff_model->{$prop_key} = $prop;
                         $stuff_model->save();
                     }
-                    if (isset($val['childs']) && count($val['childs']) > 0){
-                        $this->createStuff($val['childs'],$stuff_model->getKey());
+                    if (isset($val['childs']) && count($val['childs']) > 0) {
+                        $this->createStuff($val['childs'], $stuff_model->getKey());
                     }
                 }
             }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Gii\ModuleExamination\Models\Examination\Assessment;
+namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
 
-class SOAP extends Assessment {
+class SOAP extends Assessment
+{
     protected $table = 'assessments';
     public $response_model   = 'array';
-    public $specific = ['subjective','objectives','assessment', 'plannings','date_time'];
-
+    public $specific = ['subjective', 'objectives', 'assessment', 'plannings', 'date_time'];
 }

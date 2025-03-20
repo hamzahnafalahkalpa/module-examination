@@ -3,19 +3,20 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Zahzah\ModulePatient\Models\EMR\VisitExamination;
-use Gii\ModuleExamination\Models\Examination\ExaminationTreatment;
-use Gii\ModuleExamination\Models\PatientSummary;
+use Hanafalah\ModulePatient\Models\EMR\VisitExamination;
+use Hanafalah\ModuleExamination\Models\Examination\ExaminationTreatment;
+use Hanafalah\ModuleExamination\Models\PatientSummary;
 use Gilanggustina\ModuleTreatment\Models\Treatment\Treatment;
-use Zahzah\ModulePatient\Models\EMR\ExaminationSummary;
+use Hanafalah\ModulePatient\Models\EMR\ExaminationSummary;
 
 return new class extends Migration
 {
-   use Zahzah\LaravelSupport\Concerns\NowYouSeeMe;
+    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
 
     private $__table;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->__table = app(config('database.models.ExaminationTreatment', ExaminationTreatment::class));
     }
 
@@ -27,40 +28,40 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()){
+        if (!$this->isTableExists()) {
             Schema::create($table_name, function (Blueprint $table) {
                 $visit_examination   = app(config('database.models.VisitExamination', VisitExamination::class));
-                $examination_summary = app(config('database.models.ExaminationSummary', ExaminationSummary::class)); 
-                $patient_summary     = app(config('database.models.PatientSummary', PatientSummary::class)); 
+                $examination_summary = app(config('database.models.ExaminationSummary', ExaminationSummary::class));
+                $patient_summary     = app(config('database.models.PatientSummary', PatientSummary::class));
                 $treatment           = app(config('database.models.Treatment', Treatment::class));
 
                 $table->ulid("id")->primary();
                 $table->string('name')->nullable(false);
 
                 $table->foreignIdFor($visit_examination::class)
-                    ->nullable()->constrained($visit_examination->getTable(),$visit_examination->getKeyName(),'ve_et')
+                    ->nullable()->constrained($visit_examination->getTable(), $visit_examination->getKeyName(), 've_et')
                     ->cascadeOnUpdate()->restrictOnDelete();
-                
+
                 $table->foreignIdFor($examination_summary::class)->collation("utf8mb4_bin")
-                    ->nullable()->constrained($examination_summary->getTable(),$examination_summary->getKeyName(),'es_et')
+                    ->nullable()->constrained($examination_summary->getTable(), $examination_summary->getKeyName(), 'es_et')
                     ->cascadeOnUpdate()->restrictOnDelete();
 
                 $table->foreignIdFor($patient_summary::class)
-                    ->nullable()->constrained('summaries',$patient_summary->getKeyName(),'ps_et')
+                    ->nullable()->constrained('summaries', $patient_summary->getKeyName(), 'ps_et')
                     ->cascadeOnUpdate()->restrictOnDelete();
 
                 $table->foreignIdFor($treatment::class)
-                    ->nullable()->constrained($treatment->getTable(),$treatment->getKeyName(),'tr_et')
+                    ->nullable()->constrained($treatment->getTable(), $treatment->getKeyName(), 'tr_et')
                     ->cascadeOnUpdate()->restrictOnDelete();
 
-                $table->string('reference_type',50)->nullable();
-                $table->string('reference_id',36)->nullable();
+                $table->string('reference_type', 50)->nullable();
+                $table->string('reference_id', 36)->nullable();
                 $table->unsignedBigInteger('qty')->default(1)->nullable();
                 $table->unsignedBigInteger('price')->nullable();
-                
+
                 $table->json('props')->nullable();
 
-                $table->index(['reference_type','reference_id'],'et_ref');
+                $table->index(['reference_type', 'reference_id'], 'et_ref');
 
                 $table->timestamps();
                 $table->softDeletes();

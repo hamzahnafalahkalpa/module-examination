@@ -1,15 +1,16 @@
 <?php
 
-namespace Gii\ModuleExamination\Seeders;
+namespace Hanafalah\ModuleExamination\Seeders;
 
-use Gii\ModuleExamination\Models\MasterVaccine;
+use Hanafalah\ModuleExamination\Models\MasterVaccine;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
-class MasterVaccineSeeder extends Seeder{
+class MasterVaccineSeeder extends Seeder
+{
     public function run()
     {
-        $master_vaccine = app(config('database.models.MasterVaccine',MasterVaccine::class));
+        $master_vaccine = app(config('database.models.MasterVaccine', MasterVaccine::class));
 
         $vaccine_lists = [
             'Hepatitis A',

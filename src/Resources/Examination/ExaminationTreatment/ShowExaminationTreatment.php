@@ -1,6 +1,6 @@
 <?php
 
-namespace Gii\ModuleExamination\Resources\Examination\ExaminationTreatment;
+namespace Hanafalah\ModuleExamination\Resources\Examination\ExaminationTreatment;
 
 class ShowExaminationTreatment extends ViewExaminationTreatment
 {
@@ -10,20 +10,21 @@ class ShowExaminationTreatment extends ViewExaminationTreatment
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-    public function toArray(\Illuminate\Http\Request $request) : array {
-      $arr = [
-          'visit_examination' => $this->relationValdation('visitExamination',function(){
-              return $this->visitExamination->toShowApi();
-          }),
-          'examination_summary' => $this->relationValdation('examinationSummary',function(){
-              return $this->examinationSummary->toShowApi();
-          }),
-          'treatment' => $this->relationValdation('treatment',function(){
-              return $this->treatment->toShowApi();
-          })
-       ];
-       $arr = $this->mergeArray(parent::toArray($request), $arr);
-       
-       return $arr;
-  }
+    public function toArray(\Illuminate\Http\Request $request): array
+    {
+        $arr = [
+            'visit_examination' => $this->relationValdation('visitExamination', function () {
+                return $this->visitExamination->toShowApi();
+            }),
+            'examination_summary' => $this->relationValdation('examinationSummary', function () {
+                return $this->examinationSummary->toShowApi();
+            }),
+            'treatment' => $this->relationValdation('treatment', function () {
+                return $this->treatment->toShowApi();
+            })
+        ];
+        $arr = $this->mergeArray(parent::toArray($request), $arr);
+
+        return $arr;
+    }
 }

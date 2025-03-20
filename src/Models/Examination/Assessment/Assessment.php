@@ -1,13 +1,13 @@
 <?php
 
-namespace Gii\ModuleExamination\Models\Examination\Assessment;
+namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
 
-use Gii\ModuleExamination\Models\Examination;
-use Gii\ModuleExamination\Resources\Examination\Assessment\{
+use Hanafalah\ModuleExamination\Models\Examination;
+use Hanafalah\ModuleExamination\Resources\Examination\Assessment\{
     ViewAssessment,
     ShowAssessment
 };
-use Zahzah\LaravelHasProps\Concerns\HasProps;
+use Hanafalah\LaravelHasProps\Concerns\HasProps;
 use Illuminate\Support\Str;
 
 class Assessment extends Examination
@@ -16,39 +16,43 @@ class Assessment extends Examination
     public $response_model  = 'object';
     protected $list = ['id', 'parent_id', 'visit_examination_id', 'examination_summary_id', 'patient_summary_id', 'morph', 'props'];
 
-    protected static function booted(): void{
+    protected static function booted(): void
+    {
         parent::booted();
         static::creating(function ($query) {
             if (!isset($query->morph)) $query->morph = $query->getMorphClass();
         });
-        static::created(function($query){
+        static::created(function ($query) {
             $query->examinationSummary()->firstOrCreate([
                 'reference_id'   => $query->visit_examination_id,
                 'reference_type' => app(config('database.models.VisitExamination'))->getMorphClass(),
             ]);
         });
-        static::updated(function($query){
+        static::updated(function ($query) {
             $examination_summary = $query->examinationSummary()->firstOrCreate([
                 'reference_id'   => $query->visit_examination_id,
                 'reference_type' => app(config('database.models.VisitExamination'))->getMorphClass(),
             ]);
-            
-            $exams = array_merge([],$examination_summary->exams ?? []);
-            $exams[Str::snake($query->morph,'-')] = $query->toViewApi()->resolve()['exam'];
-            $examination_summary->setAttribute('exams',$exams);
+
+            $exams = array_merge([], $examination_summary->exams ?? []);
+            $exams[Str::snake($query->morph, '-')] = $query->toViewApi()->resolve()['exam'];
+            $examination_summary->setAttribute('exams', $exams);
             $examination_summary->save();
         });
     }
 
-    public function toViewApi(){
+    public function toViewApi()
+    {
         return new ViewAssessment($this);
     }
 
-    public function toShowApi(){
+    public function toShowApi()
+    {
         return new ShowAssessment($this);
     }
 
-    public function getExams(mixed $default = null,? array $vars = null): array{
+    public function getExams(mixed $default = null, ?array $vars = null): array
+    {
         if ($this->response_model == 'array') return [];
 
         $result = [];
@@ -57,7 +61,8 @@ class Assessment extends Examination
         return ['exam' => $result];
     }
 
-    public function getExamResults($model): array{
+    public function getExamResults($model): array
+    {
         $result = [];
         $model   ??= $this;
         $new_model = $this->{$model->morph . 'Model'}();
@@ -66,12 +71,14 @@ class Assessment extends Examination
         return $result;
     }
 
-    public function getMorph(){
+    public function getMorph()
+    {
         return $this->morph;
     }
 
-    public function examinationSummary(){
-        return $this->hasOneModel('ExaminationSummary','reference_id')
-                    ->where('reference_type',$this->VisitExaminationModel()->getMorphClass());
+    public function examinationSummary()
+    {
+        return $this->hasOneModel('ExaminationSummary', 'reference_id')
+            ->where('reference_type', $this->VisitExaminationModel()->getMorphClass());
     }
 }

@@ -1,14 +1,27 @@
 <?php
 
-namespace Gii\ModuleExamination\Models\Examination;
+namespace Hanafalah\ModuleExamination\Models\Examination;
 
-use Gii\ModuleExamination\Models\Examination;
+use Hanafalah\ModuleExamination\Models\Examination;
 
-class Prescription extends Examination {
+class Prescription extends Examination
+{
     protected $list = [
-        'id','name','pharmacy_sale_id','visit_examination_id','examination_summary_id',
-        'patient_summary_id','reference_type','reference_id', 
-        'prescription_no','iter','qty','cogs','price','indication','props'
+        'id',
+        'name',
+        'pharmacy_sale_id',
+        'visit_examination_id',
+        'examination_summary_id',
+        'patient_summary_id',
+        'reference_type',
+        'reference_id',
+        'prescription_no',
+        'iter',
+        'qty',
+        'cogs',
+        'price',
+        'indication',
+        'props'
     ];
     protected $show = [];
 
@@ -16,37 +29,39 @@ class Prescription extends Examination {
         'name' => 'string'
     ];
 
-    protected static function booted(): void{
+    protected static function booted(): void
+    {
         parent::booted();
-        static::created(function($query){
+        static::created(function ($query) {
             static::setPaymentDetail($query);
         });
-        static::updated(function($query){
-            static::setPaymentDetail($query);            
+        static::updated(function ($query) {
+            static::setPaymentDetail($query);
         });
-        static::deleted(function($query){
+        static::deleted(function ($query) {
             $transaction_item = $query->transactionItem;
-            if (isset($transaction_item)){
+            if (isset($transaction_item)) {
                 $payment_detail = $transaction_item->paymentDetail;
-                if ($payment_detail->amount == $payment_detail->debt){
+                if ($payment_detail->amount == $payment_detail->debt) {
                     $transaction_item->delete();
                 }
             }
         });
     }
 
-    private static function setPaymentDetail($query){
+    private static function setPaymentDetail($query)
+    {
         $visit_examination  = $query->visitExamination;
-        $visit_registration = $visit_examination->visitRegistration; 
+        $visit_registration = $visit_examination->visitRegistration;
         $pharmacy_sale      = $visit_registration->visitPatient;
-        if (isset($pharmacy_sale) && $visit_registration->visit_patient_type == 'PharmacySale'){
+        if (isset($pharmacy_sale) && $visit_registration->visit_patient_type == 'PharmacySale') {
             $transaction    = $pharmacy_sale->transaction;
             //CREATE TRANSACTION ITEM
             $transaction_item = $query->transactionItem()->firstOrCreate([
                 'item_id'        => $query->reference_id,
                 'item_type'      => $query->reference_type,
                 'item_name'      => $query->name,
-                'transaction_id' => $transaction->getKey(), 
+                'transaction_id' => $transaction->getKey(),
             ]);
             //CREATE PAYMENT DETAIL
             $payment_summary    = $visit_registration->paymentSummary;
@@ -58,7 +73,7 @@ class Prescription extends Examination {
             $payment_detail     = $transaction_item->paymentDetail()->firstOrCreate([
                 'payment_summary_id'  => $payment_summary->getKey(),
                 'transaction_item_id' => $transaction_item->getKey()
-            ],[
+            ], [
                 'qty'                 => $qty,
                 'cogs'                => $query->cogs ?? 0,
                 'tax'                 => $tax,
@@ -67,7 +82,7 @@ class Prescription extends Examination {
                 'debt'                => $amount,
                 'price'               => $price
             ]);
-            if ($payment_detail->qty != $query->qty){
+            if ($payment_detail->qty != $query->qty) {
                 $payment_detail->qty      = $qty;
                 $add                      = $qty * $payment_detail->price;
                 $payment_detail->debt     = $add;
@@ -76,11 +91,18 @@ class Prescription extends Examination {
             }
         }
     }
-    
-    public function reference(){return $this->morphTo();}
-    public function pharmacySale(){return $this->belongsToModel('PharmacySale');}
-    public function transactionItem(){
-        return $this->hasOneModel('TransactionItem','item_id','reference_id')
-                    ->where('item_type',$this->reference_type);
+
+    public function reference()
+    {
+        return $this->morphTo();
+    }
+    public function pharmacySale()
+    {
+        return $this->belongsToModel('PharmacySale');
+    }
+    public function transactionItem()
+    {
+        return $this->hasOneModel('TransactionItem', 'item_id', 'reference_id')
+            ->where('item_type', $this->reference_type);
     }
 }

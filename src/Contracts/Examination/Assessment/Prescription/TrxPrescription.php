@@ -1,8 +1,7 @@
 <?php
 
-namespace Gii\ModuleExamination\Contracts\Examination\Assessment\Prescription;
+namespace Hanafalah\ModuleExamination\Contracts\Examination\Assessment\Prescription;
 
-use Gii\ModuleExamination\Contracts\Examination\Assessment\Assessment;
+use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\Assessment;
 
-interface TrxPrescription extends Assessment{
-}
+interface TrxPrescription extends Assessment {}

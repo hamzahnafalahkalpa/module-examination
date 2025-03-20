@@ -1,9 +1,10 @@
 <?php
 
-namespace Gii\ModuleExamination\Schemas\Examination\Assessment;
+namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment;
 
-use Gii\ModuleExamination\Contracts\Examination\Assessment\Symptom as AssessmentSymptom;
+use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\Symptom as AssessmentSymptom;
 
-class Symptom extends Assessment implements AssessmentSymptom{
+class Symptom extends Assessment implements AssessmentSymptom
+{
     protected string $__entity   = 'Symptom';
 }

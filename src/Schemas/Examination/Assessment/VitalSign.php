@@ -1,10 +1,11 @@
 <?php
 
-namespace Gii\ModuleExamination\Schemas\Examination\Assessment;
+namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment;
 
-use Gii\ModuleExamination\Contracts\Examination\Assessment\VitalSign as AssessmentVitalSign;
-use Gii\ModuleExamination\Schemas\Examination\Assessment\Assessment;
+use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\VitalSign as AssessmentVitalSign;
+use Hanafalah\ModuleExamination\Schemas\Examination\Assessment\Assessment;
 
-class VitalSign extends Assessment implements AssessmentVitalSign{
+class VitalSign extends Assessment implements AssessmentVitalSign
+{
     protected string $__entity   = 'VitalSign';
 }

@@ -1,9 +1,10 @@
 <?php
 
-namespace Gii\ModuleExamination\Schemas\Examination\Assessment;
+namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment;
 
-use Gii\ModuleExamination\Contracts\Examination\Assessment\PainScale as AssessmentPainScale;
+use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\PainScale as AssessmentPainScale;
 
-class PainScale extends Assessment implements AssessmentPainScale{
+class PainScale extends Assessment implements AssessmentPainScale
+{
     protected string $__entity   = 'PainScale';
 }

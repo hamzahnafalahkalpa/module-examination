@@ -1,8 +1,9 @@
 <?php
 
-namespace Gii\ModuleExamination\Models\Examination\Assessment\MedicalSupport;
+namespace Hanafalah\ModuleExamination\Models\Examination\Assessment\MedicalSupport;
 
-class RadiologySupport extends TrxMedicalSupport {
+class RadiologySupport extends TrxMedicalSupport
+{
     protected $table = 'assessments';
 
     public $specific = [

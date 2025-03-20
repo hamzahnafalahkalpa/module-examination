@@ -1,12 +1,13 @@
 <?php
 
-namespace Gii\ModuleExamination\Seeders;
+namespace Hanafalah\ModuleExamination\Seeders;
 
-use Gii\ModuleExamination\Models\Form\Form;
+use Hanafalah\ModuleExamination\Models\Form\Form;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
-class FormSeeder extends Seeder{
+class FormSeeder extends Seeder
+{
     private $__form;
 
     /**
@@ -40,7 +41,7 @@ class FormSeeder extends Seeder{
                 'name' => 'Alloanamnese'
             ],
             $this->model('InitialDiagnose') => [
-               'name'  => 'Diagnosa Awal/Masuk'
+                'name'  => 'Diagnosa Awal/Masuk'
             ],
             $this->model('PrimaryDiagnose') => [
                 'name'  => 'Diagnosa Primer'
@@ -107,14 +108,15 @@ class FormSeeder extends Seeder{
             ]
         ];
         $this->createForm($forms);
-
     }
 
-    private function model(string $model): string{
-        return app(config('database.models.'.$model))->getMorphClass();
+    private function model(string $model): string
+    {
+        return app(config('database.models.' . $model))->getMorphClass();
     }
 
-    private function createForm($forms,$parent_id=null){
+    private function createForm($forms, $parent_id = null)
+    {
         foreach ($forms as $morph => $form) {
             $form_model = $this->__form->updateOrCreate([
                 'parent_id' => $parent_id,
@@ -122,13 +124,13 @@ class FormSeeder extends Seeder{
                 'name'      => $form['name']
             ]);
 
-            if (isset($val['prop']) && count($val['prop']) > 0){
+            if (isset($val['prop']) && count($val['prop']) > 0) {
                 foreach ($val['prop'] as $prop_key => $prop) $form_model->{$prop_key} = $prop;
                 $form_model->save();
             }
 
-            if (isset($val['childs']) && count($val['childs']) > 0){
-                $this->createForm($val['childs'],$form_model->getKey());
+            if (isset($val['childs']) && count($val['childs']) > 0) {
+                $this->createForm($val['childs'], $form_model->getKey());
             }
         }
     }

@@ -1,16 +1,17 @@
 <?php
 
-namespace Gii\ModuleExamination\Models\Form;
+namespace Hanafalah\ModuleExamination\Models\Form;
 
-use Gii\ModuleExamination\Enums\Form\Flag;
-use Gii\ModuleExamination\Resources\Form\ViewForm;
-use Zahzah\LaravelHasProps\Concerns\HasProps;
-use Zahzah\LaravelSupport\Models\BaseModel;
+use Hanafalah\ModuleExamination\Enums\Form\Flag;
+use Hanafalah\ModuleExamination\Resources\Form\ViewForm;
+use Hanafalah\LaravelHasProps\Concerns\HasProps;
+use Hanafalah\LaravelSupport\Models\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Gii\ModuleExamination\Concerns\HasSurveyItem;
+use Hanafalah\ModuleExamination\Concerns\HasSurveyItem;
 
-class Form extends BaseModel{
+class Form extends BaseModel
+{
     use HasProps, SoftDeletes, HasSurveyItem;
 
     protected $list = ['id', 'parent_id', 'name', 'flag', 'morph', 'ordering', 'master_feature_id', 'props'];
@@ -20,14 +21,15 @@ class Form extends BaseModel{
         'name' => 'string'
     ];
 
-    protected static function booted(): void{
+    protected static function booted(): void
+    {
         parent::booted();
-        static::creating(function($query){
+        static::creating(function ($query) {
             if (!isset($query->ordering)) $query->ordering = 1;
             if (!isset($query->flag))     $query->flag     = Flag::FORM->value;
         });
-        static::created(function($query){
-            $query->setAttribute('personalize',[
+        static::created(function ($query) {
+            $query->setAttribute('personalize', [
                 'grid_cols' => 1,
                 'grid_rows' => 1
             ]);
@@ -35,27 +37,46 @@ class Form extends BaseModel{
         });
     }
 
-    public function toViewApi(){
+    public function toViewApi()
+    {
         return new ViewForm($this);
     }
 
-    public function toShowApi(){
+    public function toShowApi()
+    {
         return new ViewForm($this);
     }
 
-    public function scopeForm($builder) {return $builder->where('flag',Flag::FORM->value);}
-    public function scopeAsEMR($builder){return $builder->withoutGlobalScope(SoftDeletingScope::class);}
-    public function masterFeature(){return $this->belongsToModel('MasterFeature');}
-    public function screening(){return $this->belongsToMOdel('Screening', 'parent_id');}
-    public function formHasAnatomies(){return $this->hasManyModel('FormHasAnatomy');}
-    public function anatomies(){
+    public function scopeForm($builder)
+    {
+        return $builder->where('flag', Flag::FORM->value);
+    }
+    public function scopeAsEMR($builder)
+    {
+        return $builder->withoutGlobalScope(SoftDeletingScope::class);
+    }
+    public function masterFeature()
+    {
+        return $this->belongsToModel('MasterFeature');
+    }
+    public function screening()
+    {
+        return $this->belongsToMOdel('Screening', 'parent_id');
+    }
+    public function formHasAnatomies()
+    {
+        return $this->hasManyModel('FormHasAnatomy');
+    }
+    public function anatomies()
+    {
         return $this->belongsToManyModel(
-            'Anatomy', 'FormHasAnatomy',
-            $this->getForeignKey(), 
+            'Anatomy',
+            'FormHasAnatomy',
+            $this->getForeignKey(),
             $this->AnatomyModel()->getForeignKey()
         )->select([
             $this->AnatomyModel()->getTable() . '.*',
-            $this->FormHasAnatomyModel()->getTable().'.props as pivotProps'
+            $this->FormHasAnatomyModel()->getTable() . '.props as pivotProps'
         ]);
     }
 }

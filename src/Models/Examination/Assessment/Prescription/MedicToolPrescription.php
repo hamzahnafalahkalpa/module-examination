@@ -1,8 +1,9 @@
 <?php
 
-namespace Gii\ModuleExamination\Models\Examination\Assessment\Prescription;
+namespace Hanafalah\ModuleExamination\Models\Examination\Assessment\Prescription;
 
-class MedicToolPrescription extends TrxPrescription {
+class MedicToolPrescription extends TrxPrescription
+{
     protected $table = 'assessments';
     public $specific = [
         'name',
@@ -15,11 +16,12 @@ class MedicToolPrescription extends TrxPrescription {
         'warehouse_type'
     ];
 
-    public function getExamResults($model): array{
+    public function getExamResults($model): array
+    {
         $result     = parent::getExamResults($model);
         $card_stock = &$result['card_stock'];
-        if (isset($result['warehouse_id']) && isset($result['warehouse_id'])){
-            $card_stock['item'] = $this->setItemStock($card_stock['item_id'],$result);
+        if (isset($result['warehouse_id']) && isset($result['warehouse_id'])) {
+            $card_stock['item'] = $this->setItemStock($card_stock['item_id'], $result);
         }
         return $result;
     }

@@ -1,23 +1,30 @@
 <?php
 
-namespace Gii\ModuleExamination\Models\Examination\Assessment\Diagnose;
+namespace Hanafalah\ModuleExamination\Models\Examination\Assessment\Diagnose;
 
-use Gii\ModuleExamination\Models\Examination\Assessment\Assessment;
+use Hanafalah\ModuleExamination\Models\Examination\Assessment\Assessment;
 
-class Diagnose extends Assessment {
+class Diagnose extends Assessment
+{
     protected $table = 'assessments';
     public $specific = [
-        'name','disease_code','disease_type','disease_id','classification_disease_id' 
+        'name',
+        'disease_code',
+        'disease_type',
+        'disease_id',
+        'classification_disease_id'
     ];
 
-    protected static function booted(): void{
+    protected static function booted(): void
+    {
         parent::booted();
-        static::deleted(function($query){
+        static::deleted(function ($query) {
             $query->patientIllness()->delete();
         });
     }
 
-    public function patientIllness(){
-        return $this->morphOneModel('PatientIllness','reference');
+    public function patientIllness()
+    {
+        return $this->morphOneModel('PatientIllness', 'reference');
     }
 }

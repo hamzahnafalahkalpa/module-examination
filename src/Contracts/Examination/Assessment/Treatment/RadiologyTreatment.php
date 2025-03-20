@@ -1,6 +1,5 @@
 <?php
 
-namespace Gii\ModuleExamination\Contracts\Examination\Assessment\Treatment;
+namespace Hanafalah\ModuleExamination\Contracts\Examination\Assessment\Treatment;
 
-interface RadiologyTreatment extends TrxTreatment{
-}
+interface RadiologyTreatment extends TrxTreatment {}

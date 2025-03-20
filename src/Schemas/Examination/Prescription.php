@@ -1,18 +1,18 @@
 <?php
 
-namespace Gii\ModuleExamination\Schemas\Examination;
+namespace Hanafalah\ModuleExamination\Schemas\Examination;
 
-use Gii\ModuleExamination\Contracts;
-use Gii\ModuleExamination\Schemas\Examination;
-use Gii\ModuleExamination\Resources\Examination\Prescription\{
+use Hanafalah\ModuleExamination\Contracts;
+use Hanafalah\ModuleExamination\Schemas\Examination;
+use Hanafalah\ModuleExamination\Resources\Examination\Prescription\{
     ShowPrescription,
     ViewPrescription
 };
-use Gii\ModuleMedicService\Enums\MedicServiceFlag;
+use Hanafalah\ModuleMedicService\Enums\MedicServiceFlag;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Zahzah\ModulePharmacy\Enums\PharmacySaleVisitRegistration\{
+use Hanafalah\ModulePharmacy\Enums\PharmacySaleVisitRegistration\{
     Activity,
     ActivityStatus
 };
@@ -90,17 +90,19 @@ class Prescription extends Examination implements Contracts\Examination\Prescrip
         }
     }
 
-    protected function toFrontline(? Model $visit_patient = null, ? Model $pharmacy_visit_registration = null): self{
+    protected function toFrontline(?Model $visit_patient = null, ?Model $pharmacy_visit_registration = null): self
+    {
         $pharmacy_visit_registration ??= $this->PharmacySaleVisitRegistrationModel()->find(static::$__visit_registration->getKey());
         $visit_patient               ??= $this->PharmacySaleModel()->find($pharmacy_visit_registration->visit_patient_id);
-        $pharmacy_visit_registration->pushActivity(Activity::PHARMACY_FLOW->value,[ActivityStatus::PHARMACY_FLOW_QUEUE->value, ActivityStatus::PHARMACY_FLOW_FRONTLINE->value]);
-        $this->appPharmacySaleSchema()->preparePushLifeCycleActivity($visit_patient,$pharmacy_visit_registration,'PHARMACY_FLOW',[
-            'PHARMACY_FLOW_FRONTLINE' => $pharmacy_visit_registration::$activityList[Activity::PHARMACY_FLOW->value.'_'.ActivityStatus::PHARMACY_FLOW_FRONTLINE->value]
+        $pharmacy_visit_registration->pushActivity(Activity::PHARMACY_FLOW->value, [ActivityStatus::PHARMACY_FLOW_QUEUE->value, ActivityStatus::PHARMACY_FLOW_FRONTLINE->value]);
+        $this->appPharmacySaleSchema()->preparePushLifeCycleActivity($visit_patient, $pharmacy_visit_registration, 'PHARMACY_FLOW', [
+            'PHARMACY_FLOW_FRONTLINE' => $pharmacy_visit_registration::$activityList[Activity::PHARMACY_FLOW->value . '_' . ActivityStatus::PHARMACY_FLOW_FRONTLINE->value]
         ]);
         return $this;
     }
 
-    public function prepareStorePrescription(?array $attributes = null): Model{
+    public function prepareStorePrescription(?array $attributes = null): Model
+    {
         $attributes ??= request()->all();
         $attributes['is_for_pharmacy'] ??= false;
         if (!isset($attributes['card_stocks'])) throw new \Exception('card_stocks is required');
@@ -124,11 +126,11 @@ class Prescription extends Examination implements Contracts\Examination\Prescrip
             $attributes['pharmacy_sale_id'] = $visit_patient->getKey();
         }
         $attributes['morphs'] = ['*'];
-        if (!isset($attributes['pharmacy_sale_id'])) {            
-            $pharmacy_visit_registration = $this->createVisitRegistration($visit_patient,$visit_registration,$visit_examination,$attributes);
+        if (!isset($attributes['pharmacy_sale_id'])) {
+            $pharmacy_visit_registration = $this->createVisitRegistration($visit_patient, $visit_registration, $visit_examination, $attributes);
             if ($pharmacy_visit_registration->wasRecentlyCreated) {
                 $pharmacy_visit_registration = $this->PharmacySaleVisitRegistrationModel()->findOrFail($pharmacy_visit_registration->getKey());
-                $this->toFrontline($pharmacy_visit_registration->visitPatient,$pharmacy_visit_registration);
+                $this->toFrontline($pharmacy_visit_registration->visitPatient, $pharmacy_visit_registration);
             }
 
             $pharmacy_sale = $pharmacy_visit_registration->visitPatient;
@@ -143,9 +145,9 @@ class Prescription extends Examination implements Contracts\Examination\Prescrip
             $pharmacy_transaction->save();
         }
         if (isset($pharmacy_sale->reference_type) && !$attributes['is_for_pharmacy']) {
-            $this->updatePharmacyPaymentSummary($pharmacy_sale, $visit_patient->paymentSummary);            
+            $this->updatePharmacyPaymentSummary($pharmacy_sale, $visit_patient->paymentSummary);
         }
-        
+
         $guard = [
             'reference_type'         => $attributes['reference_type'],
             'reference_id'           => $attributes['reference_id'],
@@ -173,7 +175,7 @@ class Prescription extends Examination implements Contracts\Examination\Prescrip
             }
             $assessment->qty         = $attributes['qty'];
             $assessment->price       = $attributes['price'];
-            $assessment->total_debt  = $attributes['price']*$attributes['qty'];
+            $assessment->total_debt  = $attributes['price'] * $attributes['qty'];
             $assessment->save();
             if ($visit_registration->visit_patient_type != 'PharmacySale') {
                 $new_assessment = $assessment->child ?? $assessment->replicate();
@@ -207,10 +209,10 @@ class Prescription extends Examination implements Contracts\Examination\Prescrip
                         'examination_summary_id' => $new_assessment->examination_summary_id,
                         'patient_summary_id'     => $new_assessment->patient_summary_id
                     ];
-                    $prescription = $this->PrescriptionModel()->updateOrCreate($guard, $add);                    
+                    $prescription = $this->PrescriptionModel()->updateOrCreate($guard, $add);
                     $new_assessment->qty         = $attributes['qty'];
                     $new_assessment->price       = $attributes['price'];
-                    $new_assessment->total_debt  = $attributes['price']*$attributes['qty'];
+                    $new_assessment->total_debt  = $attributes['price'] * $attributes['qty'];
                     $new_assessment->save();
                     $this->cardStockProcess($attributes, $pharmacy_transaction);
                 }
@@ -220,14 +222,16 @@ class Prescription extends Examination implements Contracts\Examination\Prescrip
         return static::$prescription_model = $prescription;
     }
 
-    protected function updatePharmacyPaymentSummary(Model &$pharmacy_sale,Model $visit_patient_payment){
+    protected function updatePharmacyPaymentSummary(Model &$pharmacy_sale, Model $visit_patient_payment)
+    {
         $payment_summary            = $pharmacy_sale->paymentSummary;
         $payment_summary->name      = 'Total Tagihan Resep';
         $payment_summary->parent_id = $visit_patient_payment->getKey();
         $payment_summary->save();
     }
 
-    protected function createVisitRegistration(Model $visit_patient,Model $visit_registration, Model $visit_examination, array $attributes) : Model{
+    protected function createVisitRegistration(Model $visit_patient, Model $visit_registration, Model $visit_examination, array $attributes): Model
+    {
         return $this->schemaContract('visit_registration')->prepareStoreVisitRegistration([
             'patient_id'                => $visit_patient->patient_id,
             'parent_id'                 => $visit_registration->getKey(),

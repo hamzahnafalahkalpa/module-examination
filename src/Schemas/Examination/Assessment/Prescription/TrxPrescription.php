@@ -1,33 +1,36 @@
 <?php
 
-namespace Gii\ModuleExamination\Schemas\Examination\Assessment\Prescription;
+namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment\Prescription;
 
-use Gii\ModuleExamination\Contracts\Examination\Assessment\Prescription\TrxPrescription as PrescriptionTrxPrescription;
-use Gii\ModuleExamination\Schemas\Examination\Assessment\Assessment;
+use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\Prescription\TrxPrescription as PrescriptionTrxPrescription;
+use Hanafalah\ModuleExamination\Schemas\Examination\Assessment\Assessment;
 use Illuminate\Database\Eloquent\Model;
 
-class TrxPrescription extends Assessment implements PrescriptionTrxPrescription{
+class TrxPrescription extends Assessment implements PrescriptionTrxPrescription
+{
     public static $trx_treatment_model;
 
-    public function prepareRemoveAssessment(? array $attributes = null): bool{
+    public function prepareRemoveAssessment(?array $attributes = null): bool
+    {
         $attributes ??= \request()->all();
         $assessment = $this->AssessmentModel()->findOrFail($attributes['id']);
         $child      = $assessment->child;
 
         $result = parent::prepareRemoveAssessment($attributes);
         $reference_id = [static::$assessment_model->getKey()];
-        if (isset($child)){
+        if (isset($child)) {
             $child->delete();
             $reference_id[] = $child->getKey();
         }
-        $prescriptions = $this->PrescriptionModel()->whereIn('reference_id',$reference_id)
-            ->where('reference_type',static::$assessment_model->morph)
+        $prescriptions = $this->PrescriptionModel()->whereIn('reference_id', $reference_id)
+            ->where('reference_type', static::$assessment_model->morph)
             ->get();
         foreach ($prescriptions as $prescription) $prescription->delete();
         return $result;
     }
 
-    protected function medicationSetup(? array $attributes = null): array{
+    protected function medicationSetup(?array $attributes = null): array
+    {
         $attributes ??= request()->all();
 
         if (isset($attributes['id'])) $trx_prescription = $this->trxPrescription()->find($attributes['id']);
@@ -55,17 +58,18 @@ class TrxPrescription extends Assessment implements PrescriptionTrxPrescription{
             ]
         ];
         $attributes['name'] = $item->name;
-        if (isset($attributes['frequency_division'])){
-            $attributes['treatment_duration'] = $qty / ((24/$attributes['frequency_division']) * $attributes['frequency_qty']);
+        if (isset($attributes['frequency_division'])) {
+            $attributes['treatment_duration'] = $qty / ((24 / $attributes['frequency_division']) * $attributes['frequency_qty']);
             $attributes['treatment_duration'] = ceil($attributes['treatment_duration']);
         }
         return $attributes;
     }
 
-    public function addPrescription(? array $attributes = null): Model{
+    public function addPrescription(?array $attributes = null): Model
+    {
         $attributes['reference_id']   = static::$assessment_model->getKey();
         $attributes['reference_type'] = static::$assessment_model->morph;
-        $attributes['assessment_id']  ??= static::$assessment_model->getKey();        
+        $attributes['assessment_id']  ??= static::$assessment_model->getKey();
         $prescription_schema = $this->schemaContract('prescription');
         return $prescription_schema->prepareStorePrescription($attributes);
     }

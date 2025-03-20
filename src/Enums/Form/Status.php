@@ -1,8 +1,9 @@
 <?php
 
-namespace Gii\ModuleExamination\Enums\Form;
+namespace Hanafalah\ModuleExamination\Enums\Form;
 
-enum Status: string{
+enum Status: string
+{
     case ACTIVE  = 'active';
     case ARCHIVE = 'archive';
 }

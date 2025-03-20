@@ -1,18 +1,20 @@
 <?php
 
-namespace Gii\ModuleExamination\Schemas\Examination;
+namespace Hanafalah\ModuleExamination\Schemas\Examination;
 
-use Gii\ModuleExamination\Contracts;
-use Gii\ModuleExamination\Schemas\Examination;
-use Gii\ModuleExamination\Resources\Examination\ExaminationTreatment\{
-    ShowExaminationTreatment, ViewExaminationTreatment
+use Hanafalah\ModuleExamination\Contracts;
+use Hanafalah\ModuleExamination\Schemas\Examination;
+use Hanafalah\ModuleExamination\Resources\Examination\ExaminationTreatment\{
+    ShowExaminationTreatment,
+    ViewExaminationTreatment
 };
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Gii\ModuleMedicService\Enums\MedicServiceFlag;
+use Hanafalah\ModuleMedicService\Enums\MedicServiceFlag;
 
-class ExaminationTreatment extends Examination implements Contracts\Examination\ExaminationTreatment{
+class ExaminationTreatment extends Examination implements Contracts\Examination\ExaminationTreatment
+{
     protected string $__entity = 'ExaminationTreatment';
     public static $examination_treatment_model;
 
@@ -24,19 +26,20 @@ class ExaminationTreatment extends Examination implements Contracts\Examination\
     protected array $__cache = [
         'index' => [
             'name'      => 'examination-treatment',
-            'tags'      => ['examination','examination-treatment','examination-treatment-index'],
+            'tags'      => ['examination', 'examination-treatment', 'examination-treatment-index'],
             'duration'  => 30
         ]
     ];
 
-    public function prepareStoreMultipleExaminationTreatment(? array $attributes = null): Collection{
+    public function prepareStoreMultipleExaminationTreatment(?array $attributes = null): Collection
+    {
         $attributes ??= request()->all();
         $treatments   = $this->mustArray($attributes['treatment'] ?? $attributes['treatments']);
         $practitioner = $this->addPractitioner($attributes['visit_examination_id']);
-        
+
         $treatment_models = [];
         foreach ($treatments as $treatment) {
-            $treatment = $this->mergeArray($treatment,[
+            $treatment = $this->mergeArray($treatment, [
                 'practitioner_id'      => $treatment['practitioner_id'] ?? $practitioner->getKey(),
                 'visit_examination_id' => $attributes['visit_examination_id']
             ]);
@@ -45,28 +48,29 @@ class ExaminationTreatment extends Examination implements Contracts\Examination\
         return new Collection($treatment_models);
     }
 
-    public function calculatingTreatmentDebt(? array $attributes = null){
+    public function calculatingTreatmentDebt(?array $attributes = null)
+    {
         $attributes ??= request()->all();
         if (!isset($attributes['visit_examination_id'])) throw new \Exception('visit_examination_id is required');
 
         $morphs      = [$this->VisitPatientModel()->getMorphClass()];
         $transaction = $this->TransactionModel()->with('paymentSummary')
-                        ->whereHasMorph('reference',$morphs,function($query) use ($attributes){
-                            $query->whereHas('visitExamination',function($query) use ($attributes){
-                                $query->where('id',$attributes['visit_examination_id']);
-                            });
-                        })->first();
+            ->whereHasMorph('reference', $morphs, function ($query) use ($attributes) {
+                $query->whereHas('visitExamination', function ($query) use ($attributes) {
+                    $query->where('id', $attributes['visit_examination_id']);
+                });
+            })->first();
         if (!isset($transaction)) throw new \Exception('transaction is not found');
-        
+
         $examination_treatments = $this->examinationTreatment()->with('treatment')
-                                       ->where('visit_examination_id',$attributes['visit_examination_id'])
-                                       ->whereDoesntHave('transactionItem',function($query) use ($transaction){
-                                            $query->where('transaction_id',$transaction->getKey());
-                                       })->get();
+            ->where('visit_examination_id', $attributes['visit_examination_id'])
+            ->whereDoesntHave('transactionItem', function ($query) use ($transaction) {
+                $query->where('transaction_id', $transaction->getKey());
+            })->get();
         $transaction_item_schema = $this->schemaContract('transaction_item');
         foreach ($examination_treatments as $examination_treatment) {
             $attributes['amount'] = $examination_treatment->treatment->price;
-            
+
             $transaction_item_schema->prepareStoreTransactionItem([
                 'transaction_id' => $transaction->getKey(),
                 'item_type'      => $this->ServiceModel()->getMorphClass(),
@@ -80,10 +84,10 @@ class ExaminationTreatment extends Examination implements Contracts\Examination\
                 ]
             ]);
         }
-                           
     }
 
-    public function prepareStoreExaminationTreatment(? array $attributes = null): Model{
+    public function prepareStoreExaminationTreatment(?array $attributes = null): Model
+    {
         $attributes ??= request()->all();
 
         if (!isset($attributes['visit_examination_id'])) throw new \Exception('visit_examination_id is required');
@@ -104,14 +108,14 @@ class ExaminationTreatment extends Examination implements Contracts\Examination\
             'price' => $attributes['price'] ?? null,
         ];
 
-        if (isset($attributes['id'])){
-            $add   = $this->mergeArray($add,$guard);
+        if (isset($attributes['id'])) {
+            $add   = $this->mergeArray($add, $guard);
             $guard = ['id' => $attributes['id']];
         }
-        $examination_treatment = $this->examinationTreatment()->updateOrCreate($guard,$add);
+        $examination_treatment = $this->examinationTreatment()->updateOrCreate($guard, $add);
         $examination_treatment->treatment_at = $attributes['treatment_at'] ?? null;
 
-        if(static::$__visit_registration->medicService->flag === MedicServiceFlag::RADIOLOGY){
+        if (static::$__visit_registration->medicService->flag === MedicServiceFlag::RADIOLOGY) {
             $examination_treatment->interpretation = $attributes['interpretation'] ?? null;
             $examination_treatment->result = $attributes['result'] ?? null;
         }
@@ -121,25 +125,28 @@ class ExaminationTreatment extends Examination implements Contracts\Examination\
         return static::$examination_treatment_model = $examination_treatment;
     }
 
-    public function prepareViewExaminationList(? array $attributes = null): Collection{
+    public function prepareViewExaminationList(?array $attributes = null): Collection
+    {
         $attributes ??= request()->all();
 
         if (!isset($attributes['visit_examination_id'])) throw new \Exception('visit_examination_id is required');
 
-        return static::$examination_treatment_model = $this->cacheWhen(!$this->isSearch(),$this->__cache['index'],function() use ($attributes){
+        return static::$examination_treatment_model = $this->cacheWhen(!$this->isSearch(), $this->__cache['index'], function () use ($attributes) {
             return $this->examinationTreatment()
-                        ->where('visit_examination_id',$attributes['visit_examination_id'])
-                        ->orderBy('created_at','desc')->get();
+                ->where('visit_examination_id', $attributes['visit_examination_id'])
+                ->orderBy('created_at', 'desc')->get();
         });
     }
 
-    public function viewExaminationList(): array{
-        return $this->transforming($this->__resources['view'],function(){
+    public function viewExaminationList(): array
+    {
+        return $this->transforming($this->__resources['view'], function () {
             return $this->prepareViewExaminationList();
         });
     }
 
-    public function examinationTreatment(mixed $conditionals = null): Builder{
+    public function examinationTreatment(mixed $conditionals = null): Builder
+    {
         $this->booting();
         return $this->ExaminationTreatmentModel()->withParameters()->conditionals($conditionals);
     }

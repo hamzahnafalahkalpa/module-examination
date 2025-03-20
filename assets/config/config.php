@@ -1,7 +1,7 @@
 <?php
 
-use Gii\ModuleExamination\Models as ModuleExamination;
-use Gii\ModuleExamination\{
+use Hanafalah\ModuleExamination\Models as ModuleExamination;
+use Hanafalah\ModuleExamination\{
     Schemas\Examination\Assessment,
     Contracts
 };

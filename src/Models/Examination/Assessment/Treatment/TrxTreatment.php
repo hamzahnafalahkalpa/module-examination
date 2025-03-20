@@ -1,21 +1,24 @@
 <?php
 
-namespace Gii\ModuleExamination\Models\Examination\Assessment\Treatment;
+namespace Hanafalah\ModuleExamination\Models\Examination\Assessment\Treatment;
 
-use Gii\ModuleExamination\Models\Examination\Assessment\Assessment;
+use Hanafalah\ModuleExamination\Models\Examination\Assessment\Assessment;
 
-class TrxTreatment extends Assessment {
+class TrxTreatment extends Assessment
+{
     protected $table       = 'assessments';
     public $response_model = 'array';
 
-    protected static function booted(): void{
+    protected static function booted(): void
+    {
         parent::booted();
-        static::deleted(function($query){
+        static::deleted(function ($query) {
             $query->examinationTreatment()->delete();
         });
     }
 
-    public function examinationTreatment(){
-        return $this->morphOneModel('ExaminationTreatment','reference');
+    public function examinationTreatment()
+    {
+        return $this->morphOneModel('ExaminationTreatment', 'reference');
     }
 }

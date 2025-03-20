@@ -1,6 +1,5 @@
 <?php
 
-namespace Gii\ModuleExamination\Contracts\Examination\Assessment\MedicalSupport;
+namespace Hanafalah\ModuleExamination\Contracts\Examination\Assessment\MedicalSupport;
 
-interface MedicalSupport extends TrxMedicalSupport {
-}
+interface MedicalSupport extends TrxMedicalSupport {}

@@ -1,9 +1,8 @@
 <?php
 
-namespace Gii\ModuleExamination\Contracts\Examination\Assessment\Diagnose;
+namespace Hanafalah\ModuleExamination\Contracts\Examination\Assessment\Diagnose;
 
 
-use Zahzah\LaravelSupport\Contracts\DataManagement;
+use Hanafalah\LaravelSupport\Contracts\DataManagement;
 
-interface SecondaryDiagnose extends Diagnose{
-}
+interface SecondaryDiagnose extends Diagnose {}

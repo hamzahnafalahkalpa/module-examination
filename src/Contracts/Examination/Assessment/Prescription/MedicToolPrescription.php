@@ -1,6 +1,5 @@
 <?php
 
-namespace Gii\ModuleExamination\Contracts\Examination\Assessment\Prescription;
+namespace Hanafalah\ModuleExamination\Contracts\Examination\Assessment\Prescription;
 
-interface MedicToolPrescription extends TrxPrescription{
-}
+interface MedicToolPrescription extends TrxPrescription {}
