@@ -7,16 +7,22 @@ use Hanafalah\ModuleExamination\{
 };
 
 return [
-    'contracts' => [
-        'patient_illness'               => Contracts\Examination\PatientIllness::class,
-        'prescription'                  => Contracts\Examination\Prescription::class,
-        'examination_treatment'         => Contracts\Examination\ExaminationTreatment::class,
-        'master_vaccine'                => Contracts\MasterVaccine::class,
-        'screening'                     => Contracts\Screening::class,
-        'examination'                   => Contracts\Examination::class,
-        'examination_stuff'             => Contracts\ExaminationStuff::class,
-        'form'                          => Contracts\Form::class,
-        'module_examination'            => Contracts\ModuleExamination::class
+    'app' => [
+        'contracts' => [
+            'patient_illness'               => Contracts\Examination\PatientIllness::class,
+            'prescription'                  => Contracts\Examination\Prescription::class,
+            'examination_treatment'         => Contracts\Examination\ExaminationTreatment::class,
+            'master_vaccine'                => Contracts\MasterVaccine::class,
+            'screening'                     => Contracts\Screening::class,
+            'examination'                   => Contracts\Examination::class,
+            'examination_stuff'             => Contracts\ExaminationStuff::class,
+            'form'                          => Contracts\Form::class,
+            'module_examination'            => Contracts\ModuleExamination::class
+        ],
+    ],
+    'libs' => [
+        'model' => 'Models',
+        'contract' => 'Contracts'
     ],
     'database' => [
         'models' => [
