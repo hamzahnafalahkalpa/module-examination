@@ -10,7 +10,7 @@ use Hanafalah\ModulePatient\Models\EMR\VisitExamination;
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+    use Hanafalah\MicroTenant\Concerns\Tenant\NowYouSeeMe;
 
     private $__table;
 
@@ -27,19 +27,17 @@ return new class extends Migration
     public function up(): void
     {
         $table_name = $this->__table->getTable();
-        if (!$this->isTableExists()) {
+        $this->isNotTableExists(function() use ($table_name){
             Schema::create($table_name, function (Blueprint $table) {
-                $visit_examination   = app(config('database.models.VisitExamination', VisitExamination::class));
                 $examination_summary = app(config('database.models.ExaminationSummary', ExaminationSummary::class));
                 $patient_summary     = app(config('database.models.PatientSummary', PatientSummary::class));
 
-                $table->ulid("id")->primary()->collation("utf8mb4_bin");
+                $table->ulid("id")->primary();
 
-                $table->foreignIdFor($visit_examination::class)
-                    ->nullable()->index('ve_as')->constrained()
-                    ->cascadeOnUpdate()->restrictOnDelete();
+                $table->string('visit_examination_type', 50);
+                $table->string('visit_examination_id', 36);
 
-                $table->foreignIdFor($examination_summary::class)->collation("utf8mb4_bin")
+                $table->foreignIdFor($examination_summary::class)
                     ->nullable()->index('es_as')->constrained()
                     ->cascadeOnUpdate()->restrictOnDelete();
 
@@ -51,6 +49,8 @@ return new class extends Migration
                 $table->json('props')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
+
+                $table->index(['visit_examination_type', 'visit_examination_id'], 've_morph_ass');
             });
 
             Schema::table($table_name, function (Blueprint $table) use ($table_name) {
@@ -59,7 +59,7 @@ return new class extends Migration
                     ->index()->constrained($table_name)
                     ->cascadeOnUpdate()->restrictOnDelete();
             });
-        }
+        });
     }
 
     /**

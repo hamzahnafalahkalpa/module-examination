@@ -76,6 +76,8 @@ class Assessment extends Examination
         return $this->morph;
     }
 
+    public function visitExamination(){return $this->morphTo();}
+
     public function examinationSummary()
     {
         return $this->hasOneModel('ExaminationSummary', 'reference_id')
