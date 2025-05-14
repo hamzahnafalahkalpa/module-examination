@@ -58,7 +58,7 @@ return new class extends Migration
 
                 $table->json('props')->nullable();
 
-                $table->index(['reference_type', 'reference_id'], 'et_ref');
+                $table->index(['reference_type', 'reference_id'], 'pre_ref');
 
                 $table->timestamps();
                 $table->softDeletes();
