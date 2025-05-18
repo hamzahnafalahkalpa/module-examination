@@ -25,13 +25,13 @@ class MasterVaccine extends BaseModel
         });
     }
 
-    public function toViewApi()
+    public function getViewResource()
     {
-        return new ViewMasterVaccine($this);
+        return ViewMasterVaccine::class;
     }
 
-    public function toShowApi()
+    public function getShowResource()
     {
-        return new ShowMasterVaccine($this);
+        return ShowMasterVaccine::class;
     }
 }

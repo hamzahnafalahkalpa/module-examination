@@ -41,14 +41,14 @@ class Assessment extends Examination
         });
     }
 
-    public function toViewApi()
+    public function getViewResource()
     {
-        return new ViewAssessment($this);
+        return ViewAssessment::class;
     }
 
-    public function toShowApi()
+    public function getShowResource()
     {
-        return new ShowAssessment($this);
+        return ShowAssessment::class;
     }
 
     public function getExams(mixed $default = null, ?array $vars = null): array

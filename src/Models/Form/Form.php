@@ -37,14 +37,14 @@ class Form extends BaseModel
         });
     }
 
-    public function toViewApi()
+    public function getViewResource()
     {
-        return new ViewForm($this);
+        return ViewForm::class;
     }
 
-    public function toShowApi()
+    public function getShowResource()
     {
-        return new ViewForm($this);
+        return ViewForm::class;
     }
 
     public function scopeForm($builder)

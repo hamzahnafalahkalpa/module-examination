@@ -13,14 +13,14 @@ class ExaminationStuff extends BaseModel
     public $timestamps = false;
     protected $list = ['id', 'parent_id', 'name', 'flag', 'props'];
 
-    public function toViewApi()
+    public function getViewResource()
     {
-        return new ViewExaminationStuff($this);
+        return ViewExaminationStuff::class;
     }
 
-    public function toShowApi()
+    public function getShowResource()
     {
-        return new ViewExaminationStuff($this);
+        return ViewExaminationStuff::class;
     }
 
     //OVERIDING DEFAULT CHILDS EIGER
