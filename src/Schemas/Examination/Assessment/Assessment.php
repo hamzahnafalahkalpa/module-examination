@@ -9,7 +9,7 @@ use Hanafalah\ModuleExamination\Resources\Examination\Assessment\{
 };
 use Illuminate\Support\Str;
 use Hanafalah\ModuleExamination\Schemas\Examination;
-use Hanafalah\ModuleMedicService\Enums\MedicServiceFlag;
+use Hanafalah\ModuleMedicService\Enums\Label;
 use Illuminate\Database\Eloquent\{
     Builder,
     Collection,
@@ -127,7 +127,7 @@ class Assessment extends Examination implements ContractsAssessment
         $visit_patient            = $visit_registration->visitPatient;
         if (isset($visit_registration->medic_service_id) && $visit_registration->status == RegistrationStatus::DRAFT->value) {
             $medic_service = $this->getMedicService($visit_registration->medic_service_id);
-            if ($medic_service->flag == MedicServiceFlag::OUTPATIENT->value) {
+            if ($medic_service->flag == Label::OUTPATIENT->value) {
                 // perlu di cek lagi
                 $visit_registration->pushActivity(VisitRegistrationActivity::POLI_EXAM->value, [VisitRegistrationActivityStatus::POLI_EXAM_START->value]);
                 $this->appVisitPatientSchema()->preparePushLifeCycleActivity($visit_patient, $visit_registration, 'POLI_EXAM', [

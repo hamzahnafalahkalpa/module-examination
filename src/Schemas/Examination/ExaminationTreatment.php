@@ -11,7 +11,7 @@ use Hanafalah\ModuleExamination\Resources\Examination\ExaminationTreatment\{
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Hanafalah\ModuleMedicService\Enums\MedicServiceFlag;
+use Hanafalah\ModuleMedicService\Enums\Label;
 
 class ExaminationTreatment extends Examination implements Contracts\Examination\ExaminationTreatment
 {
@@ -115,7 +115,7 @@ class ExaminationTreatment extends Examination implements Contracts\Examination\
         $examination_treatment = $this->examinationTreatment()->updateOrCreate($guard, $add);
         $examination_treatment->treatment_at = $attributes['treatment_at'] ?? null;
 
-        if (static::$__visit_registration->medicService->flag === MedicServiceFlag::RADIOLOGY) {
+        if (static::$__visit_registration->medicService->flag === Label::RADIOLOGY) {
             $examination_treatment->interpretation = $attributes['interpretation'] ?? null;
             $examination_treatment->result = $attributes['result'] ?? null;
         }

@@ -8,7 +8,7 @@ use Hanafalah\ModuleExamination\Resources\Examination\Prescription\{
     ShowPrescription,
     ViewPrescription
 };
-use Hanafalah\ModuleMedicService\Enums\MedicServiceFlag;
+use Hanafalah\ModuleMedicService\Enums\Label;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -245,7 +245,7 @@ class Prescription extends Examination implements Contracts\Examination\Prescrip
                 'reference_type'        => $visit_examination->getMorphClass()
             ],
             'patient_type_id'   => $attributes['patient_type_id'],
-            'medic_service_id'  => $this->MedicServiceModel()->flagIn(MedicServiceFlag::PHARMACY->value)->where('name', 'Instalasi Farmasi')->firstOrFail()->service->getKey(),
+            'medic_service_id'  => $this->MedicServiceModel()->flagIn(Label::PHARMACY->value)->where('name', 'Instalasi Farmasi')->firstOrFail()->service->getKey(),
             'medic_services'    => []
         ]);
     }

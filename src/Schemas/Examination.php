@@ -4,7 +4,7 @@ namespace Hanafalah\ModuleExamination\Schemas;
 
 use Hanafalah\ModuleExamination\Contracts\Examination as ContractsExamination;
 use Hanafalah\ModuleExamination\Resources\Examination\Assessment\ViewAssessment;
-use Hanafalah\ModuleMedicService\Enums\MedicServiceFlag;
+use Hanafalah\ModuleMedicService\Enums\Label;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -122,16 +122,16 @@ class Examination extends ModulePatient implements ContractsExamination
         if (isset($attributes['treatments']) && count($attributes['treatments']) > 0) {
             $medic_service = static::$__visit_registration->medicService;
             switch ($medic_service->flag) {
-                case MedicServiceFlag::LABORATORY->value:
+                case Label::LABORATORY->value:
                     $schema = 'lab_treatment';
                     break;
-                case MedicServiceFlag::RADIOLOGY->value:
+                case Label::RADIOLOGY->value:
                     $schema = 'radiology_treatment';
                     break;
-                case MedicServiceFlag::OUTPATIENT->value:
+                case Label::OUTPATIENT->value:
                     $schema = 'clinical_treatment';
                     break;
-                case MedicServiceFlag::MCU->value:
+                case Label::MCU->value:
                     $schema = 'clinical_treatment';
                     break;
             }
