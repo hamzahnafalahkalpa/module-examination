@@ -1,23 +1,17 @@
 <?php
 
-namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
+namespace Gii\PuskesmasModuleExamination\Models\Examination\Assessment;
 
-use Hanafalah\ModuleExamination\Models\Examination\Assessment\Assessment;
+use Gii\PuskesmasModuleExamination\Models\Examination\Assessment\Assessment;
 
-class EarExamination extends Assessment
-{
+class EarExamination extends Assessment {
     protected $table = 'assessments';
     public $specific = [
-        "daun_telinga",
-        "liang_telinga",
-        "membrane_timpani",
-        "tumor",
-        "mastoid",
-        "discharge"
+        "daun_telinga", "liang_telinga", "membrane_timpani",
+        "tumor", "mastoid","discharge"
     ];
 
-    public function getExams(mixed $default = null, ?array $vars = null): array
-    {
+    public function getExams(mixed $default = null,? array $vars = null): array{
         return parent::getExams(['right' => null, 'left' => null]);
     }
 }

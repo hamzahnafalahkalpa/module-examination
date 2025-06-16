@@ -1,15 +1,13 @@
 <?php
 
-namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
+namespace Gii\PuskesmasModuleExamination\Models\Examination\Assessment;
 
-class Symptom extends Assessment
-{
+class Symptom extends Assessment {
     protected $table = 'assessments';
     public $response_model   = 'array';
     public $specific = ['name'];
 
-    public function getExamResults($model): array
-    {
+    public function getExamResults($model): array{
         return [
             'name' => $model->name
         ];

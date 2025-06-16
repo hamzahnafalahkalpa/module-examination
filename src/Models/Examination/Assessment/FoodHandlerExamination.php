@@ -1,21 +1,18 @@
 <?php
 
-namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
+namespace Gii\PuskesmasModuleExamination\Models\Examination\Assessment;
 
-use Hanafalah\ModuleExamination\Models\Examination\Assessment\Assessment;
+use Gii\PuskesmasModuleExamination\Models\Examination\Assessment\Assessment;
 
-class FoodHandlerExamination extends Assessment
-{
+class FoodHandlerExamination extends Assessment {
     protected $table = 'assessments';
 
     public $specific = [
-        "Stool Occult Blood",
-        "Ova & Parasites (O&P test)",
+        "Stool Occult Blood","Ova & Parasites (O&P test)",
         "Stool Culture"
     ];
 
-    public function getExams(mixed $default = null, ?array $vars = null): array
-    {
+    public function getExams(mixed $default = null,? array $vars = null): array{
         return [
             "exam" => [
                 "Stool Occult Blood" => "Negative",

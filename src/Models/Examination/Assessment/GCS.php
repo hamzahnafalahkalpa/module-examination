@@ -1,23 +1,18 @@
 <?php
 
-namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
+namespace Gii\PuskesmasModuleExamination\Models\Examination\Assessment;
 
-class GCS extends Assessment
-{
+class GCS extends Assessment {
     protected $table = 'assessments';
     public $specific = [
-        'eyes_id',
-        'verbal_id',
-        'motor_id'
+        'eyes_id', 'verbal_id', 'motor_id'
     ];
 
-    public function getForeignKey()
-    {
+    public function getForeignKey(){
         return 'gcs_id';
     }
 
-    public function getExamResults($model): array
-    {
+    public function getExamResults($model): array{
         $eyes   = $this->ExaminationStuffModel()->find($model->eyes_id);
         $verbal = $this->ExaminationStuffModel()->find($model->verbal_id);
         $motor  = $this->ExaminationStuffModel()->find($model->motor_id);
@@ -34,36 +29,21 @@ class GCS extends Assessment
         ];
     }
 
-    public function gcsLogic($score)
-    {
-        $vital_stuff = $this->ExaminationStuffModel()->flagIn($this->VitalSignModel()->getMorphClass() . '_LOC');
+    public function gcsLogic($score){
+        $vital_stuff = $this->ExaminationStuffModel()->flagIn($this->VitalSignModel()->getMorphClass().'_LOC');
         switch (true) {
-            case $score === 15:
-                $category = 'COMPOS MENTIS';
-                break;
-            case $score >= 13 && $score <= 14:
-                $category = 'APATIS';
-                break;
-            case $score === 12:
-                $category = 'DELIRIUM';
-                break;
-            case $score >= 10 && $score <= 11:
-                $category = 'SOMNOLENCE';
-                break;
-            case $score >= 8 && $score <= 9:
-                $category = 'SOPOR';
-                break;
-            case $score >= 6 && $score <= 7:
-                $category = 'SEMI COMA';
-                break;
-            case $score <= 5:
-                $category = 'COMA';
-                break;
+            case $score === 15                : $category = 'COMPOS MENTIS';break;
+            case $score >= 13 && $score <= 14 : $category = 'APATIS';break;
+            case $score === 12                : $category = 'DELIRIUM';break;
+            case $score >= 10 && $score <= 11 : $category = 'SOMNOLENCE';break;
+            case $score >= 8 && $score <= 9   : $category = 'SOPOR';break;
+            case $score >= 6 && $score <= 7   : $category = 'SEMI COMA';break;
+            case $score <= 5                  : $category = 'COMA';break;
             default:
                 return [
                     'name' => 'UNKNOWN',
                 ];
-                break;
+            break;
         }
         $vital_stuff = $vital_stuff->where('name', $category)->firstOrFail();
         return [
@@ -73,16 +53,7 @@ class GCS extends Assessment
         ];
     }
 
-    public function eyes()
-    {
-        return $this->belongsToModel('ExaminationStuff', 'eyes_id');
-    }
-    public function verbal()
-    {
-        return $this->belongsToModel('ExaminationStuff', 'verbal_id');
-    }
-    public function motor()
-    {
-        return $this->belongsToModel('ExaminationStuff', 'motor_id');
-    }
+    public function eyes(){return $this->belongsToModel('ExaminationStuff','eyes_id');}
+    public function verbal(){return $this->belongsToModel('ExaminationStuff','verbal_id');}
+    public function motor(){return $this->belongsToModel('ExaminationStuff','motor_id');}
 }
