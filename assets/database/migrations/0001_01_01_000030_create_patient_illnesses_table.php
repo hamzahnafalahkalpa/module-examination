@@ -33,17 +33,17 @@ return new class extends Migration
                 $patient_summary     = app(config('database.models.PatientSummary', PatientSummary::class));
                 $patient             = app(config('database.models.Patient', Patient::class));
 
-                $table->ulid("id")->primary()->collation("utf8mb4_bin");
+                $table->ulid("id")->primary();
 
                 $table->string('reference_type', 50)->nullable(false);
                 $table->string('reference_id', 36)->nullable(false);
                 $table->string('name')->nullable(false);
 
-                $table->foreignIdFor($patient::class)->collation("utf8mb4_bin")
+                $table->foreignIdFor($patient::class)
                     ->nullable()->index('pat_pi')->constrained()
                     ->cascadeOnUpdate()->restrictOnDelete();
 
-                $table->foreignIdFor($examination_summary::class)->collation("utf8mb4_bin")
+                $table->foreignIdFor($examination_summary::class)
                     ->nullable()->index('es_pi')->constrained()
                     ->cascadeOnUpdate()->restrictOnDelete();
 
@@ -65,7 +65,7 @@ return new class extends Migration
 
             Schema::table($table_name, function (Blueprint $table) use ($table_name) {
                 $table->foreignIdFor($this->__table::class, 'classification_disease_id')
-                    ->collation("utf8mb4_bin")->after('disease_name')->nullable()->index()
+                    ->after('disease_name')->nullable()->index()
                     ->constrained($table_name, 'id', 'cd_pi')
                     ->cascadeOnUpdate()->restrictOnDelete();
             });

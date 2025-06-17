@@ -31,7 +31,7 @@ return new class extends Migration
                 $form = app(config('database.models.Form', Form::class));
                 $screening = app(config('database.models.Screening', Screening::class));
 
-                $table->ulid('id')->collation('utf8mb4_bin')->primary();
+                $table->ulid('id')->primary();
                 $table->foreignIdFor($form::class)->nullable(false)->index()
                     ->constrained()->cascadeOnUpdate()->cascadeOnDelete();
 

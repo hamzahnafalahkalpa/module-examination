@@ -34,12 +34,12 @@ return new class extends Migration
                 $examination_summary = app(config('database.models.ExaminationSummary', ExaminationSummary::class));
                 $patient_summary     = app(config('database.models.PatientSummary', PatientSummary::class));
 
-                $table->ulid("id")->primary()->collation("utf8mb4_bin");
+                $table->ulid("id")->primary();
                 $table->foreignIdFor($visit_examination::class)
                     ->nullable()->index('ve_dg')->constrained()
                     ->cascadeOnUpdate()->restrictOnDelete();
 
-                $table->foreignIdFor($examination_summary::class)->collation("utf8mb4_bin")
+                $table->foreignIdFor($examination_summary::class)
                     ->nullable()->index('es_dg')->constrained()
                     ->cascadeOnUpdate()->restrictOnDelete();
 

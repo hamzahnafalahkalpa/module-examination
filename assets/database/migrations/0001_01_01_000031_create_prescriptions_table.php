@@ -41,7 +41,7 @@ return new class extends Migration
                     ->nullable()->constrained($visit_examination->getTable(), $visit_examination->getKeyName(), 've_pre')
                     ->cascadeOnUpdate()->restrictOnDelete();
 
-                $table->foreignIdFor($examination_summary::class)->collation("utf8mb4_bin")
+                $table->foreignIdFor($examination_summary::class)
                     ->nullable()->constrained($examination_summary->getTable(), $examination_summary->getKeyName(), 'es_pre')
                     ->cascadeOnUpdate()->restrictOnDelete();
 
