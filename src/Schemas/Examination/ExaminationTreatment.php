@@ -4,10 +4,6 @@ namespace Hanafalah\ModuleExamination\Schemas\Examination;
 
 use Hanafalah\ModuleExamination\Contracts;
 use Hanafalah\ModuleExamination\Schemas\Examination;
-use Hanafalah\ModuleExamination\Resources\Examination\ExaminationTreatment\{
-    ShowExaminationTreatment,
-    ViewExaminationTreatment
-};
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -17,11 +13,6 @@ class ExaminationTreatment extends Examination implements Contracts\Examination\
 {
     protected string $__entity = 'ExaminationTreatment';
     public static $examination_treatment_model;
-
-    protected array $__resources = [
-        'view' => ViewExaminationTreatment::class,
-        'show' => ShowExaminationTreatment::class
-    ];
 
     protected array $__cache = [
         'index' => [
@@ -48,8 +39,7 @@ class ExaminationTreatment extends Examination implements Contracts\Examination\
         return new Collection($treatment_models);
     }
 
-    public function calculatingTreatmentDebt(?array $attributes = null)
-    {
+    public function calculatingTreatmentDebt(?array $attributes = null){
         $attributes ??= request()->all();
         if (!isset($attributes['visit_examination_id'])) throw new \Exception('visit_examination_id is required');
 
@@ -86,12 +76,7 @@ class ExaminationTreatment extends Examination implements Contracts\Examination\
         }
     }
 
-    public function prepareStoreExaminationTreatment(?array $attributes = null): Model
-    {
-        $attributes ??= request()->all();
-
-        if (!isset($attributes['visit_examination_id'])) throw new \Exception('visit_examination_id is required');
-
+    public function prepareStoreExaminationTreatment(?array $attributes = null): Model{
         $this->initializeExamination($attributes);
         $guard = [
             'visit_examination_id'   => $attributes['visit_examination_id'],
@@ -125,29 +110,9 @@ class ExaminationTreatment extends Examination implements Contracts\Examination\
         return static::$examination_treatment_model = $examination_treatment;
     }
 
-    public function prepareViewExaminationList(?array $attributes = null): Collection
-    {
-        $attributes ??= request()->all();
-
-        if (!isset($attributes['visit_examination_id'])) throw new \Exception('visit_examination_id is required');
-
-        return static::$examination_treatment_model = $this->cacheWhen(!$this->isSearch(), $this->__cache['index'], function () use ($attributes) {
-            return $this->examinationTreatment()
-                ->where('visit_examination_id', $attributes['visit_examination_id'])
-                ->orderBy('created_at', 'desc')->get();
+    public function examinationTreatment(mixed $conditionals = null): Builder{
+        return $this->generalSchemaModel($conditionals)->when(isset(request()->visit_examination_id), function ($query) {
+            return $query->where('visit_examination_id', request()->visit_examination_id);
         });
-    }
-
-    public function viewExaminationList(): array
-    {
-        return $this->transforming($this->__resources['view'], function () {
-            return $this->prepareViewExaminationList();
-        });
-    }
-
-    public function examinationTreatment(mixed $conditionals = null): Builder
-    {
-        $this->booting();
-        return $this->ExaminationTreatmentModel()->withParameters()->conditionals($conditionals);
     }
 }

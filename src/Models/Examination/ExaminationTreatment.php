@@ -3,21 +3,21 @@
 namespace Hanafalah\ModuleExamination\Models\Examination;
 
 use Hanafalah\ModuleExamination\Models\Examination;
+use Hanafalah\ModuleExamination\Resources\Examination\ExaminationTreatment\{
+    ViewExaminationTreatment, ShowExaminationTreatment
+};
 
 class ExaminationTreatment extends Examination
 {
     protected $list = [
-        'id',
-        'name',
+        'id','name',
         'visit_examination_id',
         'examination_summary_id',
         'patient_summary_id',
         'reference_type',
         'reference_id',
-        'qty',
-        'price',
-        'treatment_id',
-        'props'
+        'qty','price',
+        'treatment_id','props'
     ];
     protected $show = [];
 
@@ -73,18 +73,16 @@ class ExaminationTreatment extends Examination
         });
     }
 
+    public function getViewResource(){
+        return ViewExaminationTreatment::class;
+    }
+
+    public function getShowResource(){
+        return ShowExaminationTreatment::class;
+    }
+
     //EIGER SECTION
-    public function treatment()
-    {
-        return $this->belongsToModel("Treatment", 'treatment_id');
-    }
-    public function reference()
-    {
-        return $this->morphTo();
-    }
-    public function transactionItem()
-    {
-        return $this->hasOneModel('TransactionItem', 'item_id', 'reference_id')
-            ->where('item_type', $this->reference_type);
-    }
+    public function treatment(){return $this->belongsToModel("Treatment", 'treatment_id');}
+    public function reference(){return $this->morphTo();}
+    public function transactionItem(){return $this->hasOneModel('TransactionItem', 'item_id', 'reference_id')->where('item_type', $this->reference_type);}
 }

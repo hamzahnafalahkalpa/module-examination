@@ -1,13 +1,13 @@
 <?php
 
-namespace Gii\PuskesmasModuleExamination\Models\Examination\Assessment;
+namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
 
-use Gii\PuskesmasModuleExamination\Models\Examination;
-use Gii\PuskesmasModuleExamination\Resources\Examination\Assessment\{
+use Hanafalah\ModuleExamination\Models\Examination;
+use Hanafalah\ModuleExamination\Resources\Examination\Assessment\{
     ViewAssessment,
     ShowAssessment
 };
-use Zahzah\PuskesmasLaravelHasProps\Concerns\HasProps;
+use Hanafalah\LaravelHasProps\Concerns\HasProps;
 use Illuminate\Support\Str;
 
 class Assessment extends Examination

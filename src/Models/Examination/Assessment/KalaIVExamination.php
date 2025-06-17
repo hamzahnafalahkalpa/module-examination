@@ -1,8 +1,8 @@
 <?php
 
-namespace Gii\PuskesmasModuleExamination\Models\Examination\Assessment;
+namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
 
-use Gii\PuskesmasModuleExamination\Concerns\HasSurvey;
+use Hanafalah\ModuleExamination\Concerns\HasSurvey;
 
 class KalaIVExamination extends Assessment{
     protected $table  = 'assessments';

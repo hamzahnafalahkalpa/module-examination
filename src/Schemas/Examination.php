@@ -65,15 +65,6 @@ class Examination extends ModulePatient implements ContractsExamination
         return $this;
     }
 
-    public function prepareMorphs(): self
-    {
-        $examination_lists = config('database.examinations', []);
-        foreach ($examination_lists as $key => $list) {
-            if (isset($list['schema'])) $this->__morphs[$key] = $list['schema'];
-        }
-        return $this;
-    }
-
     public function prepareBulkStoreExamination(?array $attributes = null): array
     {
         $attributes ??= request()->all();
@@ -99,7 +90,6 @@ class Examination extends ModulePatient implements ContractsExamination
         ];
         $this->__open_forms = [];
 
-        $this->prepareMorphs();
         // EXAMINATION STORE PROSES
         if (isset($attributes['examination']) && count($attributes) > 0) {
             $this->prepareService($new_collection['examination'], $attributes['examination']);
@@ -175,7 +165,7 @@ class Examination extends ModulePatient implements ContractsExamination
                     if ($key === $this->MedicalSupportModel()->getMorphClass()) {
                         if (isset($attributes['medical_support_type_id'])) {
                             $schema = $this->ExaminationStuffModel()->findOrFail($attributes['medical_support_type_id']);
-                            $medical_support_schema = new $this->__morphs[$key];
+                            $medical_support_schema = $this->schemaContract($key);
                         } else {
                             $schema = 'medical_support';
                             $medical_support_schema = $this->schemaContract($schema);
@@ -239,17 +229,15 @@ class Examination extends ModulePatient implements ContractsExamination
             'patient_summary_id'     => $patient_summary_id ?? null,
             'patient_id'             => static::$__visit_patient->patient_id ?? null
         ];
-        $dispense_class = new $this->__morphs['PharmacySaleExamination'];
-        $new_collection = $dispense_class->prepareStore($this->mergeArray($prepare_attributes, $attributes));
+        $new_collection = $this->schemaContract('pharmacy_sale_examination')->prepareStore($this->mergeArray($prepare_attributes, $attributes));
     }
 
     private function prepareService(&$new_collection, array &$attributes)
     {
         foreach ($attributes as $key => $attribute) {
             if (!isset($attribute['data'])) continue;
-
-            if (isset($this->__morphs[$key])) {
-                $class = new $this->__morphs[$key];
+            if (config('app.contracts.'.$key) !== null) {
+                $class = $this->schemaContract($key);
                 $this->setToOpenForm($key);
                 if (array_is_list($attribute['data'])) {
                     $new_collection->{$key} = (object) ['data' => []];
@@ -336,16 +324,14 @@ class Examination extends ModulePatient implements ContractsExamination
             $results = $this->prepareBulkStoreExamination();
             if (isset($results['examination'])) {
                 foreach ($results['examination'] as $key => &$exam) {
-                    if (isset($exam->data)) {
-                        $exam->data = $this->transforming($this->__resources['view'], function () use ($exam) {
-                            return $exam->data;
-                        });
-                    }
+                    if (isset($exam->data)) $exam->data = $this->viewEntityResource(function() use ($exam){
+                        return $exam->data;
+                    });
                 }
             }
             if (isset($results['treatments']) && count($results['treatments']) > 0) {
                 foreach ($results['treatments'] as $key => &$exam) {
-                    $exam = $this->transforming($this->__resources['view'], function () use ($exam) {
+                    $exam = $this->viewEntityResource(function() use ($exam){
                         return $exam;
                     });
                     $results['treatments'][$key] = $exam;
@@ -355,8 +341,7 @@ class Examination extends ModulePatient implements ContractsExamination
         });
     }
 
-    public function addPractitioner(?array $attributes = null): Model
-    {
+    public function addPractitioner(?array $attributes = null): Model{
         return $this->schemaContract('practitioner_evaluation')->prepareStorePractitioner($attributes);
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Gii\PuskesmasModuleExamination\Models\Examination\Assessment;
+namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
 
-use Gii\PuskesmasModuleExamination\Models\Examination\Assessment\Assessment;
+use Hanafalah\ModuleExamination\Models\Examination\Assessment\Assessment;
 
 class PhysicalActivity extends Assessment {
     protected $table = 'assessments';

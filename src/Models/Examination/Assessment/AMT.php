@@ -1,8 +1,8 @@
 <?php
 
-namespace Gii\PuskesmasModuleExamination\Models\Examination\Assessment;
+namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
 
-use Gii\PuskesmasModuleExamination\Concerns\HasSurvey;
+use Hanafalah\ModuleExamination\Concerns\HasSurvey;
 use Illuminate\Database\Eloquent\Model;
 
 class AMT extends Assessment{

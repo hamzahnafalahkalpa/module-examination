@@ -1,6 +1,6 @@
 <?php
 
-namespace Gii\PuskesmasModuleExamination\Models\Examination\Assessment;
+namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
 class RocportTest extends Assessment{
     protected $table  = 'assessments';
     public $specific  = [

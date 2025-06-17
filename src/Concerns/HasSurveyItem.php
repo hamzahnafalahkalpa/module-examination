@@ -4,8 +4,7 @@ namespace Hanafalah\ModuleExamination\Concerns;
 
 trait HasSurveyItem
 {
-    public function surveyItems()
-    {
+    public function surveyItems(){
         return $this->hasManyModel('SurveyItem', 'form_id')->orderBy('ordering', 'asc');
     }
 }

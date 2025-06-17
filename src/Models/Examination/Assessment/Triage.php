@@ -1,6 +1,6 @@
 <?php
 
-namespace Gii\PuskesmasModuleExamination\Models\Examination\Assessment;
+namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
 
 class Triage extends Assessment {
     protected $table = 'assessments';
