@@ -11,6 +11,4 @@ class MCUPackageSummary extends Assessment {
         'service_lists',
         'abnormalities','suggestions'
     ];
-
-
 }
