@@ -6,6 +6,7 @@ use Hanafalah\ModuleExamination\Contracts\Examination as ContractsExamination;
 
 /**
  * @see \Hanafalah\ModuleExamination\Schemas\ExaminationTreatment
+ * @method self setParamLogic(string $logic, bool $search_value = false, ?array $optionals = [])
  * @method self conditionals(mixed $conditionals)
  * @method bool deleteExaminationTreatment()
  * @method bool prepareDeleteExaminationTreatment(? array $attributes = null)
