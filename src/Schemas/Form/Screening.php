@@ -3,9 +3,7 @@
 namespace Hanafalah\ModuleExamination\Schemas\Form;
 
 use Hanafalah\ModuleExamination\Contracts\Data\ScreeningData;
-use Hanafalah\ModuleExamination\Contracts\Schemas\Screening as ContractsScreening;
-use Hanafalah\ModuleExamination\Resources\Screening\ViewScreening;
-use Illuminate\Database\Eloquent\Collection;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Form\Screening as ContractsScreening;
 use Illuminate\Database\Eloquent\Model;
 
 class Screening extends Form implements ContractsScreening
@@ -14,7 +12,8 @@ class Screening extends Form implements ContractsScreening
     public static $screening_model;
 
     public function prepareStoreScreening(ScreeningData $screening_dto): Model{
-        $screening = $this->ScreeningModel()->updateOrCreate([
+        dd();
+        $screening = $this->usingEntity()->updateOrCreate([
             'id'   => $screening_dto->id ?? null,
         ], [
             'label' => $screening_dto->label ?? null,

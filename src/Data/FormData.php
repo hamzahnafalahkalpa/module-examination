@@ -35,7 +35,7 @@ class FormData extends Data implements DataFormData
 
     #[MapInputName('ordering')]
     #[MapName('ordering')]
-    public int $ordering = 1;
+    public ?int $ordering = 1;
 
     #[MapInputName('master_feature_id')]
     #[MapName('master_feature_id')]

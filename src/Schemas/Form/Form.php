@@ -2,10 +2,10 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Form;
 
-use Hanafalah\ModuleExamination\Contracts\Schemas\Form as ContractsForm;
 use Hanafalah\LaravelSupport\Supports\PackageManagement;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Form\Form as FormForm;
 
-class Form extends PackageManagement implements ContractsForm
+class Form extends PackageManagement implements FormForm
 {
     protected string $__entity = 'Form';
     public static $form_model;

@@ -1,6 +1,8 @@
 <?php
 
-namespace Hanafalah\ModuleExamination\Contracts\Schemas;
+namespace Hanafalah\ModuleExamination\Contracts\Schemas\Form;
+
+use Hanafalah\ModuleExamination\Contracts\Data\ScreeningData;
 
 /**
  * @see \Hanafalah\ModuleExamination\Schemas\Screening
