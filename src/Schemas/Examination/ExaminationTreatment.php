@@ -2,22 +2,22 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination;
 
-use Hanafalah\ModuleExamination\Contracts;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\ExaminationTreatment as ExaminationExaminationTreatment;
 use Hanafalah\ModuleExamination\Schemas\Examination;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Hanafalah\ModuleMedicService\Enums\Label;
 
-class ExaminationTreatment extends Examination implements Contracts\Examination\ExaminationTreatment
+class ExaminationTreatment extends Examination implements ExaminationExaminationTreatment
 {
     protected string $__entity = 'ExaminationTreatment';
     public static $examination_treatment_model;
 
     protected array $__cache = [
         'index' => [
-            'name'      => 'examination-treatment',
-            'tags'      => ['examination', 'examination-treatment', 'examination-treatment-index'],
+            'name'      => 'examination_treatment',
+            'tags'      => ['examination', 'examination_treatment', 'examination_treatment-index'],
             'duration'  => 30
         ]
     ];

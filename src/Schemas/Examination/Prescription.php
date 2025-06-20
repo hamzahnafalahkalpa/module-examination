@@ -17,7 +17,7 @@ use Hanafalah\ModulePharmacy\Enums\PharmacySaleVisitRegistration\{
     ActivityStatus
 };
 
-class Prescription extends Examination implements Contracts\Examination\Prescription
+class Prescription extends Examination implements Contracts\Schemas\Examination\Prescription
 {
     protected string $__entity = 'Prescription';
     public static $prescription_model;

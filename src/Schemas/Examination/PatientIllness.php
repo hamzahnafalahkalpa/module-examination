@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class PatientIllness extends Examination implements Contracts\Examination\PatientIllness
+class PatientIllness extends Examination implements Contracts\Schemas\Examination\PatientIllness
 {
     protected string $__entity   = 'PatientIllness';
     public static $patient_illness_model;

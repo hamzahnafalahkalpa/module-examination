@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment;
 
-use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\FoodHandlerExamination as AssessmentFoodHandlerExamination;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\FoodHandlerExamination as AssessmentFoodHandlerExamination;
 
 class FoodHandlerExamination extends Assessment implements AssessmentFoodHandlerExamination
 {

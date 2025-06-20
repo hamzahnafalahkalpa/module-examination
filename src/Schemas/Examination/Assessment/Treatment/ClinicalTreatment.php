@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment\Treatment;
 
-use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\Treatment\ClinicalTreatment as ContractsClinicalTreatment;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\Treatment\ClinicalTreatment as ContractsClinicalTreatment;
 use Illuminate\Database\Eloquent\Builder;
 
 class ClinicalTreatment extends TrxTreatment implements ContractsClinicalTreatment

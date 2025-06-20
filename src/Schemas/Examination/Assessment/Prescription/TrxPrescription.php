@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment\Prescription;
 
-use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\Prescription\TrxPrescription as PrescriptionTrxPrescription;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\Prescription\TrxPrescription as PrescriptionTrxPrescription;
 use Hanafalah\ModuleExamination\Schemas\Examination\Assessment\Assessment;
 use Illuminate\Database\Eloquent\Model;
 

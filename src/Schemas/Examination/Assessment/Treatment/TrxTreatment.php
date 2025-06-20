@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment\Treatment;
 
-use Hanafalah\ModuleExamination\Contracts\{
+use Hanafalah\ModuleExamination\Contracts\Schemas\{
     Examination\Assessment\Treatment\TrxTreatment as ContractsTrxTreatment,
 };
 use Hanafalah\ModuleExamination\Schemas\Examination\Assessment\Assessment;

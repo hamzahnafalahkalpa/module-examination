@@ -29,9 +29,10 @@ return new class extends Migration
             Schema::create($table_name, function (Blueprint $table) {
                 $master_feature = app(config('database.models.MasterFeature', MasterFeature::class));
 
-                $table->id();
+                $table->ulid('id')->primary();
                 $table->string('name')->nullable(false);
                 $table->string('flag')->nullable(false);
+                $table->string('label')->nullable(true);
                 $table->string('morph')->nullable(false)->default('')->comment('Need empty string');
                 $table->integer('ordering')->default(1);
                 $table->foreignIdFor($master_feature::class)->nullable()->index()

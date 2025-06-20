@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment;
 
-use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\MCUExamSummary as ContractsMCUExamSummary;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\MCUExamSummary as ContractsMCUExamSummary;
 
 class MCUExamSummary extends Assessment implements ContractsMCUExamSummary
 {

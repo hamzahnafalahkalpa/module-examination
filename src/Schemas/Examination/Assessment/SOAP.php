@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment;
 
-use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\SOAP as AssessmentSOAP;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\SOAP as AssessmentSOAP;
 
 class SOAP extends Assessment implements AssessmentSOAP
 {

@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment;
 
-use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\Allergy as AssessmentAllergy;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\Allergy as AssessmentAllergy;
 
 class Allergy extends Assessment implements AssessmentAllergy
 {

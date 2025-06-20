@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas;
 
-use Hanafalah\ModuleExamination\Contracts\Examination as ContractsExamination;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination as ContractsExamination;
 use Hanafalah\ModuleExamination\Resources\Examination\Assessment\ViewAssessment;
 use Hanafalah\ModuleMedicService\Enums\Label;
 use Illuminate\Database\Eloquent\Collection;

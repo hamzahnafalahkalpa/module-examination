@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment;
 
-use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\Symptom as AssessmentSymptom;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\Symptom as AssessmentSymptom;
 
 class Symptom extends Assessment implements AssessmentSymptom
 {

@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment\Prescription;
 
-use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\Prescription\MedicToolPrescription as ContractsMedicToolPrescription;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\Prescription\MedicToolPrescription as ContractsMedicToolPrescription;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 

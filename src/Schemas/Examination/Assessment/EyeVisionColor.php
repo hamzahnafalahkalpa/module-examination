@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment;
 
-use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\EyeVisionColor as AssessmentEyeVisionColor;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\EyeVisionColor as AssessmentEyeVisionColor;
 
 class EyeVisionColor extends Assessment implements AssessmentEyeVisionColor
 {

@@ -2,8 +2,8 @@
 
 namespace Hanafalah\ModuleExamination\Models\Form;
 
-use Hanafalah\ModuleExamination\Enums\Form\Flag;
 use Hanafalah\ModuleExamination\Enums\Form\Status;
+use Hanafalah\ModuleExamination\Resources\Screening\ViewScreening;
 use Hanafalah\ModuleService\Concerns\HasService;
 
 class Screening extends Form
@@ -12,20 +12,21 @@ class Screening extends Form
 
     protected $table = 'forms';
 
+    const FLAG_SCREENING = 'SCREENING';
     const IS_DEFAULT = true;
     const IS_NON_DEFAULT = false;
 
     protected static function booted(): void
     {
         parent::booted();
-        static::addGlobalScope('screening', function ($query) {
-            $query->screening();
+        static::addGlobalScope('flag', function ($query) {
+            $query->flagIn(self::FLAG_SCREENING);
         });
 
         static::creating(function ($query) {
             if (!isset($query->status)) $query->status = Status::ACTIVE->value;
             $query->morph  = '';
-            $query->flag   = Flag::SCREENING->value;
+            $query->flag   = self::FLAG_SCREENING;
         });
 
         static::created(function ($query) {
@@ -34,16 +35,19 @@ class Screening extends Form
         });
     }
 
-    public function scopeScreening($builder)
-    {
-        return $builder->where('flag', Flag::SCREENING->value)->withoutGlobalScope('form');
+    public function viewUsingRelation(): array{
+        return [];
     }
-    public function masterFeature()
-    {
-        return $this->belongsTo('MasterFeature');
+
+    public function showUsingRelation(): array{
+        return ['forms', 'hasServices'];
     }
-    public function forms()
-    {
+
+    public function getViewResource(){return ViewScreening::class;}
+    public function showViewResource(){return ViewScreening::class;}
+
+    public function masterFeature(){return $this->belongsTo('MasterFeature');}
+    public function forms(){
         return $this->belongsToManyModel(
             'Form',
             'ScreeningHasForm',

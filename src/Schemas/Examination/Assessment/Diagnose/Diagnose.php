@@ -3,8 +3,8 @@
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment\Diagnose;
 
 use Hanafalah\ModuleDisease\Contracts\Disease;
-use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\Diagnose\Diagnose as ContractsDiagnose;
-use Hanafalah\ModuleExamination\Contracts\Examination\PatientIllness;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\Diagnose\Diagnose as ContractsDiagnose;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\PatientIllness;
 use Hanafalah\ModuleExamination\Schemas\Examination\Assessment\Assessment;
 use Illuminate\Database\Eloquent\Model;
 use Hanafalah\ModulePatient\Contracts\VisitExamination;

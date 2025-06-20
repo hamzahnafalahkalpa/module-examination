@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment;
 
-use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\NoseExamination as AssessmentNoseExamination;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\NoseExamination as AssessmentNoseExamination;
 
 class NoseExamination extends Assessment implements AssessmentNoseExamination
 {

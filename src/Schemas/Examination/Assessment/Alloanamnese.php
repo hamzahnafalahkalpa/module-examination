@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment;
 
-use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\Alloanamnese as ContractsAlloanamnese;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\Alloanamnese as ContractsAlloanamnese;
 use Illuminate\Database\Eloquent\Model;
 
 class Alloanamnese extends Assessment implements ContractsAlloanamnese

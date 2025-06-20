@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment;
 
-use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\PainScale as AssessmentPainScale;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\PainScale as AssessmentPainScale;
 
 class PainScale extends Assessment implements AssessmentPainScale
 {

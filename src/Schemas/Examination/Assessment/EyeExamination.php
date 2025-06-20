@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment;
 
-use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\EyeExamination as AssessmentEyeExamination;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\EyeExamination as AssessmentEyeExamination;
 
 class EyeExamination extends Assessment implements AssessmentEyeExamination
 {

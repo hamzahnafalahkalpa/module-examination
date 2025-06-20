@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment;
 
-use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\Assessment as ContractsAssessment;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\Assessment as ContractsAssessment;
 use Hanafalah\ModuleExamination\Resources\Examination\Assessment\{
     ViewAssessment,
     ShowAssessment

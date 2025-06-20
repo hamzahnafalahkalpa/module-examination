@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment;
 
-use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\Vaccine as AssessmentVaccine;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\Vaccine as AssessmentVaccine;
 use Illuminate\Database\Eloquent\Model;
 
 class Vaccine extends Assessment implements AssessmentVaccine

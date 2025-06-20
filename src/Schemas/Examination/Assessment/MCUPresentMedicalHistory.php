@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment;
 
-use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\MCUPresentMedicalHistory as ContractsMCUPresentMedicalHistory;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\MCUPresentMedicalHistory as ContractsMCUPresentMedicalHistory;
 
 class MCUPresentMedicalHistory extends Assessment implements ContractsMCUPresentMedicalHistory
 {

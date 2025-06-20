@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment\MedicalSupport;
 
-use Hanafalah\ModuleExamination\Contracts\Examination\Assessment\MedicalSupport\TrxMedicalSupport as ContractsTrxMedicalSupport;
+use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\MedicalSupport\TrxMedicalSupport as ContractsTrxMedicalSupport;
 use Hanafalah\ModuleExamination\Schemas\Examination\Assessment\Assessment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;

@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas;
 
-use Hanafalah\ModuleExamination\Contracts\MasterVaccine as ContractsMasterVaccine;
+use Hanafalah\ModuleExamination\Contracts\Schemas\MasterVaccine as ContractsMasterVaccine;
 use Hanafalah\ModuleExamination\Resources\MasterVaccine\{
     ViewMasterVaccine,
     ShowMasterVaccine
