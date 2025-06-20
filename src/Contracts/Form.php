@@ -1,9 +1,8 @@
 <?php
 
-namespace Hanafalah\ModuleExamination\Contracts\Schemas\Form;
+namespace Hanafalah\ModuleExamination\Contracts\Form;
 
 use Hanafalah\LaravelSupport\Contracts\Supports\DataManagement;
-use Hanafalah\ModuleExamination\Contracts\Data\Form\FormData;
 use Illuminate\Database\Eloquent\Builder;
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Hanafalah\ModuleExamination\Contracts\Data;
+namespace Hanafalah\ModuleExamination\Contracts\Data\Form;
 
 use Spatie\LaravelData\Contracts\BaseData;
 

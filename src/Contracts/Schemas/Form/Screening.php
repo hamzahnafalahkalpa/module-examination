@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Contracts\Schemas\Form;
 
-use Hanafalah\ModuleExamination\Contracts\Data\ScreeningData;
+use Hanafalah\ModuleExamination\Contracts\Data\Form\ScreeningData;
 
 /**
  * @see \Hanafalah\ModuleExamination\Schemas\Screening

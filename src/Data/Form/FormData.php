@@ -1,9 +1,9 @@
 <?php
 
-namespace Hanafalah\ModuleExamiantion\Data;
+namespace Hanafalah\ModuleExamination\Data\Form;
 
 use Hanafalah\LaravelSupport\Supports\Data;
-use Hanafalah\ModuleExamination\Contracts\Data\FormData as DataFormData;
+use Hanafalah\ModuleExamination\Contracts\Data\Form\FormData as DataFormData;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\MapName;
 
