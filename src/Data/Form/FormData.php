@@ -46,6 +46,6 @@ class FormData extends Data implements DataFormData
     public ?array $props = null;
 
     public static function before(array &$attributes){
-        $attributes['flag'] = 'Form';
+        $attributes['flag'] ??= 'Form';
     }
 }

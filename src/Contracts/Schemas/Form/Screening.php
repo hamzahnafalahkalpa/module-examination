@@ -5,7 +5,7 @@ namespace Hanafalah\ModuleExamination\Contracts\Schemas\Form;
 use Hanafalah\ModuleExamination\Contracts\Data\Form\ScreeningData;
 
 /**
- * @see \Hanafalah\ModuleExamination\Schemas\Screening
+ * @see \Hanafalah\ModuleExamination\Schemas\Form\Screening
  * @method self setParamLogic(string $logic, bool $search_value = false, ?array $optionals = [])
  * @method self conditionals(mixed $conditionals)
  * @method mixed export(string $type)

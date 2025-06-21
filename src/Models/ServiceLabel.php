@@ -2,15 +2,19 @@
 
 namespace Hanafalah\ModuleExamination\Models;
 
+use Hanafalah\ModuleExamination\Resources\ServiceLabel\{
+    ViewServiceLabel, ShowServiceLabel
+};
+
 class ServiceLabel extends ExaminationStuff
 {
     protected $table = 'examination_stuffs';
 
-    protected static function booted(): void
-    {
-        parent::booted();
-        static::addGlobalScope('service-label', function ($query) {
-            $query->where('flag', 'ServiceLabel');
-        });
+    public function getViewResource(){
+        return ViewServiceLabel::class;
+    }
+
+    public function getShowResource(){
+        return ShowServiceLabel::class;
     }
 }

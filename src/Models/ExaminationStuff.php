@@ -3,29 +3,12 @@
 namespace Hanafalah\ModuleExamination\Models;
 
 use Hanafalah\ModuleExamination\Resources\ExaminationStuff\ViewExaminationStuff;
-use Hanafalah\LaravelHasProps\Concerns\HasProps;
-use Hanafalah\LaravelSupport\Models\BaseModel;
+use Hanafalah\LaravelSupport\Models\Unicode\Unicode;
 
-class ExaminationStuff extends BaseModel
+class ExaminationStuff extends Unicode
 {
-    use HasProps;
+    protected $table = 'examination_stuffs';
 
-    public $timestamps = false;
-    protected $list = ['id', 'parent_id', 'name', 'flag', 'props'];
-
-    public function getViewResource()
-    {
-        return ViewExaminationStuff::class;
-    }
-
-    public function getShowResource()
-    {
-        return ViewExaminationStuff::class;
-    }
-
-    //OVERIDING DEFAULT CHILDS EIGER
-    public function childs()
-    {
-        return $this->hasMany(get_class($this), static::getParentId())->with('childs');
-    }
+    public function getViewResource(){return ViewExaminationStuff::class;}
+    public function getShowResource(){return ViewExaminationStuff::class;}
 }

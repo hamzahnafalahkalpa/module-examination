@@ -7,6 +7,6 @@ use Hanafalah\ModuleExamination\Contracts\Data\Form\ScreeningData as DataScreeni
 class ScreeningData extends FormData implements DataScreeningData
 {
     public static function before(array &$attributes){
-        $attributes['flag'] = 'Screening';
+        $attributes['flag'] ??= 'Screening';
     }
 }

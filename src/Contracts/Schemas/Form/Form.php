@@ -7,7 +7,7 @@ use Hanafalah\ModuleExamination\Contracts\Data\Form\FormData;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
- * @see \Hanafalah\ModuleExamination\Schemas\Form
+ * @see \Hanafalah\ModuleExamination\Schemas\Form\Form
  * @method self setParamLogic(string $logic, bool $search_value = false, ?array $optionals = [])
  * @method self conditionals(mixed $conditionals)
  * @method mixed export(string $type)

@@ -2,259 +2,149 @@
 
 namespace Hanafalah\ModuleExamination\Seeders;
 
-use Hanafalah\ModuleExamination\Models\ExaminationStuff;
+use Hanafalah\LaravelSupport\Concerns\Support\HasRequestData;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
 class ExaminationStuffSeeder extends Seeder
 {
-    private $__examination_stuff;
+    use HasRequestData;
 
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        $this->__examination_stuff = app(config('database.models.ExaminationStuff', ExaminationStuff::class));
-        $stuffs = [
-            $this->model('GCS') => [
-                'eyes' => [
-                    ['value' => 'Tidak ada response', 'prop'  => ['ordering' => 1, 'score' => 1]],
-                    ['value' => 'Reaksi Terhadap Nyeri', 'prop'  => ['ordering' => 2, 'score' => 2]],
-                    ['value' => 'Reaksi Terhadap Suara', 'prop'  => ['ordering' => 3, 'score' => 3]],
-                    ['value' => 'Spontan', 'prop'  => ['ordering' => 4, 'score' => 4]]
-                ],
-                'verbal' => [
-                    ['value' => 'Tidak Ada Respon', 'prop'  => ['ordering' => 1, 'score' => 1]],
-                    ['value' => 'Suara tidak jelas', 'prop'  => ['ordering' => 2, 'score' => 2]],
-                    ['value' => 'Kata-kata tidak teratur', 'prop'  => ['ordering' => 3, 'score' => 3]],
-                    ['value' => 'Bicara kacau /bingung', 'prop'  => ['ordering' => 4, 'score' => 4]],
-                    ['value' => 'Orientasi Baik', 'prop'  => ['ordering' => 5, 'score' => 5]]
-                ],
-                'motor' => [
-                    ['value' => 'Tidak Ada Respon', 'prop' => ['ordering' => 1, 'score' => 1]],
-                    ['value' => 'Esktensi', 'prop' => ['ordering' => 2, 'score' => 2]],
-                    ['value' => 'Fleksi Abnormal', 'prop' => ['ordering' => 3, 'score' => 3]],
-                    ['value' => 'Fleksi Normal', 'prop' => ['ordering' => 4, 'score' => 4]],
-                    ['value' => 'Melokalisir Nyeri', 'prop' => ['ordering' => 5, 'score' => 5]],
-                    ['value' => 'Ikut Perintah', 'prop' => ['ordering' => 6, 'score' => 6]]
-                ]
-            ],
-            $this->model('Allergy') => [
-                'type' => [
-                    ['value' => 'MAKANAN LAUT'],
-                    ['value' => 'MAKANAN BERBAHAN UNGGAS'],
-                    ['value' => 'TELUR'],
-                    ['value' => 'SUSU'],
-                    ['value' => 'GLUTEN'],
-                    ['value' => 'KACANG - KACANGAN'],
-                    ['value' => 'BUAH - BUAHAN'],
-                    ['value' => 'SAYURAN'],
-                    ['value' => 'DEBU'],
-                    ['value' => 'SUHU'],
-                    ['value' => 'OBAT'],
-                    ['value' => 'LAINNYA']
-                ]
-            ],
-            $this->model('VitalSign') => [
-                'loc' => [
-                    [
-                        'value' => 'COMPOS MENTIS',
-                        'prop'  => [
-                            "ordering" => 1,
-                            'description' => 'Pasien sadar sepenuhnya, tidak ada gangguan kesadaran'
-                        ]
-                    ],
-                    [
-                        'value' => 'APATIS',
-                        'prop' => [
-                            "ordering" => 2,
-                            'description' => 'Pasien sadar, tetapi tidak memiliki minat atau motivasi melakukan apapun'
-                        ]
-                    ],
-                    [
-                        'value' => 'DELIRIUM',
-                        'prop' => [
-                            "ordering" => 3,
-                            'description' => 'Pasien sadar, tetapi memiliki gangguan kesadaran yang akut dan fluktuatif'
-                        ]
-                    ],
-                    [
-                        'value' => 'SOMNOLENCE',
-                        'prop' => [
-                            "ordering" => 4,
-                            'description' => 'Pasien sadara, tetapi sulit untuk dibangungkan, terlihat lesu dan tidak responsif, dapat dibangunkan dengan rangsangan yang kuat'
-                        ]
-                    ],
-                    [
-                        'value' => 'SOPOR',
-                        'prop' => [
-                            "ordering" => 5,
-                            'description' => 'Pasien tidak sadar, tetapi masih memiliki response motorik yang lemah, dapat bergerak sedikit, tidak dapat berbicara atau berinteraksi'
-                        ]
-                    ],
-                    [
-                        'value' => 'SEMI COMA',
-                        'prop' => [
-                            "ordering" => 6,
-                            'description' => 'Pasien tidak sadar, tetapi masih memiliki beberapa response motorik, dapat bergerak lebih sedikit seperti mengedipkan mata, atau menunjukkan reaksi rangsangan, tidak dapat berbicara dan berinteraksi'
-                        ]
-                    ],
-                    [
-                        'value' => 'COMA',
-                        'prop'  => [
-                            "ordering" => 7,
-                            'description' => 'Pasien tidak sadar, tidak ada respon motoik dan reaksi terhadap rangsangan, tidak dapat berbicara, bergerak dan berinteraksi'
-                        ]
+    protected $__stuffs = [
+            'GcsStuff' => [
+                [
+                    'name'  => 'Response Mata', 
+                    'label' => 'Eye Response', 
+                    'childs' => [
+                        ['label' => 'Eye Response', 'name' => 'Tidak ada response', 'ordering' => 1, 'score' => 1],
+                        ['label' => 'Eye Response', 'name' => 'Reaksi Terhadap Nyeri', 'ordering' => 2, 'score' => 2],
+                        ['label' => 'Eye Response', 'name' => 'Reaksi Terhadap Suara', 'ordering' => 3, 'score' => 3],
+                        ['label' => 'Eye Response', 'name' => 'Spontan', 'ordering' => 4, 'score' => 4]
+                    ]
+                ],[
+                    'name'  => 'Response Verbal', 
+                    'label' => 'Verbal Response', 
+                    'childs' => [
+                        ['label' => 'Verbal Response', 'name' => 'Tidak ada response', 'ordering' => 1, 'score' => 1],
+                        ['label' => 'Verbal Response', 'name' => 'Suara tidak jelas', 'ordering' => 2, 'score' => 2],
+                        ['label' => 'Verbal Response', 'name' => 'Kata-kata tidak teratur', 'ordering' => 3, 'score' => 3],
+                        ['label' => 'Verbal Response', 'name' => 'Bicara kacau /bingung', 'ordering' => 4, 'score' => 4],
+                        ['label' => 'Verbal Response', 'name' => 'Orientasi Baik', 'ordering' => 5, 'score' => 5]
+                    ]
+                ],[
+                    'name'  => 'Response Motorik',
+                    'label' => 'Motorik Response',
+                    'childs' => [
+                        ['label' => 'Motorik Response', 'name' => 'Tidak ada response', 'ordering' => 1, 'score' => 1],
+                        ['label' => 'Motorik Response', 'name' => 'Esktensi', 'ordering' => 2, 'score' => 2],
+                        ['label' => 'Motorik Response', 'name' => 'Fleksi Abnormal', 'ordering' => 3, 'score' => 3],
+                        ['label' => 'Motorik Response', 'name' => 'Fleksi Normal', 'ordering' => 4, 'score' => 4],
+                        ['label' => 'Motorik Response', 'name' => 'Melokalisir Nyeri', 'ordering' => 5, 'score' => 5],
+                        ['label' => 'Motorik Response', 'name' => 'Ikut Perintah', 'ordering' => 6, 'score' => 6]
                     ]
                 ]
             ],
-            $this->model('Triage') => [
+            'AllergyStuff' => [
                 [
-                    "value"   => "≤ 2 jam",
-                    "prop"    => [
-                        "ordering" => 1,
-                        "result" => "Tidak Gawat Darurat"
-                    ]
-                ],
-                [
-                    "value"   => "≤ 30 menit",
-                    "prop" => [
-                        "ordering" => 2,
-                        "result" => "Darurat"
-                    ]
-                ],
-                [
-                    "value"   => "≤ 5 menit",
-                    "prop" => [
-                        "ordering" => 3,
-                        "result" => "Gawat Darurat"
-                    ]
-                ],
-                [
-                    "value"   => "∞/≤ 5 menit",
-                    "prop" => [
-                        "ordering" => 4,
-                        "result" => "Meninggal"
+                    'name'  => 'Jenis Alergy',
+                    'label' => 'Allergy Type',
+                    'childs' => [
+                        ['label' => 'Food', 'name' => 'Food Marine', 'ordering' => 1],
+                        ['label' => 'Food', 'name' => 'Food Poultry', 'ordering' => 2],
+                        ['label' => 'Food', 'name' => 'Egg', 'ordering' => 3],
+                        ['label' => 'Food', 'name' => 'Milk', 'ordering' => 4],
+                        ['label' => 'Food', 'name' => 'Gluten', 'ordering' => 5],
+                        ['label' => 'Food', 'name' => 'Nut', 'ordering' => 6],
+                        ['label' => 'Food', 'name' => 'Fruit', 'ordering' => 7],
+                        ['label' => 'Food', 'name' => 'Vegetable', 'ordering' => 8],
+                        ['label' => 'Environmental', 'name' => 'Dust', 'ordering' => 9],
+                        ['label' => 'Environmental', 'name' => 'Temperature', 'ordering' => 10],
+                        ['label' => 'Medication', 'name' => 'Drug', 'ordering' => 11],
+                        ['label' => 'Medication', 'name' => 'Antibiotik', 'ordering' => 12],
+                        ['label' => 'Medication', 'name' => 'Antikoagulan', 'ordering' => 13],
+                        ['label' => 'Medication', 'name' => 'Antidepresan', 'ordering' => 14],
+                        ['label' => 'Medication', 'name' => 'Antipsikotik', 'ordering' => 15],
+                        ['label' => 'Medication', 'name' => 'Anestesi', 'ordering' => 16],
+                        ['label' => 'Other', 'name' => 'Others', 'ordering' => 1]
                     ]
                 ]
             ],
-            $this->model('FamilyIllness') => [
-                'family_role_id' => [
-                    ['value' => 'Adik Laki - Laki'],
-                    ['value' => 'Adik Perempuan'],
-                    ['value' => 'Anak'],
-                    ['value' => 'Ayah'],
-                    ['value' => 'Ibu'],
-                    ['value' => 'Istri'],
-                    ['value' => 'Kakak Laki - Laki'],
-                    ['value' => 'Kakak Perempuan'],
-                    ['value' => 'Kakek'],
-                    ['value' => 'Nenek'],
-                    ['value' => 'Saudara'],
-                    ['value' => 'Sepupu'],
-                    ['value' => 'Suami']
+            'VitalSignStuff' => [
+                [
+                    'name'  => 'Tingkat Kesadaran',
+                    'label' => 'loc',
+                    'childs' => [
+                        ['label' => 'COMPOS MENTIS', 'name' => 'Compos Mentis', 'ordering' => 1, 'description' => 'Pasien sadar sepenuhnya, tidak ada gangguan kesadaran'],
+                        ['label' => 'APATIS', 'name' => 'Apatis', 'ordering' => 2, 'description' => 'Pasien sadar, tetapi tidak memiliki minat atau motivasi melakukan apapun'],
+                        ['label' => 'DELIRIUM', 'name' => 'Delirium', 'ordering' => 3, 'description' => 'Pasien sadar, tetapi memiliki gangguan kesadaran yang akut dan fluktuatif'],
+                        ['label' => 'SOMNOLENCE', 'name' => 'Somnolence', 'ordering' => 4, 'description' => 'Pasien sadara, tetapi sulit untuk dibangungkan, terlihat lesu dan tidak responsif, dapat dibangunkan dengan rangsangan yang kuat'],
+                        ['label' => 'SOPOR', 'name' => 'Sopor', 'ordering' => 5, 'description' => 'Pasien sadar, tetapi sulit untuk dibangungkan, terlihat lesu dan tidak responsif, tidak dapat dibangunkan dengan rangsangan yang kuat'],
+                        ['label' => 'SEMI COMA', 'name' => 'Sopor', 'ordering' => 6, 'description' => 'Pasien sadar, tetapi sulit untuk dibangungkan, terlihat lesu dan tidak responsif, tidak dapat dibangunkan dengan rangsangan yang kuat, tetapi masih memiliki refleks makan'],
+                        ['label' => 'COMA', 'name' => 'Sopor', 'ordering' => 7, 'description' => 'Pasien tidak sadar, tidak memiliki respon terhadap rangsangan apapun']
+                    ]
                 ]
             ],
-            $this->model('ServiceLabel') => [
+            'TriageStuff' => [
+                ['label' => 'Non Emergency', 'name' => '≤ 2 jam', 'ordering' => 1, 'result' => 'Tidak Gawat Darurat'],
+                ['label' => 'Emergency', 'name' => '≤ 30 menit', 'ordering' => 2, 'result' => 'Darurat'],
+                ['label' => 'Critical Emergency', 'name' => '≤ 5 menit', 'ordering' => 3, 'result' => 'Gawat Darurat'],
+                ['label' => 'Deceased', 'name' => '∞/≤ 5 menit', 'ordering' => 4, 'result' => 'Meninggal'],
+            ],
+            'ServiceLabel' => [
                 [
-                    'value' => 'AUDIOMETRY',
-                    "prop"    => [
-                        "result" => "Pemeriksaan Tindakan Audiometry"
-                    ]
+                    'label' => 'Audiometri',
+                    'name' => 'Audiometry'
                 ],
                 [
-                    'value' => 'VACCINE',
-                    "prop"    => [
-                        "result" => "Vaksinasi"
-                    ]
+                    'label' => 'Vaksinasi',
+                    'name' => 'Vaccine'
                 ],
                 [
-                    'value' => 'ECG',
-                    "prop"    => [
-                        "result" => "Pemeriksaan Tindakan ECG"
-                    ]
+                    'label' => 'ECG',
+                    'name' => 'ECG'
                 ],
                 [
-                    'value' => 'INJECTION',
-                    "prop"    => [
-                        "result" => "Pemeriksaan Tindakan Injection"
-                    ]
+                    'label' => 'Injeksi',
+                    'name' => 'Injection'
                 ],
                 [
-                    'value' => 'PCR',
-                    "prop"    => [
-                        "result" => "Pemeriksaan Tindakan PCR"
-                    ]
+                    'label' => 'PCR',
+                    'name' => 'PCR'
                 ],
                 [
-                    'value' => 'SWAB_TEST',
-                    "prop"    => [
-                        "result" => "Pemeriksaan Tindakan Swab Test"
-                    ]
+                    'label' => 'Swab Test',
+                    'name' => 'Tes Swab',
                 ],
                 [
-                    'value' => 'PREGNANCY_TEST',
-                    "prop"    => [
-                        "result" => "Pemeriksaan Tindakan Pregnancy Test"
-                    ]
+                    'label' => 'Pregnancy Test',
+                    'name' => 'Tes Kehamilan'
                 ],
                 [
-                    'value' => 'HIV',
-                    "prop"    => [
-                        "result" => "Pemeriksaan Tindakan HIV"
-                    ]
+                    'label' => 'HIV Test',
+                    'name' => 'Tes HIV'
                 ],
                 [
-                    'value' => 'GLUKOSA_TEST',
-                    "prop"    => [
-                        "result" => "Pemeriksaan Tindakan Glukosa Test"
-                    ]
+                    'label' => 'Glucose Test',
+                    'name' => 'Tes Glukosa'
                 ],
                 [
-                    'value' => 'MANTOUX_TEST',
-                    "prop"    => [
-                        "result" => "Pemeriksaan Tindakan Mantoux"
-                    ]
+                    'label' => 'Mantoux Test',
+                    'name' => 'Tes Mantoux'
                 ]
             ]
         ];
-        $this->createStuff($stuffs);
-    }
-
-    private function model(string $model): string
-    {
-        return app(config('database.models.' . $model))->getMorphClass();
-    }
-
-    private function createStuff($stuffs, $parent_id = null)
-    {
-        foreach ($stuffs as $key => $stuff) {
-            foreach ($stuff as $type => $value) {
-                if (!is_numeric($type)) {
-                    $flag = Str::upper($key . '_' . $type);
-                } else {
-                    $flag = Str::upper($key);
-                    $value = [$value];
-                }
-                foreach ($value as $val) {
-                    $stuff_model = $this->__examination_stuff->updateOrCreate([
-                        'parent_id' => $parent_id,
-                        'flag' => $flag,
-                        'name' => $val['value']
-                    ]);
-
-                    if (isset($val['prop']) && count($val['prop']) > 0) {
-                        foreach ($val['prop'] as $prop_key => $prop) $stuff_model->{$prop_key} = $prop;
-                        $stuff_model->save();
-                    }
-                    if (isset($val['childs']) && count($val['childs']) > 0) {
-                        $this->createStuff($val['childs'], $stuff_model->getKey());
-                    }
-                }
+    
+    public function run(){
+        foreach ($this->__stuffs as $key => $stuff) {
+            foreach ($stuff as $value) {
+                $value['flag'] = $key;
+                $this->schema($key)->{'prepareStore'.$key}($this->requestDTO(config('app.contracts.'.$key.'Data'), $value));
             }
         }
+    }
+
+    private function schema(string $contract){
+        $contract = Str::studly($contract);
+        return app(config('app.contracts.'.$contract));
     }
 }

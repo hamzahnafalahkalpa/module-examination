@@ -1,13 +1,14 @@
 <?php
 
-use Hanafalah\ModuleExamination\Models\ExaminationStuff;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+use Hanafalah\ModuleExamination\Models\ExaminationStuff;
 
 return new class extends Migration
 {
-    use Hanafalah\LaravelSupport\Concerns\NowYouSeeMe;
+    use NowYouSeeMe;
 
     private $__table;
 
@@ -21,17 +22,24 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
         $table_name = $this->__table->getTable();
         if (!$this->isTableExists()) {
             Schema::create($table_name, function (Blueprint $table) {
-                $table->id();
-                $table->string("flag", 100);
-                $table->string("name");
+                $table->ulid('id')->primary();
+                $table->string('flag',100)->nullable(false);
+                $table->string('label',100)->nullable(true);
+                $table->string('name', 100)->nullable(false);
+                $table->string('status', 100)->nullable(true);
+                $table->unsignedInteger('ordering')->nullable();
                 $table->json('props')->nullable();
+                $table->timestamps();
+                $table->softDeletes();
 
-                $table->index(["flag"], "ist_flag");
+                $table->index(["flag"], "ex_st_flag");
+                $table->index(['flag','label'], "ex_st_lbl_flag");
+
             });
 
             Schema::table($table_name, function (Blueprint $table) {
@@ -44,8 +52,10 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists($this->__table->getTable());
     }

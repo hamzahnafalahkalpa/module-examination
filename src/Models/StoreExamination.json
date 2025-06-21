@@ -133,7 +133,7 @@
                 }
             ]
         },
-        "Tirage": {
+        "Triage": {
             "data": {
                 "triage_id": 1 //required, exists: examination_stuffs, GET EXAMINATION STUFF - Triage
             }
