@@ -2,6 +2,8 @@
 
 namespace Hanafalah\ModuleExamination\Resources\AllergyStuff;
 
+use Hanafalah\LaravelSupport\Resources\Unicode\ShowUnicode;
+
 class ShowAllergyStuff extends ViewAllergyStuff
 {
   /**
@@ -13,7 +15,8 @@ class ShowAllergyStuff extends ViewAllergyStuff
   public function toArray(\Illuminate\Http\Request $request): array
   {
     $arr = [];
-    $arr = $this->mergeArray(parent::toArray($request),$arr);
+    $show = $this->resolveNow(new ShowUnicode($this));
+    $arr = $this->mergeArray(parent::toArray($request),$show,$arr);
     return $arr;
   }
 }

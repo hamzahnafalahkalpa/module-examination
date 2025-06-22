@@ -2,9 +2,9 @@
 
 namespace Hanafalah\ModuleExamination\Resources\GcsStuff;
 
-use Hanafalah\LaravelSupport\Resources\ApiResource;
+use Hanafalah\ModuleExamination\Resources\ExaminationStuff\ViewExaminationStuff;
 
-class ViewGcsStuff extends ApiResource
+class ViewGcsStuff extends ViewExaminationStuff
 {
   /**
    * Transform the resource into an array.
@@ -14,7 +14,10 @@ class ViewGcsStuff extends ApiResource
    */
   public function toArray(\Illuminate\Http\Request $request): array
   {
-    $arr = parent::toArray($request);
+    $arr = [
+      'score' => $this->score
+    ];
+    $arr = $this->mergeArray(parent::toArray($request),$arr);
     return $arr;
   }
 }

@@ -2,6 +2,8 @@
 
 namespace Hanafalah\ModuleExamination\Resources\GcsStuff;
 
+use Hanafalah\ModuleExamination\Resources\ExaminationStuff\ShowExaminationStuff;
+
 class ShowGcsStuff extends ViewGcsStuff
 {
   /**
@@ -13,7 +15,8 @@ class ShowGcsStuff extends ViewGcsStuff
   public function toArray(\Illuminate\Http\Request $request): array
   {
     $arr = [];
-    $arr = $this->mergeArray(parent::toArray($request),$arr);
+    $show = $this->resolveNow(new ShowExaminationStuff($this));
+    $arr = $this->mergeArray(parent::toArray($request),$show,$arr);
     return $arr;
   }
 }

@@ -2,9 +2,9 @@
 
 namespace Hanafalah\ModuleExamination\Resources\VitalSignStuff;
 
-use Hanafalah\LaravelSupport\Resources\ApiResource;
+use Hanafalah\ModuleExamination\Resources\ExaminationStuff\ViewExaminationStuff;
 
-class ViewVitalSignStuff extends ApiResource
+class ViewVitalSignStuff extends ViewExaminationStuff
 {
   /**
    * Transform the resource into an array.
@@ -14,7 +14,8 @@ class ViewVitalSignStuff extends ApiResource
    */
   public function toArray(\Illuminate\Http\Request $request): array
   {
-    $arr = parent::toArray($request);
+    $arr = [];
+    $arr = $this->mergeArray(parent::toArray($request),$arr);
     return $arr;
   }
 }

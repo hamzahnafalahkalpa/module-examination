@@ -3,9 +3,9 @@
 namespace Hanafalah\ModuleExamination\Resources\ExaminationStuff;
 
 use Illuminate\Http\Request;
-use Hanafalah\LaravelSupport\Resources\ApiResource;
+use Hanafalah\LaravelSupport\Resources\Unicode\ViewUnicode;
 
-class ViewExaminationStuff extends ApiResource
+class ViewExaminationStuff extends ViewUnicode
 {
   /**
    * Transform the resource into an array.
@@ -16,17 +16,8 @@ class ViewExaminationStuff extends ApiResource
   public function toArray(Request $request): array
   {
     $arr = [
-      'id'     => $this->id,
-      'name'   => $this->name,
-      'props'  => $this->getOriginal()['props'],
-      'childs' => $this->relationValidation('childs', function () {
-        $childs = $this->childs;
-        return $childs->transform(function ($child) {
-          return $child->toViewApi();
-        });
-      })
     ];
-
+    $arr = $this->mergeArray(parent::toArray($request),$arr);
     return $arr;
   }
 }
