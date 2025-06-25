@@ -4,8 +4,6 @@ namespace Hanafalah\ModuleExamination\Contracts\Schemas;
 
 use Hanafalah\ModuleExamination\Contracts\Data\MasterSurveyData;
 //use Hanafalah\ModuleExamination\Contracts\Data\MasterSurveyUpdateData;
-use Hanafalah\LaravelSupport\Contracts\Supports\DataManagement;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
