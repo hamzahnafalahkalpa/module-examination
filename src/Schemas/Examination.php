@@ -3,23 +3,20 @@
 namespace Hanafalah\ModuleExamination\Schemas;
 
 use Hanafalah\ModuleExamination\Contracts\Schemas\Examination as ContractsExamination;
-use Hanafalah\ModuleExamination\Resources\Examination\Assessment\ViewAssessment;
+use Hanafalah\ModulePatient\Enums\EvaluationEmployee\Commit;
 use Hanafalah\ModuleMedicService\Enums\Label;
 use Illuminate\Database\Eloquent\Collection;
+use Hanafalah\ModulePatient\ModulePatient;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Hanafalah\ModulePatient\Enums\EvaluationEmployee\Commit;
-use Hanafalah\ModulePatient\ModulePatient;
-use stdClass;
 use Hanafalah\ModulePatient\Enums\{
     VisitRegistration\Activity as VisitRegistrationActivity,
     VisitRegistration\ActivityStatus as VisitRegistrationActivityStatus
 };
+use stdClass;
 
 class Examination extends ModulePatient implements ContractsExamination
 {
-    protected array $__guard   = ['id', 'visit_examination_id', 'examination_summary_id', 'patient_summary_id'];
-    protected array $__add     = [];
     protected string $__entity = 'Examination';
 
     protected static $__visit_examination;
@@ -32,12 +29,7 @@ class Examination extends ModulePatient implements ContractsExamination
     protected $__screening_forms;
     protected $__open_forms;
 
-    protected array $__resources = [
-        'view' => ViewAssessment::class
-    ];
-
-    protected function initVisitExamination(mixed $visit_examination_id): self
-    {
+    protected function initVisitExamination(mixed $visit_examination_id): self{
         if (!isset($visit_examination_id)) throw new \Exception('visit_examination_id is required');
         static::$__visit_examination = $this->VisitExaminationModel()->find($visit_examination_id);
 
@@ -46,15 +38,13 @@ class Examination extends ModulePatient implements ContractsExamination
         return $this;
     }
 
-    protected function initExaminationSummary(Model $reference): self
-    {
+    protected function initExaminationSummary(Model $reference): self{
         $reference = $reference->examinationSummary()->firstOrCreate();
         static::$__examination_summary = $reference;
         return $this;
     }
 
-    protected function initializeExamination(array $attributes): self
-    {
+    protected function initializeExamination(array $attributes): self{
         if (!isset($attributes['visit_examination_id'])) throw new \Exception('visit_examination_id is required');
         $this->initVisitExamination($attributes['visit_examination_id'])
             ->initExaminationSummary(static::$__visit_examination)
@@ -65,8 +55,7 @@ class Examination extends ModulePatient implements ContractsExamination
         return $this;
     }
 
-    public function prepareBulkStoreExamination(?array $attributes = null): array
-    {
+    public function prepareBulkStoreExamination(?array $attributes = null): array{
         $attributes ??= request()->all();
         $this->initializeExamination($attributes);
         $attributes['screenings'] ??= [];
@@ -112,18 +101,10 @@ class Examination extends ModulePatient implements ContractsExamination
         if (isset($attributes['treatments']) && count($attributes['treatments']) > 0) {
             $medic_service = static::$__visit_registration->medicService;
             switch ($medic_service->flag) {
-                case Label::LABORATORY->value:
-                    $schema = 'lab_treatment';
-                    break;
-                case Label::RADIOLOGY->value:
-                    $schema = 'radiology_treatment';
-                    break;
-                case Label::OUTPATIENT->value:
-                    $schema = 'clinical_treatment';
-                    break;
-                case Label::MCU->value:
-                    $schema = 'clinical_treatment';
-                    break;
+                case Label::LABORATORY->value     : $schema = 'lab_treatment';break;
+                case Label::RADIOLOGY->value      : $schema = 'radiology_treatment';break;
+                case Label::OUTPATIENT->value     : $schema = 'clinical_treatment';break;
+                case Label::MCU->value            : $schema = 'clinical_treatment';break;
             }
             $examination_treatment_schema = $this->schemaContract($schema);
             foreach ($attributes['treatments'] as $treatment) {
@@ -257,8 +238,7 @@ class Examination extends ModulePatient implements ContractsExamination
         }
     }
 
-    public function commitExamination(): array
-    {
+    public function commitExamination(): array{
         $attributes ??= request()->all();
         $this->initializeExamination($attributes);
         $this->toPoliExamStart();
@@ -266,8 +246,7 @@ class Examination extends ModulePatient implements ContractsExamination
     }
 
 
-    public function addScreenings(array $screenings): array
-    {
+    public function addScreenings(array $screenings): array{
         $new_screenings = [];
         $screenings = array_values(array_unique($screenings));
         if (isset($screenings) && count($screenings) > 0) {
@@ -288,8 +267,7 @@ class Examination extends ModulePatient implements ContractsExamination
         return $new_screenings;
     }
 
-    private function setToOpenForm($key)
-    {
+    private function setToOpenForm($key){
         $is_form = true;
         if (isset($this->__screening_forms) && count($this->__screening_forms) > 0) {
             if (in_array($key, $this->__screening_forms)) $is_form = false;
@@ -305,8 +283,7 @@ class Examination extends ModulePatient implements ContractsExamination
         }
     }
 
-    private function dataPreparation($class, $data)
-    {
+    private function dataPreparation($class, $data){
         if (isset($data['is_delete']) && $data['is_delete']) {
             return $class->prepareRemoveAssessment($data);
         } else {
@@ -318,8 +295,7 @@ class Examination extends ModulePatient implements ContractsExamination
         }
     }
 
-    public function storeBulkStoreExamination(): array
-    {
+    public function storeBulkStoreExamination(): array{
         return $this->transaction(function () {
             $results = $this->prepareBulkStoreExamination();
             if (isset($results['examination'])) {

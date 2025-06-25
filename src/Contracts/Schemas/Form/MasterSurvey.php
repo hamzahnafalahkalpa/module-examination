@@ -1,8 +1,9 @@
 <?php
 
-namespace Hanafalah\ModuleExamination\Contracts\Schemas;
+namespace Hanafalah\ModuleExamination\Contracts\Schemas\Form;
 
 use Hanafalah\ModuleExamination\Contracts\Data\MasterSurveyData;
+use Hanafalah\ModuleExamination\Contracts\Schemas\ExaminationStuff;
 //use Hanafalah\ModuleExamination\Contracts\Data\MasterSurveyUpdateData;
 use Illuminate\Database\Eloquent\Model;
 

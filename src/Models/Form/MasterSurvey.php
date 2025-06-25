@@ -3,10 +3,7 @@
 namespace Hanafalah\ModuleExamination\Models\Form;
 
 use Hanafalah\ModuleExamination\Models\ExaminationStuff;
-use Hanafalah\ModuleExamination\Resources\MasterSurvey\{
-    ViewMasterSurvey,
-    ShowMasterSurvey
-};
+use Hanafalah\ModuleExamination\Resources\MasterSurvey\{ViewMasterSurvey, ShowMasterSurvey};
 
 class MasterSurvey extends ExaminationStuff
 {
