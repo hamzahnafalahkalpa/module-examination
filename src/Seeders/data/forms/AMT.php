@@ -2,7 +2,7 @@
 
 
 
-use Gii\PuskesmasModuleExamination\Models\Form\MasterSurvey;
+use Hanafalah\ModuleExamination\Models\Form\MasterSurvey;
 
 return [
     'flag'  => 'AMT',

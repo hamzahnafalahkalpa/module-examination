@@ -1,9 +1,8 @@
 <?php
 
-namespace Gii\PuskesmasModuleExamination\Seeders;
+namespace Hanafalah\ModuleExamination\Seeders;
 
-use Gii\PuskesmasModuleExamination\Models\Form\Form;
-use Gii\PuskesmasModuleExamination\Models\Form\MasterSurvey;
+use Hanafalah\ModuleExamination\Models\Form\Form;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;

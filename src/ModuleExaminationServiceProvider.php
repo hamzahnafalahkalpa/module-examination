@@ -11,8 +11,7 @@ class ModuleExaminationServiceProvider extends BaseServiceProvider
      *
      * @return void
      */
-    public function register()
-    {
+    public function register(){
         $this->registerMainClass(ModuleExamination::class)
             ->registerCommandService(Providers\CommandServiceProvider::class)
             ->registers(['*']);
