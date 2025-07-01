@@ -22,7 +22,7 @@ class ViewPatientIllness extends ApiResource
       'patient_summary_id'     => $this->patient_summary_id,
       'disease_type'           => $this->disease_type,
       'reference'              => $this->relationValdation('reference', function () {
-        return $this->reference->toViewApi();
+        return $this->reference->toViewApi()->resolve();
       }),
       'created_at'   => $this->created_at,
       'updated_at'   => $this->updated_at

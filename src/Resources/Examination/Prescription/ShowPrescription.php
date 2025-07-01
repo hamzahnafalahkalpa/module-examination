@@ -14,10 +14,10 @@ class ShowPrescription extends ViewPrescription
     {
         $arr = [
             'visit_examination' => $this->relationValdation('visitExamination', function () {
-                return $this->visitExamination->toShowApi();
+                return $this->visitExamination->toShowApi()->resolve();
             }),
             'examination_summary' => $this->relationValdation('examinationSummary', function () {
-                return $this->examinationSummary->toShowApi();
+                return $this->examinationSummary->toShowApi()->resolve();
             })
         ];
         $arr = $this->mergeArray(parent::toArray($request), $arr);

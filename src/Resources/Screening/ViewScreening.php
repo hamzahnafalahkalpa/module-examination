@@ -22,7 +22,7 @@ class ViewScreening extends ViewForm
             }),
             'medic_services' => $this->relationValidation('hasServices', function () {
                 return $this->hasServices->transform(function ($service) {
-                    return $service->toViewApi();
+                    return $service->toViewApi()->resolve();
                 });
             })
         ];

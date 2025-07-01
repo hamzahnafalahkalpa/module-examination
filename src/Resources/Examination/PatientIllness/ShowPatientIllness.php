@@ -14,10 +14,10 @@ class ShowPatientIllness extends ViewPatientIllness
   {
     $arr = [
       'reference'      => $this->relationValdation('reference', function () {
-        return $this->reference->toShowApi();
+        return $this->reference->toShowApi()->resolve();
       }),
       'disease'        => $this->relationValdation('disease', function () {
-        return $this->disease->toShowApi();
+        return $this->disease->toShowApi()->resolve();
       }),
       'disease_name'              => $this->disease_name,
       'classification_disease_id' => $this->classification_disease_id
