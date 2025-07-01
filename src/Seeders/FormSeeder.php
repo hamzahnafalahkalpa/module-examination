@@ -167,6 +167,12 @@ class FormSeeder extends Seeder{
                     include(__DIR__ . '/data/forms/HearingFunction.php')
                 ]
             ],
+            $this->modelMorph('Malaria') => [
+                'name'    => 'PEMERIKSAAN MALARIA',
+                'surveys' => [
+                    include(__DIR__ . '/data/forms/Malaria.php')
+                ]
+            ],
             $this->modelMorph('WastExamination') => [
                 'name'    => 'PEMERIKSAAN KEKERASAN TERHADAP PEREMPUAN & ANAK',
                 'surveys' => [
