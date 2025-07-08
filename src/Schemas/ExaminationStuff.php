@@ -17,7 +17,7 @@ class ExaminationStuff extends Unicode implements ContractsExaminationStuff
         'index' => [
             'name'     => 'examination_stuff',
             'tags'     => ['examination_stuff', 'examination_stuff-index'],
-            'forever'  => true
+            'duration' => 24*7
         ]
     ];
 
