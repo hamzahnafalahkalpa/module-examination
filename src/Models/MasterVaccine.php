@@ -9,11 +9,15 @@ use Hanafalah\ModuleExamination\Resources\MasterVaccine\{
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Hanafalah\LaravelHasProps\Concerns\HasProps;
 use Hanafalah\LaravelSupport\Models\BaseModel;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 
 class MasterVaccine extends BaseModel
 {
-    use SoftDeletes, HasProps;
+    use SoftDeletes, HasProps, HasUlids;
 
+    public $incrementing  = false;
+    protected $keyType    = 'string';
+    protected $primaryKey = 'id';
     protected $list       = ['id', 'name', 'update_able'];
     protected $show       = [];
 
