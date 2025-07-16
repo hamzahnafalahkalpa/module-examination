@@ -34,8 +34,8 @@ return new class extends Migration
 
                 $table->ulid("id")->primary();
 
-                $table->string('visit_examination_type', 50);
-                $table->string('visit_examination_id', 36);
+                $table->string('examination_type', 50);
+                $table->string('examination_id', 36);
 
                 $table->foreignIdFor($examination_summary::class)
                     ->nullable()->index('es_as')->constrained()
@@ -50,7 +50,7 @@ return new class extends Migration
                 $table->timestamps();
                 $table->softDeletes();
 
-                $table->index(['visit_examination_type', 'visit_examination_id'], 've_morph_ass');
+                $table->index(['examination_type', 'examination_id'], 've_morph_ass');
             });
 
             Schema::table($table_name, function (Blueprint $table) use ($table_name) {

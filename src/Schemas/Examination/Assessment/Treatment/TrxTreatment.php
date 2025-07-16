@@ -28,7 +28,7 @@ class TrxTreatment extends Assessment implements ContractsTrxTreatment
         return $result;
     }
 
-    public function prepareStore(?array $attributes = null): Model
+    public function prepareStore(mixed $attributes = null): Model
     {
         $attributes ??= request()->all();
         $attributes['status'] ??= 'DRAFT';

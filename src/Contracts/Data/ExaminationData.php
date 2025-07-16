@@ -2,4 +2,4 @@
 
 namespace Hanafalah\ModuleExamination\Contracts\Data;
 
-interface ExaminationData {}
+interface ExaminationData  {}

@@ -10,7 +10,7 @@ class Vaccine extends Assessment implements AssessmentVaccine
     protected string $__entity   = 'Vaccine';
     public static $vaccine_model;
 
-    public function prepareStore(?array $attributes = null): Model
+    public function prepareStore(mixed $attributes = null): Model
     {
         $attributes ??= request()->all();
         $assessment = parent::prepareStore($attributes);

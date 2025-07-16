@@ -15,7 +15,7 @@ class MedicToolPrescription extends TrxPrescription implements ContractsMedicToo
         return $this->MedicToolPrescriptionModel()->withParameters('or')->orderBy('props->name', 'asc');
     }
 
-    public function prepareStore(?array $attributes = null): Model
+    public function prepareStore(mixed $attributes = null): Model
     {
         $attributes ??= request()->all();
 

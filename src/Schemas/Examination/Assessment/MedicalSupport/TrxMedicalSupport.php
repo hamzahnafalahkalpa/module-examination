@@ -11,7 +11,7 @@ class TrxMedicalSupport extends Assessment implements ContractsTrxMedicalSupport
 {
     protected string $__entity = 'TrxMedicalSupport';
 
-    public function prepareStore(?array $attributes = null): Model
+    public function prepareStore(mixed $attributes = null): Model
     {
         $attributes ??= request()->all();
         $this->prepareStoreAssessment($attributes);

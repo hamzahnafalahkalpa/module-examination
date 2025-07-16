@@ -10,7 +10,7 @@ class Alloanamnese extends Assessment implements ContractsAlloanamnese
     protected string $__entity   = 'Alloanamnese';
     public static $alloanamnese_model;
 
-    public function prepareStore(?array $attributes = null): Model
+    public function prepareStore(mixed $attributes = null): Model
     {
         $attributes ??= request()->all();
         $attributes['is_alloanamnese'] ??= false;

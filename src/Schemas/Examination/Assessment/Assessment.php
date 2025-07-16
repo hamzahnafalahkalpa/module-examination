@@ -2,6 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment;
 
+use Hanafalah\ModuleExamination\Contracts\Data\AssessmentData;
 use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\Assessment as ContractsAssessment;
 use Hanafalah\ModuleExamination\Resources\Examination\Assessment\{
     ViewAssessment,
@@ -28,13 +29,7 @@ class Assessment extends Examination implements ContractsAssessment
     protected string $__entity = 'Assessment';
     public static $assessment_model;
 
-    protected array $__resources = [
-        'view' => ViewAssessment::class,
-        'show' => ShowAssessment::class
-    ];
-
-    protected function storePdf(&$attributes, $target_path)
-    {
+    protected function storePdf(&$attributes, $target_path){
         $attributes['files'] = $this->mustArray($attributes['files']);
         $attributes['paths'] ??= [];
         foreach ($attributes['files'] as $file) {
@@ -57,22 +52,10 @@ class Assessment extends Examination implements ContractsAssessment
         return $attributes;
     }
 
-    public function prepareViewAssessmentList(?array $attributes = null): Collection
+    public function prepareStore(AssessmentData $assessment_dto): Model
     {
-        $attributes ??= request()->all();
-        if (!isset($attributes['visit_examination_id'])) throw new \Exception('visit_examination_id is required', 422);
-        return static::$assessment_model = $this->assessment()->when(isset(request()->visit_examination_id), function ($query) {
-            $query->where('visit_examination_id', request()->visit_examination_id);
-        })->get();
-    }
-
-    public function prepareStore(?array $attributes = null): Model
-    {
-        $attributes ??= request()->all();
-        $this->prepareStoreAssessment($attributes);
-        $this->setAssessmentProp($attributes);
-        static::$assessment_model->save();
-        return static::$assessment_model;
+        $assessment = $this->prepareStoreAssessment($assessment_dto);
+        return static::$assessment_model = $assessment;
     }
 
     private function setPractitioner(&$assessment, $practitioner)
@@ -115,69 +98,37 @@ class Assessment extends Examination implements ContractsAssessment
         }
     }
 
-    public function prepareStoreAssessment(?array $attributes = null): Model
-    {
-        $attributes ??= request()->all();
-
-        if (!isset($attributes['visit_examination_id'])) throw new \Exception('visit_examination_id is required', 422);
-
-        $visit_examination_schema = $this->schemaContract('visit_examination');
-        $visit_examination        = $visit_examination_schema->visitExamination()->find($attributes['visit_examination_id']);
-        $visit_registration       = $visit_examination->visitRegistration;
-        $visit_patient            = $visit_registration->visitPatient;
-        if (isset($visit_registration->medic_service_id) && $visit_registration->status == RegistrationStatus::DRAFT->value) {
-            $medic_service = $this->getMedicService($visit_registration->medic_service_id);
-            if ($medic_service->flag == Label::OUTPATIENT->value) {
-                // perlu di cek lagi
-                $visit_registration->pushActivity(VisitRegistrationActivity::POLI_EXAM->value, [VisitRegistrationActivityStatus::POLI_EXAM_START->value]);
-                $this->appVisitPatientSchema()->preparePushLifeCycleActivity($visit_patient, $visit_registration, 'POLI_EXAM', [
-                    'POLI_EXAM_START' => 'Pemeriksaan Dilakukan di Poli ' . $medic_service->name
-                ]);
-                $visit_registration->status = RegistrationStatus::PROCESSING->value;
-                $visit_registration->save();
-            }
-        }
-        $model = $this->{$this->__entity . 'Model'}();
-        if (isset($attributes['id'])) {
-            $assessment = $model->find($attributes['id']);
+    public function prepareStoreAssessment(AssessmentData $assessment_dto): Model{
+        // if (isset($visit_registration->medic_service_id) && $visit_registration->status == RegistrationStatus::DRAFT->value) {
+        //     $medic_service = $this->getMedicService($visit_registration->medic_service_id);
+        //     if ($medic_service->flag == Label::OUTPATIENT->value) {
+        //         // perlu di cek lagi
+        //         $visit_registration->pushActivity(VisitRegistrationActivity::POLI_EXAM->value, [VisitRegistrationActivityStatus::POLI_EXAM_START->value]);
+        //         $this->appVisitPatientSchema()->preparePushLifeCycleActivity($visit_patient, $visit_registration, 'POLI_EXAM', [
+        //             'POLI_EXAM_START' => 'Pemeriksaan Dilakukan di Poli ' . $medic_service->name
+        //         ]);
+        //         $visit_registration->status = RegistrationStatus::PROCESSING->value;
+        //         $visit_registration->save();
+        //     }
+        // }
+        $model = $this->usingEntity();
+        if (isset($attributes->id)) {
+            $assessment = $model->find($attributes->id);
         } else {
             $assessment = $model->create([
-                'visit_examination_id'   => $attributes['visit_examination_id'],
-                'examination_summary_id' => $attributes['examination_summary_id'],
-                'patient_summary_id'     => $attributes['patient_summary_id'],
-                'parent_id'              => $attributes['parent_id'] ?? null,
-                'morph'                  => $attributes['morph'] ?? $model->getMorphClass()
+                'visit_registration_id'   => $assessment_dto->visit_registration_id,
+                'examination_id'   => $assessment_dto->examination_id,
+                'examination_type'   => $assessment_dto->examination_type,
+                // 'examination_summary_id' => $assessment_dto->examination_summary_id,
+                // 'patient_summary_id'     => $assessment_dto->patient_summary_id,
+                'parent_id'              => $assessment_dto->parent_id ?? null,
+                'morph'                  => $assessment_dto->morph ?? $model->getMorphClass()
             ]);
         }
+        $this->fillingProps($assessment,$assessment_dto->props);
+        // $this->setAssessmentProp($attributes);
+        $assessment->save();
         return static::$assessment_model = $assessment;
-    }
-
-    public function storeAssessment(): array
-    {
-        return $this->transaction(function () {
-            return $this->showAssessment($this->prepareStoreAssessment());
-        });
-    }
-
-
-    public function prepareRemoveAssessment(?array $attributes = null): bool
-    {
-        $attributes ??= request()->all();
-
-        if (!isset($attributes['id'])) throw new \Exception('id is required', 422);
-        static::$assessment_model = $this->assessment()->find($attributes['id']);
-        if (!isset(static::$assessment_model)) return true;
-        return static::$assessment_model->delete();
-    }
-
-    public function getAssessment(): mixed
-    {
-        return static::$assessment_model;
-    }
-
-    public function showUsingRelation(): array
-    {
-        return [];
     }
 
     public function prepareShowAssessment(?Model $model = null, ?array $attributes = null): mixed
@@ -266,25 +217,5 @@ class Assessment extends Examination implements ContractsAssessment
         }
         ksort($keys);
         return $keys;
-    }
-
-    public function prepareViewAssessmentPaginate(int $perPage = 50, array $columns = ['*'], string $pageName = 'page', ?int $page = null, ?int $total = null): LengthAwarePaginator
-    {
-        $paginate_options = compact('perPage', 'columns', 'pageName', 'page', 'total');
-        return static::$assessment_model = $this->assessment()->paginate($perPage);
-    }
-
-    public function viewAssessmentPaginate(int $perPage = 50, array $columns = ['*'], string $pageName = 'page', ?int $page = null, ?int $total = null): array
-    {
-        $paginate_options = compact('perPage', 'columns', 'pageName', 'page', 'total');
-        return $this->transforming($this->__resources['view'], function () use ($paginate_options) {
-            return $this->prepareViewAssessmentPaginate(...$this->arrayValues($paginate_options));
-        });
-    }
-
-    public function assessment(mixed $conditionals = null): Builder
-    {
-        $this->booting();
-        return $this->AssessmentModel()->withParameters()->conditionals($conditionals)->orderBy('created_at', 'desc');
     }
 }

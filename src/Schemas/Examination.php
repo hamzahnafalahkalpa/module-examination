@@ -2,6 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas;
 
+use Hanafalah\ModuleExamination\Contracts\Data\AssessmentData;
 use Hanafalah\ModuleExamination\Contracts\Data\ExaminationData;
 use Hanafalah\ModuleExamination\Contracts\Schemas\Examination as ContractsExamination;
 use Hanafalah\ModulePatient\Enums\EvaluationEmployee\Commit;
@@ -44,21 +45,29 @@ class Examination extends ModulePatient implements ContractsExamination
 
     public function prepareStoreExamination(ExaminationData $examination_dto): array{
         // $screenings = $this->addScreenings($examination_dto->screening_ids);
-        $new_collection = [
-            'examination'        => $examination_dto->examination ?? null,
-            'assessment'         => $examination_dto->assessment ?? null,
-            'examination_summary'=> null,
+        // $new_collection = [
+        //     'examination'        => $examination_dto->examination ?? null,
+        //     'assessment'         => $examination_dto->assessment ?? null,
+        //     'examination_summary'=> null,
+        //     'treatments'         => [],
+        //     'medical_support'    => [],
+        //     'prescription'       => null,
+        //     'pharmacy_sale'      => [],
+        // ];
+
+        $examination_dto->response = [
+            'assessment'         => new stdClass(),
+            'examination_summary'=> new stdClass(),
             'treatments'         => [],
             'medical_support'    => [],
-            'prescription'       => null,
+            'prescription'       => new stdClass(),
             'pharmacy_sale'      => [],
         ];
-
         static::$__open_forms = [];
 
         // EXAMINATION STORE PROSES
         if (isset($examination_dto->assessment)) {
-            $this->prepareService($new_collection['assessment'], $examination_dto->assessment);
+            $this->prepareExamination($examination_dto,'assessment');
         }
 
         // if (isset($attributes['examination_summary']) && count($attributes) > 0) {
@@ -164,7 +173,7 @@ class Examination extends ModulePatient implements ContractsExamination
         // if (static::$__visit_patient->reference_type == $this->VisitPatientModel()::CLINICAL_VISIT) {
         //     $this->toPoliExamStart();
         // }
-        return $new_collection;
+        return $examination_dto->response;
     }
 
     protected function initVisitExamination(mixed $visit_examination_id): self{
@@ -216,13 +225,75 @@ class Examination extends ModulePatient implements ContractsExamination
         $new_collection = $this->schemaContract('pharmacy_sale_examination')->prepareStore($this->mergeArray($prepare_attributes, $attributes));
     }
 
+
+    private function prepareExamination(ExaminationData &$examination_dto, $exam_key){
+        $new = self::new();
+        $examination_dto->response[$exam_key] = (object) [];
+        $response = &$examination_dto->response[$exam_key];
+        $current_exam = $examination_dto->{$exam_key};
+        foreach ($current_exam as $key => &$exam) {
+            $key = Str::studly($key);
+            if (!isset($exam['data'])) continue;
+            if (array_is_list($exam['data'])){
+                $response->{$key} = (object) ['data' => []];
+                $current_response = &$response->{$key};
+                foreach ($exam['data'] as $data) {
+                    $data['visit_examination_model'] = $examination_dto->visit_examination_model;
+                    $data['morph'] = $key;
+                    $exam['data'] = $new->requestDTO(AssessmentData::class,$data);
+                    $result = $this->dataPreparation($this->schemaContract($key), $exam['data']);
+                    if (is_bool($result)) continue;
+                    $current_response->data[] = $result->toViewApi()->resolve();
+                }
+                $current_response->data = new Collection($current_response->data);
+            }else{
+                $response->{$key} = (object) ['data' => new stdClass];
+                $exam['data']['morph'] = $key;
+                $exam['data']['visit_examination_model'] = $examination_dto->visit_examination_model;
+                $exam['data'] = $new->requestDTO(AssessmentData::class,$exam['data']);
+                $result = $this->dataPreparation($this->schemaContract($key), $exam['data']);
+                if (is_bool($result)) continue;
+                $response->{$key}->data = $result->toViewApi()->resolve();
+            }
+        }
+    }
+
+    private function prepareAssessment(ExaminationData &$examination_dto, $exam_key){
+        $response = &$examination_dto->response[$exam_key];
+        $current_exam = $examination_dto->{$exam_key};
+        foreach ($current_exam as $key => &$exam) {
+            if (!isset($exam->data)) continue;
+            $current_response = &$response->{$key};
+            if (is_array($exam->data)){
+                $current_response = (object) ['data' => []];
+                foreach ($exam->data as &$data) {
+                    $result = $this->dataPreparation($this->schemaContract($key), $data, $examination_dto);
+                    if (is_bool($result)) continue;
+                    $current_response->data[] = $result;
+                }
+                $current_response->data = new Collection($current_response->data);
+            }else{
+                $current_response = (object) ['data' => new stdClass];
+                $result = $this->dataPreparation($this->schemaContract($key), $exam->data, $examination_dto);
+                if (is_bool($result)) continue;
+                $current_response->{$key}->data = $result;
+            }
+        }
+    }
+
     private function prepareService(object &$new_collection, object $exams){
         foreach ($exams as $key => $exam) {
             if (!isset($exam->data)) continue;
+            $key = Str::studly($key);
             if (config('app.contracts.'.$key) !== null) {
                 $class = $this->schemaContract($key);
                 $this->setToOpenForm($key);
-                if (array_is_list($exam->data)) {
+                if (is_object($exam->data)) {
+                    $new_collection->{$key} = (object) ['data' => new stdClass];
+                    $result = $this->dataPreparation($class, $exam->data);
+                    if (is_bool($result)) continue;
+                    $new_collection->{$key}->data = $result;
+                } else {
                     $new_collection->{$key} = (object) ['data' => []];
                     foreach ($exam->data as $data) {
                         $result = $this->dataPreparation($class, $data);
@@ -230,11 +301,6 @@ class Examination extends ModulePatient implements ContractsExamination
                         $new_collection->{$key}->data[] = $result;
                     }
                     $new_collection->{$key}->data = new Collection($new_collection->{$key}->data);
-                } else {
-                    $new_collection->{$key} = (object) ['data' => new stdClass];
-                    $result = $this->dataPreparation($class, $exam->data);
-                    if (is_bool($result)) continue;
-                    $new_collection->{$key}->data = $result;
                 }
             }
         }
@@ -285,16 +351,11 @@ class Examination extends ModulePatient implements ContractsExamination
         }
     }
 
-    private function dataPreparation($class, $data){
-        dd($data);
-        if (isset($data['is_delete']) && $data['is_delete']) {
+    private function dataPreparation($class, $assessment_dto){
+        if (isset($data->is_delete) && $data->is_delete) {
             return $class->prepareRemoveAssessment($data);
         } else {
-            $data['visit_examination_id']   = static::$__visit_examination->getKey();
-            $data['examination_summary_id'] = static::$__examination_summary->getKey();
-            $data['patient_summary_id']     = (isset(static::$__patient_summary)) ? static::$__patient_summary->getKey() : null;
-            $data['patient_id']             = static::$__visit_patient->patient_id ?? null;
-            return $class->prepareStore($data);
+            return $class->prepareStore($assessment_dto);
         }
     }
 

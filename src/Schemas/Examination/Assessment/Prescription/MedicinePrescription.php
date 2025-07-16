@@ -15,7 +15,7 @@ class MedicinePrescription extends TrxPrescription implements ContractsMedicineP
         return $this->MedicinePrescriptionModel()->withParameters('or')->orderBy('props->name', 'asc');
     }
 
-    public function prepareStore(?array $attributes = null): Model
+    public function prepareStore(mixed $attributes = null): Model
     {
         $attributes ??= request()->all();
         $attributes = $this->medicationSetup($attributes);

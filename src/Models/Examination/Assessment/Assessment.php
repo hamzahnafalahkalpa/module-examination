@@ -8,13 +8,15 @@ use Hanafalah\ModuleExamination\Resources\Examination\Assessment\{
     ShowAssessment
 };
 use Hanafalah\LaravelHasProps\Concerns\HasProps;
-use Illuminate\Support\Str;
 
 class Assessment extends Examination
 {
     use HasProps;
     public $response_model  = 'object';
-    protected $list = ['id', 'parent_id', 'visit_registration_id', 'visit_examination_type','visit_examination_id', 'morph', 'props'];
+    protected $list = [
+        'id', 'parent_id', 'visit_registration_id', 'examination_summary_id',
+        'patient_summary_id', 'examination_type','examination_id', 'morph', 'props'
+    ];
 
     protected static function booted(): void{
         parent::booted();
@@ -66,4 +68,6 @@ class Assessment extends Examination
     public function getMorph(){
         return $this->morph;
     }
+
+    public function examination(){return $this->morphTo();}
 }
