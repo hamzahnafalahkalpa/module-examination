@@ -5,11 +5,9 @@ namespace Hanafalah\ModuleExamination\Data;
 use Hanafalah\LaravelSupport\Concerns\Support\HasRequestData;
 use Hanafalah\LaravelSupport\Supports\Data;
 use Hanafalah\ModuleExamination\Contracts\Data\ExaminationData as DataExaminationData;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\MapName;
-use stdClass;
 
 class ExaminationData extends Data implements DataExaminationData
 {
@@ -63,33 +61,7 @@ class ExaminationData extends Data implements DataExaminationData
             
         $data->screening_ids = array_column($visit_examination->screenings ?? [], 'id');
         $data->response ??= [];
-        // if (isset($data->assessment) && is_array($data->assessment)){
-        //     $new->prepareExamination($data, 'assessment');
-        // }
         return $data;
     }
-
-    // private function prepareExamination(self &$examination_dto, $exam_key){
-    //     $new = self::new();
-    //     $examination_dto->response[$exam_key] = (object) [];
-    //     $response = &$examination_dto->response[$exam_key];
-    //     $current_exam = $examination_dto->{$exam_key};
-    //     foreach ($current_exam as $key => &$exam) {
-    //         if (!isset($exam['data'])) continue;
-    //         if (array_is_list($exam['data'])){
-    //             $response->{$key} = (object) ['data' => []];
-    //             foreach ($exam['data'] as $data) {
-    //                 $data['visit_examination_model'] = $examination_dto->visit_examination_model;
-    //                 $data['morph'] = $key;
-    //                 $exam['data'] = $new->requestDTO(AssessmentData::class,$data);
-    //             }
-    //         }else{
-    //             $response->{$key} = (object) ['data' => new stdClass];
-    //             $exam['data']['morph'] = $key;
-    //             $exam['data']['visit_examination_model'] = $examination_dto->visit_examination_model;
-    //             $exam['data'] = $new->requestDTO(AssessmentData::class,$exam['data']);
-    //         }
-    //     }
-    // }
 }
     

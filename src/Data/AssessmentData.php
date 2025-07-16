@@ -2,7 +2,6 @@
 
 namespace Hanafalah\ModuleExamination\Data;
 
-use Hanafalah\LaravelSupport\Supports\Data;
 use Hanafalah\ModuleExamination\Contracts\Data\AssessmentData as DataAssessmentData;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\MapName;
