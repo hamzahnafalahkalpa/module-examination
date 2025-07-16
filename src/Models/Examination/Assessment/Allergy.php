@@ -10,13 +10,14 @@ class Allergy extends Assessment {
     ];
 
     public function getExamResults($model): array{
+        $exam = $model->exam;
         return [
-            'allergy_type_id'     => $model->allergy_type_id,
+            'allergy_type_id'     => $exam['allergy_type_id'],
             'allergy_type_spell'  => $this->getAllergyTypeSpell($model),
-            'name'                => $model->name,
-            'allergy_scale'       => $model->allergy_scale,
+            'name'                => $exam['name'],
+            'allergy_scale'       => $exam['allergy_scale'],
             'allergy_scale_spell' => $this->getScaleSpell($model),
-            'allergen'            => $model->allergen 
+            'allergen'            => $exam['allergen'] 
         ];
     }
 

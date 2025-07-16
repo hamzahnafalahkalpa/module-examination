@@ -61,7 +61,7 @@ class Assessment extends Examination
         $model   ??= $this;
         $new_model = $this->{$model->morph . 'Model'}();
         $specifics = $new_model->specific;
-        foreach ($specifics as $var) $result[$var] = $model->{$var};
+        foreach ($specifics as $var) $result[$var] = $model->exam[$var];
         return $result;
     }
 

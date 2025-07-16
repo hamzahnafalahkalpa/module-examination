@@ -9,6 +9,8 @@ class ExaminationStuff extends Unicode
 {
     protected $table = 'examination_stuffs';
 
+    
+
     public function getViewResource(){return ViewExaminationStuff::class;}
     public function getShowResource(){return ViewExaminationStuff::class;}
 }
