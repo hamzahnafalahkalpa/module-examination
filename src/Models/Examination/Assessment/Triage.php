@@ -7,7 +7,7 @@ class Triage extends Assessment {
     public $specific = ['triage_id'];
 
     public function getExamResults($model): array{
-        $triage = $this->ExaminationStuffModel()->find($model->triage_id);
+        $triage = $this->ExaminationStuffModel()->find($model->exam['triage_id']);
         if (!isset($triage)) throw new \Exception('Triage not found',404);
         return [
             'triage_id'   => $model->triage_id,

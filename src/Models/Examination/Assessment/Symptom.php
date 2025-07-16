@@ -9,7 +9,7 @@ class Symptom extends Assessment {
 
     public function getExamResults($model): array{
         return [
-            'name' => $model->name
+            'name' => $model->exam['name']
         ];
     }
 }

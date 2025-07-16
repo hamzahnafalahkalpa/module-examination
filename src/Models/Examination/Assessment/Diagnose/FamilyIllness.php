@@ -20,17 +20,18 @@ class FamilyIllness extends Diagnose
 
     public function getExamResults($model): array
     {
-        $family_role = $this->ExaminationStuffModel()->find($model->family_role_id);
+        $exam = $model->exam;
+        $family_role = $this->ExaminationStuffModel()->find($exam['family_role_id']);
         return [
-            'name'                      => $model->name,
-            'disease_type'              => $model->disease_type,
-            'disease_id'                => $model->disease_id,
-            'classification_disease_id' => $model->classification_disease_id ?? null,
-            'family_role_id'            => $model->family_role_id,
+            'name'                      => $exam['name'],
+            'disease_type'              => $exam['disease_type'],
+            'disease_id'                => $exam['disease_id'],
+            'classification_disease_id' => $exam['classification_disease_id'] ?? null,
+            'family_role_id'            => $exam['family_role_id'],
             'family_role_name'          => $family_role->name,
-            'family_patient_id'         => $model->patient_id ?? null,
-            'family_name'               => $model->family_name,
-            'child_position'            => $model->child_position ?? null
+            // 'family_patient_id'         => $model->patient_id ?? null,
+            'family_name'               => $exam['family_name'],
+            'child_position'            => $exam['child_position'] ?? null
         ];
     }
 }

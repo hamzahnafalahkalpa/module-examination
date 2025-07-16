@@ -13,21 +13,21 @@ class Allergy extends Assessment {
         $exam = $model->exam;
         return [
             'allergy_type_id'     => $exam['allergy_type_id'],
-            'allergy_type_spell'  => $this->getAllergyTypeSpell($model),
+            'allergy_type_spell'  => $this->getAllergyTypeSpell($exam),
             'name'                => $exam['name'],
             'allergy_scale'       => $exam['allergy_scale'],
-            'allergy_scale_spell' => $this->getScaleSpell($model),
+            'allergy_scale_spell' => $this->getScaleSpell($exam),
             'allergen'            => $exam['allergen'] 
         ];
     }
 
-    public function getAllergyTypeSpell($model): string{
-        $stuff = $this->ExaminationStuffModel()->find($model->allergy_type_id);
+    public function getAllergyTypeSpell($exam): string{
+        $stuff = $this->ExaminationStuffModel()->find($exam['allergy_type_id']);
         return $stuff->name;
     }
     
-    public function getScaleSpell($model): ?string{
-        switch ($model->allergy_scale){
+    public function getScaleSpell($exam): ?string{
+        switch ($exam['allergy_scale']){
             case 0 : return 'Tidak ada gejala';break;
             case 1 : return 'Ringan';break;
             case 2 : return 'Sedang';break;

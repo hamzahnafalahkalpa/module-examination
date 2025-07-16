@@ -13,15 +13,16 @@ class GCS extends Assessment {
     }
 
     public function getExamResults($model): array{
-        $eyes   = $this->ExaminationStuffModel()->find($model->eyes_id);
-        $verbal = $this->ExaminationStuffModel()->find($model->verbal_id);
-        $motor  = $this->ExaminationStuffModel()->find($model->motor_id);
+        $exam   = $model->exam;
+        $eyes   = $this->ExaminationStuffModel()->find($exam['eyes_id']);
+        $verbal = $this->ExaminationStuffModel()->find($exam['verbal_id']);
+        $motor  = $this->ExaminationStuffModel()->find($exam['motor_id']);
         $score  = intval($eyes->score) + intval($verbal->score) + intval($motor->score);
         $gcs_results = $this->gcsLogic($score);
         return [
-            'eyes_id'              => $model->eyes_id,
-            'verbal_id'            => $model->verbal_id,
-            'motor_id'             => $model->motor_id,
+            'eyes_id'              => $exam['eyes_id'],
+            'verbal_id'            => $exam['verbal_id'],
+            'motor_id'             => $exam['motor_id'],
             'score'                => $score,
             'gcs_result'           => $gcs_results['name'],
             'examination_stuff_id' => $gcs_results['examination_stuff_id'],

@@ -12,7 +12,7 @@ class VitalSign extends Assessment {
         'systolic', 'diastolic',
         'pulse_rate', 'heart_rate', 'respiration_rate', 
         'oxygen_saturation','sars_cov2_rt', 
-        'loc' 
+        'loc_id' 
     ];
     
     public function getTemperatureTypes(){

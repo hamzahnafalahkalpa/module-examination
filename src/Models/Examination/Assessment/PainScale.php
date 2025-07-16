@@ -9,9 +9,10 @@ class PainScale extends Assessment {
     ];
 
     public function getExamResults($model): array{
+        $exam = $model->exam;
         return [
-            'rating_scale' => $model->rating_scale,
-            'scale_result' => $this->getResult($model->rating_scale)
+            'rating_scale' => $exam['rating_scale'],
+            'scale_result' => $this->getResult($exam['rating_scale'])
         ];
     }
 
@@ -24,6 +25,7 @@ class PainScale extends Assessment {
             case 2: return $this->getFacesPainScaleResult($scale);break;
             case 3: return $this->getVisualAnalogScaleResult($scale);break;
         }
+        return '';
     }
 
 
@@ -41,6 +43,7 @@ class PainScale extends Assessment {
             case 9:
             case 10: return 'Nyeri Paling Berat'; break;
         }
+        return '';
     }
 
     public function getFacesPainScaleResult(int $scale): string{
@@ -57,6 +60,7 @@ class PainScale extends Assessment {
             case 9:
             case 10: return 'Nyeri Paling Berat (wajah sangat menangis)'; break;
         }
+        return '';
     }
 
     public function getNumericalRatingScale(int $scale): string{
@@ -73,6 +77,7 @@ class PainScale extends Assessment {
             case 9:
             case 10: return 'Nyeri Paling Berat (Worst Pain Possible)'; break;
         }
+        return '';
     }
 
     public function getWongBakerPainScaleResult(int $scale): string{
@@ -89,5 +94,6 @@ class PainScale extends Assessment {
             case 9:
             case 10: return 'Nyeri Paling Berat (Hurts Worst)';break;
         }
+        return '';
     }
 }

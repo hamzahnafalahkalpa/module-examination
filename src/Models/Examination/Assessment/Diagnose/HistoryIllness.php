@@ -19,13 +19,14 @@ class HistoryIllness extends Diagnose
 
     public function getExamResults($model): array
     {
+        $exam = $model->exam;
         return [
-            'name'                => $model->name,
-            'disease_type'        => $model->disease_type,
-            'disease_id'          => $model->disease_id,
-            'classification_disease_id'   => $model->classification_disease_id ?? null,
-            'since_type'          => $model->since_type ?? null,
-            'since'               => $model->since ?? []
+            'name'                => $exam['name'],
+            'disease_type'        => $exam['disease_type'],
+            'disease_id'          => $exam['disease_id'],
+            'classification_disease_id'   => $exam['classification_disease_id'] ?? null,
+            'since_type'          => $exam['since_type'] ?? null,
+            'since'               => $exam['since'] ?? []
         ];
     }
 }
