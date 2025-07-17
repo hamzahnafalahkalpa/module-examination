@@ -232,11 +232,11 @@ class Examination extends ModulePatient implements ContractsExamination
         $response = &$examination_dto->response[$exam_key];
         $current_exam = $examination_dto->{$exam_key};
         foreach ($current_exam as $key => &$exam) {
-            $key = Str::studly($key);
             if (!isset($exam['data'])) continue;
             if (array_is_list($exam['data'])){
                 $response->{$key} = (object) ['data' => []];
                 $current_response = &$response->{$key};
+                $key = Str::studly($key);
                 foreach ($exam['data'] as $data) {
                     $data['visit_examination_model'] = $examination_dto->visit_examination_model;
                     $data['morph'] = $key;
@@ -248,10 +248,11 @@ class Examination extends ModulePatient implements ContractsExamination
                 $current_response->data = new Collection($current_response->data);
             }else{
                 $response->{$key} = (object) ['data' => new stdClass];
-                $exam['data']['morph'] = $key;
+                $studly_key = Str::studly($key);
+                $exam['data']['morph'] = $studly_key;
                 $exam['data']['visit_examination_model'] = $examination_dto->visit_examination_model;
                 $exam['data'] = $new->requestDTO(AssessmentData::class,$exam['data']);
-                $result = $this->dataPreparation($this->schemaContract($key), $exam['data']);
+                $result = $this->dataPreparation($this->schemaContract($studly_key), $exam['data']);
                 if (is_bool($result)) continue;
                 $response->{$key}->data = $result->toViewApi()->resolve();
             }
@@ -277,31 +278,6 @@ class Examination extends ModulePatient implements ContractsExamination
                 $result = $this->dataPreparation($this->schemaContract($key), $exam->data, $examination_dto);
                 if (is_bool($result)) continue;
                 $current_response->{$key}->data = $result;
-            }
-        }
-    }
-
-    private function prepareService(object &$new_collection, object $exams){
-        foreach ($exams as $key => $exam) {
-            if (!isset($exam->data)) continue;
-            $key = Str::studly($key);
-            if (config('app.contracts.'.$key) !== null) {
-                $class = $this->schemaContract($key);
-                $this->setToOpenForm($key);
-                if (is_object($exam->data)) {
-                    $new_collection->{$key} = (object) ['data' => new stdClass];
-                    $result = $this->dataPreparation($class, $exam->data);
-                    if (is_bool($result)) continue;
-                    $new_collection->{$key}->data = $result;
-                } else {
-                    $new_collection->{$key} = (object) ['data' => []];
-                    foreach ($exam->data as $data) {
-                        $result = $this->dataPreparation($class, $data);
-                        if (is_bool($result)) continue;
-                        $new_collection->{$key}->data[] = $result;
-                    }
-                    $new_collection->{$key}->data = new Collection($new_collection->{$key}->data);
-                }
             }
         }
     }
