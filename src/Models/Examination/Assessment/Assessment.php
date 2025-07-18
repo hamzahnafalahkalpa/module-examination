@@ -4,8 +4,7 @@ namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
 
 use Hanafalah\ModuleExamination\Models\Examination;
 use Hanafalah\ModuleExamination\Resources\Examination\Assessment\{
-    ViewAssessment,
-    ShowAssessment
+    ViewAssessment, ShowAssessment
 };
 use Hanafalah\LaravelHasProps\Concerns\HasProps;
 
@@ -17,6 +16,19 @@ class Assessment extends Examination
         'id', 'parent_id', 'visit_registration_id', 'examination_summary_id',
         'patient_summary_id', 'examination_type','examination_id', 'morph', 'props'
     ];
+
+    protected $casts = [
+        'visit_registration_id'  => 'string',
+        'examination_summary_id' => 'string',
+        'visit_examination_id'   => 'string',
+        'morph'                  => 'string'
+    ]; 
+
+    public function getPropsQuery(): array{
+        return [
+            'visit_examination_id' => 'props->visit_examination_id',
+        ];
+    }
 
     protected static function booted(): void{
         parent::booted();

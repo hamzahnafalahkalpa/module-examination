@@ -128,57 +128,49 @@ class Assessment extends Examination implements ContractsAssessment
         return static::$assessment_model = $assessment;
     }
 
-    // public function prepareShowAssessment(?Model $model = null, ?array $attributes = null): mixed{
-    //     $attributes ??= request()->all();
-    //     $model ??= $this->getAssessment();
+    public function prepareShowAssessment(?Model $model = null, ?array $attributes = null): mixed{
+        $attributes ??= request()->all();
+        $model ??= $this->getAssessment();
 
-    //     if (!isset($model)) {
-    //         $id                   = $attributes['id'] ?? null;
-    //         $flag                 = $attributes['flag'];
-    //         $visit_examination_id = $attributes['visit_examination_id'] ?? null;
-    //         $patient_summary_id   = $attributes['patient_summary_id'] ?? null;
+        if (!isset($model)) {
+            $id                   = $attributes['id'] ?? null;
+            $flag                 = $attributes['flag'];
+            $visit_examination_id = $attributes['visit_examination_id'] ?? null;
+            $patient_summary_id   = $attributes['patient_summary_id'] ?? null;
 
-    //         $validation = $visit_examination_id ?? $patient_summary_id;
+            $validation = $visit_examination_id ?? $patient_summary_id;
 
-    //         if (!isset($validation) && !isset($id)) throw new \Exception('No visit_examination_id/id provided', 422);
-    //         if (isset($validation) && !isset($id) && !isset($flag)) throw new \Exception('Flag is required if id is not provided', 422);
+            if (!isset($validation) && !isset($id)) throw new \Exception('No visit_examination_id/id provided', 422);
+            if (isset($validation) && !isset($id) && !isset($flag)) throw new \Exception('Flag is required if id is not provided', 422);
 
-    //         $model = $this->assessment()->with($this->showUsingRelation());
+            $model = $this->usingEntity()->with($this->showUsingRelation());
+            if (isset($id)) {
+                $model = $model->find($id);
+            } else {
+                $flag = $attributes['flag'];
+                $flag = Str::studly($flag);
+                $model;
 
-    //         if (isset($id)) {
-    //             $model = $model->find($id);
-    //         } else {
-    //             $flag = $attributes['flag'];
-    //             $flag = Str::studly($flag);
-    //             $model->when(isset($visit_examination_id), function ($query) use ($visit_examination_id) {
-    //                 $query->where('visit_examination_id', $visit_examination_id);
-    //             })->when(isset($patient_summary_id), function ($query) use ($patient_summary_id) {
-    //                 $query->where('patient_summary_id', $patient_summary_id);
-    //             })->when(isset($flag), function ($query) use ($flag) {
-    //                 $query->where('morph', $flag);
-    //             });
+                if (isset($patient_summary_id)) {
+                    $model = $model->paginate(20);
+                } else {
+                    $response = $this->{$flag . 'Model'}()->response_model;
+                    $model    = ($response == 'array') ? $model->get() : $model->first();
+                }
+            }
+        } else {
+            $model->load($this->showUsingRelation());
+        }
+        return static::$assessment_model = $model;
+    }
 
-    //             if (isset($patient_summary_id)) {
-    //                 $model = $model->paginate(20);
-    //             } else {
-    //                 $response = $this->{$flag . 'Model'}()->response_model;
-    //                 $model    = ($response == 'array') ? $model->get() : $model->first();
-    //             }
-    //         }
-    //     } else {
-    //         $model->load($this->showUsingRelation());
-    //     }
-    //     return static::$assessment_model = $model;
-    // }
-
-    // public function showAssessment(?Model $model = null): ?array
-    // {
-    //     $assessment = $this->prepareShowAssessment($model);
-    //     if (!isset($assessment)) return $assessment;
-    //     return $this->transforming($this->__resources['show'], function () use ($assessment) {
-    //         return $assessment;
-    //     });
-    // }
+    public function showAssessment(?Model $model = null): ?array{
+        $assessment = $this->prepareShowAssessment($model);
+        if (!isset($assessment)) return $assessment;
+        return $this->showEntityResource(function () use ($assessment) {
+            return $assessment;
+        });
+    }
 
     // public function prepareShowPatientEmrByFlag(?array $attributes = null): mixed
     // {

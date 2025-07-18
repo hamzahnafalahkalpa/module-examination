@@ -18,7 +18,6 @@ class ShowAssessment extends ViewAssessment
       })
     ];
     $arr = $this->mergeArray(parent::toArray($request), $arr);
-
     return $arr;
   }
 }
