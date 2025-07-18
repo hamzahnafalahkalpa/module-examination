@@ -1,8 +1,9 @@
 <?php
 
-namespace Hanafalah\ModuleExamination\Schemas;
+namespace Hanafalah\ModuleExamination\Schemas\Form;
 
 use Hanafalah\ModuleExamination\Contracts\Schemas\Form\MasterSurvey as ContractsMasterSurvey;
+use Hanafalah\ModuleExamination\Schemas\ExaminationStuff;
 
 class MasterSurvey extends ExaminationStuff implements ContractsMasterSurvey
 {
