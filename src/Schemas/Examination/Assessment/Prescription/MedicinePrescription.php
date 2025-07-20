@@ -26,6 +26,6 @@ class MedicinePrescription extends TrxPrescription implements ContractsMedicineP
         $attributes['card_stocks'][] = $attributes['card_stock'];
 
         $this->addPrescription($attributes);
-        return static::$assessment_model = $assessment;
+        return $this->assessment_model = $assessment;
     }
 }

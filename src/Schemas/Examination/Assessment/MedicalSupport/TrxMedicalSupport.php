@@ -21,6 +21,6 @@ class TrxMedicalSupport extends Assessment implements ContractsTrxMedicalSupport
         $this->setAssessmentProp($attributes);
         static::$assessment_model->save();
 
-        return static::$assessment_model;
+        return $this->assessment_model;
     }
 }

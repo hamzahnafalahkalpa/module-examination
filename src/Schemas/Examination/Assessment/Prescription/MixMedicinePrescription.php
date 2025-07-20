@@ -42,6 +42,6 @@ class MixMedicinePrescription extends TrxPrescription implements ContractsMixMed
 
         $assessment = parent::prepareStore($attributes);
         $this->addPrescription($attributes);
-        return static::$assessment_model = $assessment;
+        return $this->assessment_model = $assessment;
     }
 }

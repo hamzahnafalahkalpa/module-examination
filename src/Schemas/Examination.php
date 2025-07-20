@@ -5,16 +5,14 @@ namespace Hanafalah\ModuleExamination\Schemas;
 use Hanafalah\ModuleExamination\Contracts\Data\AssessmentData;
 use Hanafalah\ModuleExamination\Contracts\Data\ExaminationData;
 use Hanafalah\ModuleExamination\Contracts\Schemas\Examination as ContractsExamination;
-use Hanafalah\ModulePatient\Enums\EvaluationEmployee\Commit;
-use Hanafalah\ModuleMedicService\Enums\Label;
 use Illuminate\Database\Eloquent\Collection;
 use Hanafalah\ModulePatient\ModulePatient;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 use Hanafalah\ModulePatient\Enums\{
     VisitRegistration\Activity as VisitRegistrationActivity,
     VisitRegistration\ActivityStatus as VisitRegistrationActivityStatus
 };
+use Illuminate\Support\Str;
 use stdClass;
 
 class Examination extends ModulePatient implements ContractsExamination

@@ -8,7 +8,7 @@ use Hanafalah\ModuleExamination\Schemas\ExaminationStuff;
 class MasterSurvey extends ExaminationStuff implements ContractsMasterSurvey
 {
     protected string $__entity = 'MasterSurvey';
-    public static $master_survey_model;
+    public $master_survey_model;
     //protected mixed $__order_by_created_at = false; //asc, desc, false
 
     protected array $__cache = [

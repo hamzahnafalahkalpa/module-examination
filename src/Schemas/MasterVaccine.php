@@ -17,7 +17,7 @@ class MasterVaccine extends PackageManagement implements ContractsMasterVaccine
     protected array $__guard   = ['id', 'name', 'update_able'];
     protected array $__add     = [];
     protected string $__entity = 'MasterVaccine';
-    public static $master_vaccine;
+    public $master_vaccine;
 
     protected array $__resources = [
         'view' => ViewMasterVaccine::class,
@@ -31,7 +31,7 @@ class MasterVaccine extends PackageManagement implements ContractsMasterVaccine
 
     public function getMasterVaccine(): mixed
     {
-        return static::$master_vaccine;
+        return $this->master_vaccine;
     }
 
     public function prepareShowMasterVaccine(?Model $model = null, ?array $attributes = null): Model
@@ -47,7 +47,7 @@ class MasterVaccine extends PackageManagement implements ContractsMasterVaccine
             $model->load($this->showUsingRelation());
         }
 
-        return static::$master_vaccine = $model;
+        return $this->master_vaccine = $model;
     }
 
     public function showMasterVaccine(?Model $model = null): array
@@ -62,7 +62,7 @@ class MasterVaccine extends PackageManagement implements ContractsMasterVaccine
         $attributes ??= \request()->all();
 
         $master_vaccine = $this->masterVaccine()->orderBy('name', 'asc')->get();
-        return static::$master_vaccine = $master_vaccine;
+        return $this->master_vaccine = $master_vaccine;
     }
 
     public function viewMasterVaccineList(): array
@@ -83,7 +83,7 @@ class MasterVaccine extends PackageManagement implements ContractsMasterVaccine
             'update_able' => $attributes['update_able'] ?? true
         ]);
 
-        return static::$master_vaccine = $model;
+        return $this->master_vaccine = $model;
     }
 
     public function storeMasterVaccine(): array

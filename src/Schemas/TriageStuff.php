@@ -10,7 +10,7 @@ use Hanafalah\ModuleExamination\Contracts\Schemas\TriageStuff as ContractsTriage
 class TriageStuff extends ExaminationStuff implements ContractsTriageStuff
 {
     protected string $__entity = 'TriageStuff';
-    public static $triage_stuff_model;
+    public $triage_stuff_model;
 
     protected array $__cache = [
         'index' => [
@@ -22,7 +22,7 @@ class TriageStuff extends ExaminationStuff implements ContractsTriageStuff
 
     public function prepareStoreTriageStuff(TriageStuffData $triage_stuff_dto): Model{     
         $triage_stuff = $this->prepareStoreUnicode($triage_stuff_dto);       
-        return static::$triage_stuff_model = $triage_stuff;
+        return $this->triage_stuff_model = $triage_stuff;
     }
 
     public function triageStuff(mixed $conditionals = null): Builder{

@@ -20,7 +20,7 @@ use Hanafalah\ModulePharmacy\Enums\PharmacySaleVisitRegistration\{
 class Prescription extends Examination implements Contracts\Schemas\Examination\Prescription
 {
     protected string $__entity = 'Prescription';
-    public static $prescription_model;
+    public $prescription_model;
 
     protected array $__resources = [
         'view' => ViewPrescription::class,
@@ -219,7 +219,7 @@ class Prescription extends Examination implements Contracts\Schemas\Examination\
             }
         }
 
-        return static::$prescription_model = $prescription;
+        return $this->prescription_model = $prescription;
     }
 
     protected function updatePharmacyPaymentSummary(Model &$pharmacy_sale, Model $visit_patient_payment)
@@ -278,7 +278,7 @@ class Prescription extends Examination implements Contracts\Schemas\Examination\
     {
         $attributes ??= request()->all();
 
-        return static::$prescription_model = $this->cacheWhen(!$this->isSearch(), $this->__cache['index'], function () use ($attributes) {
+        return $this->prescription_model = $this->cacheWhen(!$this->isSearch(), $this->__cache['index'], function () use ($attributes) {
             return $this->prescription()
                 ->when(isset($attributes['visit_examination_id']), function ($query) use ($attributes) {
                     $query->where('visit_examination_id', $attributes['visit_examination_id']);

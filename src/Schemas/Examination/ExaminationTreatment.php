@@ -12,7 +12,7 @@ use Hanafalah\ModuleMedicService\Enums\Label;
 class ExaminationTreatment extends Examination implements ExaminationExaminationTreatment
 {
     protected string $__entity = 'ExaminationTreatment';
-    public static $examination_treatment_model;
+    public $examination_treatment_model;
 
     protected array $__cache = [
         'index' => [
@@ -107,7 +107,7 @@ class ExaminationTreatment extends Examination implements ExaminationExamination
 
         $examination_treatment->save();
 
-        return static::$examination_treatment_model = $examination_treatment;
+        return $this->examination_treatment_model = $examination_treatment;
     }
 
     public function examinationTreatment(mixed $conditionals = null): Builder{

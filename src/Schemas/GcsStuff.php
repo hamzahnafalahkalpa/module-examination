@@ -10,7 +10,7 @@ use Hanafalah\ModuleExamination\Contracts\Schemas\GcsStuff as ContractsGcsStuff;
 class GcsStuff extends ExaminationStuff implements ContractsGcsStuff
 {
     protected string $__entity = 'GcsStuff';
-    public static $gcs_stuff_model;
+    public $gcs_stuff_model;
 
     protected array $__cache = [
         'index' => [
@@ -22,7 +22,7 @@ class GcsStuff extends ExaminationStuff implements ContractsGcsStuff
 
     public function prepareStoreGcsStuff(GcsStuffData $gcs_stuff_dto): Model{     
         $gcs_stuff = $this->prepareStoreUnicode($gcs_stuff_dto);       
-        return static::$gcs_stuff_model = $gcs_stuff;
+        return $this->gcs_stuff_model = $gcs_stuff;
     }
 
     public function gcsStuff(mixed $conditionals = null): Builder{

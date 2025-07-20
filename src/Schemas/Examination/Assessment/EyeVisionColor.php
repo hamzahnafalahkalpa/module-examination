@@ -7,5 +7,5 @@ use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\EyeVisi
 class EyeVisionColor extends Assessment implements AssessmentEyeVisionColor
 {
     protected string $__entity   = 'EyeVisionColor';
-    public static $EyeVisionColorModel;
+    public $EyeVisionColorModel;
 }

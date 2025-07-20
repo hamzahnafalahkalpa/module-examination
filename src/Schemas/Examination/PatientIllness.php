@@ -16,7 +16,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class PatientIllness extends Examination implements Contracts\Schemas\Examination\PatientIllness
 {
     protected string $__entity   = 'PatientIllness';
-    public static $patient_illness_model;
+    public $patient_illness_model;
 
     protected array $__resources = [
         'view' => ViewPatientIllness::class,
@@ -59,13 +59,13 @@ class PatientIllness extends Examination implements Contracts\Schemas\Examinatio
 
         $patient_illness = $this->PatientIllnessModel()->updateOrCreate($guard, $add);
 
-        return static::$patient_illness_model = $patient_illness;
+        return $this->patient_illness_model = $patient_illness;
     }
 
     public function prepareViewPatientIllnessList(?array $attributes = null): Collection
     {
         $attributes ??= request()->all();
-        return static::$patient_illness_model = $this->patientIllness()->get();
+        return $this->patient_illness_model = $this->patientIllness()->get();
     }
 
     public function viewPatientIllnessList(): array
@@ -78,7 +78,7 @@ class PatientIllness extends Examination implements Contracts\Schemas\Examinatio
     public function prepareViewPatientIllnessPaginate(int $perPage = 50, array $columns = ['*'], string $pageName = 'page', ?int $page = null, ?int $total = null): LengthAwarePaginator
     {
         $paginate_options = compact('perPage', 'columns', 'pageName', 'page', 'total');
-        return static::$patient_illness_model = $this->patientIllness()->paginate($perPage);
+        return $this->patient_illness_model = $this->patientIllness()->paginate($perPage);
     }
 
     public function viewPatientIllnessPaginate(int $perPage = 50, array $columns = ['*'], string $pageName = 'page', ?int $page = null, ?int $total = null): array

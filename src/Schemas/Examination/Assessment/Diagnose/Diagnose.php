@@ -11,7 +11,7 @@ use Hanafalah\ModulePatient\Contracts\VisitExamination;
 
 class Diagnose extends Assessment implements ContractsDiagnose
 {
-    public static $disease_model;
+    public $disease_model;
 
 
     public function prepareStore(mixed $attributes = null): Model
@@ -42,7 +42,7 @@ class Diagnose extends Assessment implements ContractsDiagnose
 
         $this->setAssessmentProp($attributes);
         static::$assessment_model->save();
-        return static::$assessment_model;
+        return $this->assessment_model;
     }
 
     public function addPatientIllness(?array $attributes = null): Model

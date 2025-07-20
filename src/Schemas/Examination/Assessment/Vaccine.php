@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Vaccine extends Assessment implements AssessmentVaccine
 {
     protected string $__entity   = 'Vaccine';
-    public static $vaccine_model;
+    public $vaccine_model;
 
     public function prepareStore(mixed $attributes = null): Model
     {
@@ -23,6 +23,6 @@ class Vaccine extends Assessment implements AssessmentVaccine
         $assessment->valid_until = $attributes['valid_until'] ?? null;
         $assessment->name = $assessment->vaccine['name'];
         $assessment->save();
-        return static::$assessment_model = $assessment;
+        return $this->assessment_model = $assessment;
     }
 }

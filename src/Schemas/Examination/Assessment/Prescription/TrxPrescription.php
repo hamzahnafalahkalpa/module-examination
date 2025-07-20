@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TrxPrescription extends Assessment implements PrescriptionTrxPrescription
 {
-    public static $trx_treatment_model;
+    public $trx_treatment_model;
 
     public function prepareRemoveAssessment(?array $attributes = null): bool
     {

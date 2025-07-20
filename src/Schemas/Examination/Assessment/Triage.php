@@ -7,5 +7,5 @@ use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\Triage 
 class Triage extends Assessment implements AssessmentTriage
 {
     protected string $__entity   = 'Triage';
-    public static $triage_model;
+    public $triage_model;
 }

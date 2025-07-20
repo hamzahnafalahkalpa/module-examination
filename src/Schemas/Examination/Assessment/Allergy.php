@@ -7,5 +7,5 @@ use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\Allergy
 class Allergy extends Assessment implements AssessmentAllergy
 {
     protected string $__entity   = 'Allergy';
-    public static $allergy_model;
+    public $allergy_model;
 }

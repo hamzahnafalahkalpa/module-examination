@@ -7,5 +7,5 @@ use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\EyeExam
 class EyeExamination extends Assessment implements AssessmentEyeExamination
 {
     protected string $__entity   = 'EyeExamination';
-    public static $EyeExaminationModel;
+    public $EyeExaminationModel;
 }

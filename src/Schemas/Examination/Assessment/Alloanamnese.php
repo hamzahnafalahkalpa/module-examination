@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Alloanamnese extends Assessment implements ContractsAlloanamnese
 {
     protected string $__entity   = 'Alloanamnese';
-    public static $alloanamnese_model;
+    public $alloanamnese_model;
 
     public function prepareStore(mixed $attributes = null): Model
     {

@@ -24,6 +24,6 @@ class MedicToolPrescription extends TrxPrescription implements ContractsMedicToo
         $assessment = parent::prepareStore($attributes);
         $attributes['card_stocks'][] = $attributes['card_stock'];
         $this->addPrescription($attributes);
-        return static::$assessment_model = $assessment;
+        return $this->assessment_model = $assessment;
     }
 }

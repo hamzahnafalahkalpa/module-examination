@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TrxTreatment extends Assessment implements ContractsTrxTreatment
 {
-    public static $trx_treatment_model;
+    public $trx_treatment_model;
 
     public function prepareRemoveAssessment(?array $attributes = null): bool
     {
@@ -95,7 +95,7 @@ class TrxTreatment extends Assessment implements ContractsTrxTreatment
             }
         }
         $assessment->save();
-        return static::$assessment_model = $assessment;
+        return $this->assessment_model = $assessment;
     }
 
     public function addExaminationTreatment(?array $attributes = null): Model

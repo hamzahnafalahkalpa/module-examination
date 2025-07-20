@@ -10,7 +10,7 @@ use Hanafalah\ModuleExamination\Contracts\Schemas\AllergyStuff as ContractsAller
 class AllergyStuff extends ExaminationStuff implements ContractsAllergyStuff
 {
     protected string $__entity = 'AllergyStuff';
-    public static $allergy_stuff_model;
+    public $allergy_stuff_model;
 
     protected array $__cache = [
         'index' => [
@@ -22,7 +22,7 @@ class AllergyStuff extends ExaminationStuff implements ContractsAllergyStuff
 
     public function prepareStoreAllergyStuff(AllergyStuffData $allergy_stuff_dto): Model{     
         $allergy_stuff = $this->prepareStoreUnicode($allergy_stuff_dto);       
-        return static::$allergy_stuff_model = $allergy_stuff;
+        return $this->allergy_stuff_model = $allergy_stuff;
     }
 
     public function allergyStuff(mixed $conditionals = null): Builder{

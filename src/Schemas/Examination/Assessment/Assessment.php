@@ -4,30 +4,17 @@ namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment;
 
 use Hanafalah\ModuleExamination\Contracts\Data\AssessmentData;
 use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\Assessment as ContractsAssessment;
-use Hanafalah\ModuleExamination\Resources\Examination\Assessment\{
-    ViewAssessment,
-    ShowAssessment
-};
 use Illuminate\Support\Str;
 use Hanafalah\ModuleExamination\Schemas\Examination;
-use Hanafalah\ModuleMedicService\Enums\Label;
 use Illuminate\Database\Eloquent\{
-    Builder,
-    Collection,
     Model
 };
-use Hanafalah\ModulePatient\Enums\{
-    VisitRegistration\Activity as VisitRegistrationActivity,
-    VisitRegistration\ActivityStatus as VisitRegistrationActivityStatus
-};
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
-use Hanafalah\ModulePatient\Enums\VisitRegistration\RegistrationStatus;
 
 class Assessment extends Examination implements ContractsAssessment
 {
     protected string $__entity = 'Assessment';
-    public static $assessment_model;
+    public $assessment_model;
 
     protected function storePdf(&$attributes, $target_path){
         $attributes['files'] = $this->mustArray($attributes['files']);
@@ -54,7 +41,7 @@ class Assessment extends Examination implements ContractsAssessment
 
     public function prepareStore(AssessmentData $assessment_dto): Model{
         $assessment = $this->prepareStoreAssessment($assessment_dto);
-        return static::$assessment_model = $assessment;
+        return $this->assessment_model = $assessment;
     }
 
     private function setPractitioner(&$assessment, $practitioner){
@@ -125,7 +112,7 @@ class Assessment extends Examination implements ContractsAssessment
         $this->fillingProps($assessment,$assessment_dto->props);
         // $this->setAssessmentProp($attributes);
         $assessment->save();
-        return static::$assessment_model = $assessment;
+        return $this->assessment_model = $assessment;
     }
 
     public function prepareShowAssessment(?Model $model = null, ?array $attributes = null): mixed{
@@ -161,7 +148,7 @@ class Assessment extends Examination implements ContractsAssessment
         } else {
             $model->load($this->showUsingRelation());
         }
-        return static::$assessment_model = $model;
+        return $this->assessment_model = $model;
     }
 
     public function showAssessment(?Model $model = null): ?array{

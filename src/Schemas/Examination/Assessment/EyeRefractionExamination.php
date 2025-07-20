@@ -7,5 +7,5 @@ use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\EyeRefr
 class EyeRefractionExamination extends Assessment implements AssessmentEyeRefractionExamination
 {
     protected string $__entity   = 'EyeRefractionExamination';
-    public static $EyeRefractionExaminationModel;
+    public $EyeRefractionExaminationModel;
 }

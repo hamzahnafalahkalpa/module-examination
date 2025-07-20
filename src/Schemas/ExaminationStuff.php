@@ -11,7 +11,7 @@ use Hanafalah\ModuleExamination\Contracts\Schemas\ExaminationStuff as ContractsE
 class ExaminationStuff extends Unicode implements ContractsExaminationStuff
 {
     protected string $__entity = 'ExaminationStuff';
-    public static $examination_stuff_model;
+    public $examination_stuff_model;
 
     protected array $__cache = [
         'index' => [
@@ -23,7 +23,7 @@ class ExaminationStuff extends Unicode implements ContractsExaminationStuff
 
     public function prepareStoreExaminationStuff(ExaminationStuffData $examination_stuff_dto): Model{     
         $examination_stuff = $this->prepareStoreUnicode($examination_stuff_dto);       
-        return static::$examination_stuff_model = $examination_stuff;
+        return $this->examination_stuff_model = $examination_stuff;
     }
 
     public function examinationStuff(mixed $conditionals = null): Builder{

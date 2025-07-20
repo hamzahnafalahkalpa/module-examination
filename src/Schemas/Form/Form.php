@@ -8,6 +8,6 @@ use Hanafalah\ModuleExamination\Contracts\Schemas\Form\Form as FormForm;
 class Form extends PackageManagement implements FormForm
 {
     protected string $__entity = 'Form';
-    public static $form_model;
+    public $form_model;
     protected mixed $__order_by_created_at = false; //asc, desc, false
 }

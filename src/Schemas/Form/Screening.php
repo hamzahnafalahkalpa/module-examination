@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Screening extends Form implements ContractsScreening
 {
     protected string $__entity = 'Screening';
-    public static $screening_model;
+    public $screening_model;
 
     public function prepareStoreScreening(ScreeningData $screening_dto): Model{
         $screening = $this->usingEntity()->updateOrCreate([
@@ -58,6 +58,6 @@ class Screening extends Form implements ContractsScreening
 
         $this->fillingProps($screening,$screening_dto->props);
         $screening->save();
-        return static::$screening_model = $screening;
+        return $this->screening_model = $screening;
     }
 }
