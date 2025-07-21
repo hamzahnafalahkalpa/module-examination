@@ -19,8 +19,7 @@ class TrxMedicalSupport extends Assessment implements ContractsTrxMedicalSupport
             $attributes = $this->storePdf($attributes, Str::snake(class_basename($this)));
         }
         $this->setAssessmentProp($attributes);
-        static::$assessment_model->save();
-
+        $this->assessment_model->save();
         return $this->assessment_model;
     }
 }

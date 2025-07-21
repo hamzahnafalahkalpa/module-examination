@@ -32,7 +32,7 @@ class Diagnose extends Assessment implements ContractsDiagnose
             $disease = $disease_schema->prepareStoreDisease($attributes);
             $attributes['disease_id'] = $disease->getKey();
         }
-        static::$disease_model = $disease;
+        $this->disease_model = $disease;
 
         $classification_disease = $disease->classificationDisease;
         $attributes['disease_type']              = $disease->getMorphClass();
@@ -41,15 +41,15 @@ class Diagnose extends Assessment implements ContractsDiagnose
         $this->addPatientIllness($attributes);
 
         $this->setAssessmentProp($attributes);
-        static::$assessment_model->save();
+        $this->assessment_model->save();
         return $this->assessment_model;
     }
 
     public function addPatientIllness(?array $attributes = null): Model
     {
-        $attributes['reference_id']   = static::$assessment_model->getKey();
-        $attributes['reference_type'] = static::$assessment_model->morph;
-        $attributes['disease_name']   = static::$disease_model->name;
+        $attributes['reference_id']   = $this->assessment_model->getKey();
+        $attributes['reference_type'] = $this->assessment_model->morph;
+        $attributes['disease_name']   = $this->disease_model->name;
         unset($attributes['id']);
         $patient_illness_schema = $this->schemaContract('patient_illness');
         return $patient_illness_schema->prepareStorePatientIllness($attributes);

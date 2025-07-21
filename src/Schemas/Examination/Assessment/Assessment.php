@@ -28,7 +28,7 @@ class Assessment extends Examination implements ContractsAssessment
                 if (isset($attributes['id'])) $attributes['paths'][] = $file;
             }
         }
-        $paths = static::$assessment_model->paths ?? [];
+        $paths = $this->assessment_model->paths ?? [];
         if (count($paths) > 0) {
             $diff  = array_diff($paths, $attributes['files']);
             if (isset($diff) && count($diff) > 0) {
@@ -56,7 +56,7 @@ class Assessment extends Examination implements ContractsAssessment
 
     protected function setAssessmentProp(array $attributes): void{
         $specifics ??= $this->{$this->__entity . 'Model'}()->specific;
-        $assessment   = &static::$assessment_model;
+        $assessment   = &$this->assessment_model;
         foreach ($specifics as $key) $assessment->{$key} = $attributes[$key] ?? null;
         $assessment->save();
         //SAVE PRACTITIONER HISTORY
