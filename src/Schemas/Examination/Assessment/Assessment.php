@@ -110,7 +110,6 @@ class Assessment extends Examination implements ContractsAssessment
             ]);
         }
         $this->fillingProps($assessment,$assessment_dto->props);
-        // $this->setAssessmentProp($attributes);
         $assessment->save();
         return $this->assessment_model = $assessment;
     }

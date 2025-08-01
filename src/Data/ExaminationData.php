@@ -4,8 +4,10 @@ namespace Hanafalah\ModuleExamination\Data;
 
 use Hanafalah\LaravelSupport\Concerns\Support\HasRequestData;
 use Hanafalah\LaravelSupport\Supports\Data;
+use Hanafalah\ModuleExamination\Contracts\Data\AssessmentData;
 use Hanafalah\ModuleExamination\Contracts\Data\ExaminationData as DataExaminationData;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\MapName;
 
@@ -45,21 +47,26 @@ class ExaminationData extends Data implements DataExaminationData
     #[MapName('assessment')]
     public null|array|object $assessment = null;
 
+    #[MapInputName('treatments')]
+    #[MapName('treatments')]
+    public ?array $treatments = null;
+
     public static function after(self $data): self{
         $new = self::new();
 
         $data->screening_ids ??= [];
-
-        $data->visit_examination_model ??=  $new->VisitExaminationModel()->with([
-            'visitRegistration.visitPatient.patient'
-        ])->findOrFail($data->visit_examination_id);    
-        $data->visit_examination_id ??= $data->visit_examination_model->getKey();
-        $visit_examination = $data->visit_examination_model;
-        $data->visit_registration_model = $visit_registration = $visit_examination->visitRegistration;
-        $data->visit_patient_model = $visit_patient = $visit_registration->visitPatient;
-        $data->patient_model = $visit_patient->patient;
+        if (isset($data->visit_examination_id) || isset($data->visit_examination_model)){
+            $data->visit_examination_model ??=  $new->VisitExaminationModel()->with([
+                'visitRegistration.visitPatient.patient'
+            ])->findOrFail($data->visit_examination_id);    
+            $data->visit_examination_id ??= $data->visit_examination_model->getKey();
+            $visit_examination = $data->visit_examination_model;
+            $data->visit_registration_model = $visit_registration = $visit_examination->visitRegistration;
+            $data->visit_patient_model = $visit_patient = $visit_registration->visitPatient;
+            $data->patient_model = $visit_patient->patient;
+            $data->screening_ids = array_column($visit_examination->screenings ?? [], 'id');
+        }
             
-        $data->screening_ids = array_column($visit_examination->screenings ?? [], 'id');
         $data->response ??= [];
         return $data;
     }

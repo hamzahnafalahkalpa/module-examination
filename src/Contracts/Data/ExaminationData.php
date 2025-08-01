@@ -2,4 +2,6 @@
 
 namespace Hanafalah\ModuleExamination\Contracts\Data;
 
-interface ExaminationData  {}
+use Spatie\LaravelData\Contracts\BaseData;
+
+interface ExaminationData extends BaseData {}

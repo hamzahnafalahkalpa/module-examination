@@ -17,8 +17,7 @@ class TrxTreatment extends Assessment
         });
     }
 
-    public function examinationTreatment()
-    {
+    public function examinationTreatment(){
         return $this->morphOneModel('ExaminationTreatment', 'reference');
     }
 }
