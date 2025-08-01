@@ -5,7 +5,7 @@ namespace Hanafalah\ModuleExamination\Models\Form;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Hanafalah\LaravelHasProps\Concerns\HasProps;
 use Hanafalah\LaravelSupport\Models\BaseModel;
-use Hanafalah\MicroTenant\Concerns\Models\TenantConnection;
+use Hanafalah\ModuleExamination\Resources\ScreeningHasForm\{ViewScreeningHasForm,ShowScreeningHasForm};
 
 class ScreeningHasForm extends BaseModel
 {
@@ -21,12 +21,9 @@ class ScreeningHasForm extends BaseModel
         'props'
     ];
 
-    public function form()
-    {
-        return $this->belongsToModel('Form');
-    }
-    public function screening()
-    {
-        return $this->belongsToModel('Screening');
-    }
+    public function getViewResource(){return ViewScreeningHasForm::class;}
+    public function getShowResource(){return ShowScreeningHasForm::class;}
+
+    public function form(){return $this->belongsToModel('Form');}
+    public function screening(){return $this->belongsToModel('Screening');}
 }

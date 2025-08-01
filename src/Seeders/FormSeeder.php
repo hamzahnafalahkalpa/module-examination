@@ -2,12 +2,14 @@
 
 namespace Hanafalah\ModuleExamination\Seeders;
 
+use Hanafalah\LaravelSupport\Concerns\Support\HasRequestData;
 use Hanafalah\ModuleExamination\Models\Form\Form;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class FormSeeder extends Seeder{
+    use HasRequestData;
+
     private $__form;
 
     /**
@@ -252,47 +254,52 @@ class FormSeeder extends Seeder{
     }
 
     private function createForm($forms,$parent_id=null){
-        foreach ($forms as $morph => $form) {
-            $form_model = $this->__form->updateOrCreate([
-                'parent_id' => $parent_id,
-                'morph'     => $morph,
-                'name'      => $form['name']
-            ]);
+        foreach ($forms as $label => $form) {
+            $form['label'] = $label;
+            app(config('app.contracts.Form'))->prepareStoreForm(
+                $this->requestDTO(config('app.contracts.FormData'), $form),
+            );
 
-            if (isset($form['prop']) && count($form['prop']) > 0){
-                foreach ($form['prop'] as $prop_key => $prop) $form_model->{$prop_key} = $prop;
-                $form_model->save();
-            }
+            // $form_model = $this->__form->updateOrCreate([
+            //     'parent_id' => $parent_id,
+            //     'label'     => $label,
+            //     'name'      => $form['name']
+            // ]);
 
-            if (isset($form['childs']) && count($form['childs']) > 0){
-                $this->createForm($form['childs'],$form_model->getKey());
-            }
+            // if (isset($form['prop']) && count($form['prop']) > 0){
+            //     foreach ($form['prop'] as $prop_key => $prop) $form_model->{$prop_key} = $prop;
+            //     $form_model->save();
+            // }
 
-            if (isset($surveys)){
-                $surveys = $form['surveys'] ?? [];
-                if (!is_array($surveys)) $surveys = [$surveys];
+            // if (isset($form['childs']) && count($form['childs']) > 0){
+            //     $this->createForm($form['childs'],$form_model->getKey());
+            // }
 
-                $attaches = [];
-                foreach ($surveys as $survey) {
-                    $survey_model = $this->model('MasterSurvey')->updateOrCreate([
-                        'flag' => $survey['flag']
-                    ],[
-                        'name' => $survey['name']
-                    ]);
+            // if (isset($surveys)){
+            //     $surveys = $form['surveys'] ?? [];
+            //     if (!is_array($surveys)) $surveys = [$surveys];
 
-                    if (isset($survey['props'])){
-                        $dynamic_forms = [];
-                        foreach ($survey['props']['dynamic_forms'] as $key => $dynamic_form){
-                            $dynamic_form['ordering'] = $key + 1;
-                            $dynamic_forms[] = $dynamic_form;
-                        }
-                        $survey_model->setAttribute('dynamic_forms', $dynamic_forms);
-                        $survey_model->save();
-                    }
-                    $attaches[] = $survey_model;
-                }
-                $form_model->surveys()->sync($attaches);
-            }
+            //     $attaches = [];
+            //     foreach ($surveys as $survey) {
+            //         $survey_model = $this->model('MasterSurvey')->updateOrCreate([
+            //             'flag' => $survey['flag']
+            //         ],[
+            //             'name' => $survey['name']
+            //         ]);
+
+            //         if (isset($survey['props'])){
+            //             $dynamic_forms = [];
+            //             foreach ($survey['props']['dynamic_forms'] as $key => $dynamic_form){
+            //                 $dynamic_form['ordering'] = $key + 1;
+            //                 $dynamic_forms[] = $dynamic_form;
+            //             }
+            //             $survey_model->setAttribute('dynamic_forms', $dynamic_forms);
+            //             $survey_model->save();
+            //         }
+            //         $attaches[] = $survey_model;
+            //     }
+            //     $form_model->surveys()->sync($attaches);
+            // }
         }
     }
 }

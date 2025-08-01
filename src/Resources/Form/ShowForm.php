@@ -2,10 +2,9 @@
 
 namespace Hanafalah\ModuleExamination\Resources\Form;
 
-use Hanafalah\LaravelSupport\Resources\ApiResource;
-use Hanafalah\LaravelSupport\Resources\Unicode\ViewUnicode;
+use Hanafalah\LaravelSupport\Resources\Unicode\ShowUnicode;
 
-class ViewForm extends ViewUnicode
+class ShowForm extends ViewForm
 {
   /**
    * Transform the resource into an array.
@@ -17,7 +16,8 @@ class ViewForm extends ViewUnicode
   {
     $arr = [
     ];
-    $arr = $this->mergeArray(parent::toArray($request),$arr);
+    $show = $this->resolveNow(new ShowUnicode($this));
+    $arr = $this->mergeArray(parent::toArray($request),$show,$arr);
     return $arr;
   }
 }

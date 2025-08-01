@@ -15,21 +15,18 @@ class ViewScreening extends ViewForm
     public function toArray(\Illuminate\Http\Request $request): array
     {
         $arr = [
-            "forms" => $this->relationValidation("forms", function () {
-                return $this->forms->transform(function ($form) {
-                    return new static($form);
+            "screening_has_forms" => $this->relationValidation("screeningHasForms", function () {
+                return $this->screeningHasForms->transform(function ($form) {
+                    return $form->toViewApi()->resolve();
                 });
             }),
-            'medic_services' => $this->relationValidation('hasServices', function () {
+            'services' => $this->relationValidation('hasServices', function () {
                 return $this->hasServices->transform(function ($service) {
-                    return $service->toViewApi()->resolve();
+                    return $service->toViewApi();
                 });
             })
         ];
-
         $arr = $this->mergeArray(parent::toArray($request), $arr);
-
-
         return $arr;
     }
 }

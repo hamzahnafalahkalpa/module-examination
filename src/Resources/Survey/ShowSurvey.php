@@ -1,8 +1,10 @@
 <?php
 
-namespace Hanafalah\ModuleExamination\Resources\MasterSurvey;
+namespace Hanafalah\ModuleExamination\Resources\Survey;
 
-class ShowMasterSurvey extends ViewMasterSurvey
+use Hanafalah\LaravelSupport\Resources\Unicode\ShowUnicode;
+
+class ShowSurvey extends ViewSurvey
 {
   /**
    * Transform the resource into an array.
@@ -12,8 +14,9 @@ class ShowMasterSurvey extends ViewMasterSurvey
    */
   public function toArray(\Illuminate\Http\Request $request): array
   {
-    $arr = [];
-    $arr = $this->mergeArray(parent::toArray($request),$arr);
+    $arr  = [];
+    $show = $this->resolveNow(new ShowUnicode($this));
+    $arr  = $this->mergeArray(parent::toArray($request),$show,$arr);
     return $arr;
   }
 }

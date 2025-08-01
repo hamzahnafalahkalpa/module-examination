@@ -2,9 +2,10 @@
 
 namespace Hanafalah\ModuleExamination\Contracts\Schemas\Form;
 
-use Hanafalah\LaravelSupport\Contracts\Supports\DataManagement;
+use Hanafalah\LaravelSupport\Contracts\Schemas\Unicode;
 use Hanafalah\ModuleExamination\Contracts\Data\Form\FormData;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @see \Hanafalah\ModuleExamination\Schemas\Form\Form
@@ -23,4 +24,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @method array storeForm(?FormData $form_dto = null)
  * @method Builder form(mixed $conditionals = null)
  */
-interface Form extends DataManagement {}
+interface Form extends Unicode {
+    public function prepareStoreForm(FormData $form_dto): Model;
+    public function form(mixed $conditionals = null): Builder;
+}
