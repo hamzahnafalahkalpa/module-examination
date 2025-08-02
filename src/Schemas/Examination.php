@@ -98,14 +98,9 @@ class Examination extends ModulePatient implements ContractsExamination
 
         // static::$__visit_examination->is_commit = Commit::COMMIT->value;
 
-        // static::$__visit_examination->setAttribute('screenings', $screenings);
-        // static::$__visit_examination->setAttribute('forms', static::$__open_forms ?? []);
-
-        // static::$__visit_examination->save();
-
-        // if (static::$__visit_patient->reference_type == $this->VisitPatientModel()::CLINICAL_VISIT) {
-        //     $this->toPoliExamStart();
-        // }
+        if ($examination_dto->visit_patient_model->reference_type == 'VisitPatient') {
+            $this->toPoliExamStart($examination_dto);
+        }
         return $examination_dto->response;
     }
 
@@ -211,9 +206,9 @@ class Examination extends ModulePatient implements ContractsExamination
         return $this->schemaContract('practitioner_evaluation')->prepareStorePractitioner($attributes);
     }
 
-    protected function toPoliExamStart(): self{
-        $visit_registration = static::$__visit_registration ?? static::$__visit_examination->visitRegistration;
-        $visit_patient      = static::$__visit_patient ?? $visit_registration->visitPatient;
+    protected function toPoliExamStart(ExaminationData $examination_dto): self{
+        $visit_patient = $examination_dto->visit_patient_model;
+        $visit_registration = $examination_dto->visit_registration_model;
         $visit_registration->pushActivity(VisitRegistrationActivity::POLI_EXAM->value, [VisitRegistrationActivityStatus::POLI_EXAM_START->value]);
         $this->appVisitPatientSchema()->preparePushLifeCycleActivity($visit_patient, $visit_registration, 'POLI_EXAM', [
             'POLI_EXAM_START' => $visit_registration::$activityList[VisitRegistrationActivity::POLI_EXAM->value . '_' . VisitRegistrationActivityStatus::POLI_EXAM_START->value]
