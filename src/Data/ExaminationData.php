@@ -4,10 +4,8 @@ namespace Hanafalah\ModuleExamination\Data;
 
 use Hanafalah\LaravelSupport\Concerns\Support\HasRequestData;
 use Hanafalah\LaravelSupport\Supports\Data;
-use Hanafalah\ModuleExamination\Contracts\Data\AssessmentData;
 use Hanafalah\ModuleExamination\Contracts\Data\ExaminationData as DataExaminationData;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\MapName;
 
@@ -47,9 +45,17 @@ class ExaminationData extends Data implements DataExaminationData
     #[MapName('assessment')]
     public null|array|object $assessment = null;
 
+    #[MapInputName('support')]
+    #[MapName('support')]
+    public null|array|object $support = null;
+
     #[MapInputName('treatments')]
     #[MapName('treatments')]
     public ?array $treatments = null;
+
+    #[MapInputName('props')]
+    #[MapName('props')]
+    public ?array $props = null;
 
     public static function after(self $data): self{
         $new = self::new();

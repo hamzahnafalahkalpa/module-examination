@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Hanafalah\LaravelHasProps\Concerns\HasProps;
 use Hanafalah\LaravelSupport\Models\BaseModel;
 use Hanafalah\ModuleExamination\Concerns\HasPatientSummary;
+use Hanafalah\ModuleExamination\Resources\Examination\Assessment\{ViewAssessment,ShowAssessment};
 
 class Examination extends BaseModel
 {
@@ -30,8 +31,7 @@ class Examination extends BaseModel
         });
     }
 
-    protected static function uncommitVisitExamination($query)
-    {
+    protected static function uncommitVisitExamination($query){
         if (\method_exists($query, 'visitExamiantion')) {
             $visit_examination = $query->visitExamination;
             $visit_examination->is_commit = false;
@@ -39,17 +39,10 @@ class Examination extends BaseModel
         }
     }
 
-    public function examinationSummary()
-    {
-        return $this->belongsToModel('ExaminationSummary');
-    }
-    public function visitExamination()
-    {
-        return $this->belongsToModel('VisitExamination');
-    }
-    public function examinationTreatment()
-    {
-        return $this->hasOneModel('ExaminationTreatment', 'reference_id')
-            ->where('reference_type', $this->morph);
-    }
+    public function getViewResource(){return ViewAssessment::class;}
+    public function getShowResource(){return ShowAssessment::class;}
+
+    public function examinationSummary(){return $this->belongsToModel('ExaminationSummary');}
+    public function visitExamination(){return $this->belongsToModel('VisitExamination');}
+    public function examinationTreatment(){return $this->hasOneModel('ExaminationTreatment', 'reference_id')->where('reference_type', $this->morph);}
 }

@@ -7,6 +7,7 @@ use Hanafalah\ModuleExamination\Resources\Examination\Assessment\{
     ViewAssessment, ShowAssessment
 };
 use Hanafalah\LaravelHasProps\Concerns\HasProps;
+use Illuminate\Support\Str;
 
 class Assessment extends Examination
 {
@@ -73,7 +74,14 @@ class Assessment extends Examination
         $model   ??= $this;
         $new_model = $this->{$model->morph . 'Model'}();
         $specifics = $new_model->specific;
-        foreach ($specifics as $var) $result[$var] = $model->exam[$var];
+        foreach ($specifics as $var) {
+            if (!isset($model->exam[$var])){
+                $value = Str::plural($var) ? [] : null;
+            }else{
+                $value = $model->exam[$var];
+            }
+            $result[$var] = $value;
+        }
         return $result;
     }
 

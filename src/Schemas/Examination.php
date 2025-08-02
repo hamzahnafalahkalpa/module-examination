@@ -21,54 +21,53 @@ class Examination extends ModulePatient implements ContractsExamination
     protected string $__entity = 'Examination';
 
     public function storeExamination(?ExaminationData $examination_dto = null): array{
-        return $this->transaction(function () {
-            $results = $this->prepareStoreExamination($examination_dto ?? $this->requestDTO(ExaminationData::class));
-            if (isset($results['examination'])) {
-                foreach ($results['examination'] as $key => &$exam) {
-                    if (isset($exam->data)) $exam->data = $this->viewEntityResource(function() use ($exam){
-                        return $exam->data;
-                    });
-                }
-            }
-            if (isset($results['treatments']) && count($results['treatments']) > 0) {
-                foreach ($results['treatments'] as $key => &$exam) {
-                    $exam = $this->viewEntityResource(function() use ($exam){
-                        return $exam;
-                    });
-                    $results['treatments'][$key] = $exam;
-                }
-            }
-            return $results;
+        return $this->transaction(function() use ($examination_dto) {
+            return $this->prepareStoreExamination($examination_dto ?? $this->requestDTO(ExaminationData::class));
         });
     }
 
     public function prepareStoreExamination(ExaminationData $examination_dto): array{
-        // $screenings = $this->addScreenings($examination_dto->screening_ids);
-        // $new_collection = [
-        //     'examination'        => $examination_dto->examination ?? null,
-        //     'assessment'         => $examination_dto->assessment ?? null,
-        //     'examination_summary'=> null,
-        //     'treatments'         => [],
-        //     'medical_support'    => [],
-        //     'prescription'       => null,
-        //     'pharmacy_sale'      => [],
-        // ];
+        $visit_examination_model = &$examination_dto->visit_examination_model;
+        $this->__open_forms      = $visit_examination_model->form_summaries ?? [];
+        $this->__screening_forms = $visit_examination_model->screening_summaries ?? [];
+        $this->addScreenings($examination_dto);
 
-        $examination_dto->response = [
+        $examination_dto->response = $core = [
             'assessment'         => null,
             'examination_summary'=> null,
             'prescription'       => null,
+            'support'            => null,
             'treatments'         => [],
-            'medical_support'    => [],
             'pharmacy_sale'      => [],
         ];
-        static::$__open_forms = [];
 
         // EXAMINATION STORE PROSES
-        if (isset($examination_dto->assessment)) {
-            $examination_dto->response['assessment'] = new stdClass();
-            $this->prepareExamination($examination_dto,'assessment');
+        $exam_cores = array_values(array_keys($core));
+        foreach ($exam_cores as $exam_core) {
+            if (isset($examination_dto->{$exam_core}) && count($examination_dto->{$exam_core}) > 0) {
+                switch ($exam_core) {
+                    case 'treatments':
+                        $medic_service = $examination_dto->visit_registration_model->medicService;
+                        switch ($medic_service->flag) {
+                            case Label::PATHOLOGY_CLINIC->value     : 
+                            case Label::PATHOLOGY_ANATOMY->value    : $schema = 'lab_treatment';break;
+                            case Label::RADIOLOGY->value            : $schema = 'radiology_treatment';break;
+                            case Label::OUTPATIENT->value           : 
+                            case Label::MCU->value                  : 
+                            default                                 : $schema = 'clinical_treatment';break;
+                        }
+                        $this->prepareExamination($examination_dto,'treatments',Str::studly($schema));
+                    break;
+                    default:
+                        $examination_dto->response[$exam_core] = new stdClass();
+                        $this->prepareExamination($examination_dto,$exam_core);
+                    break;
+                }
+            }
         }
+        $visit_examination_model->setAttribute('screening_summaries', $this->__screening_forms ?? []);
+        $visit_examination_model->setAttribute('form_summaries', $this->__open_forms ?? []);
+        $visit_examination_model->save();
 
         // if (isset($attributes['examination_summary']) && count($attributes) > 0) {
         //     $attributes['examination_summary']['reference_id']   = static::$__visit_examination->getKey();
@@ -83,50 +82,6 @@ class Examination extends ModulePatient implements ContractsExamination
         //     static::$__examination_summary->save();
         // }
 
-        if (isset($examination_dto->treatments) && count($examination_dto->treatments) > 0) {
-            $medic_service = $examination_dto->visit_registration_model->medicService;
-            switch ($medic_service->flag) {
-                case Label::PATHOLOGY_CLINIC->value     : 
-                case Label::PATHOLOGY_ANATOMY->value    : $schema = 'lab_treatment';break;
-                case Label::RADIOLOGY->value            : $schema = 'radiology_treatment';break;
-                case Label::OUTPATIENT->value           : 
-                case Label::MCU->value                  : 
-                default                                 : $schema = 'clinical_treatment';break;
-            }
-            $this->prepareExamination($examination_dto,'treatments',Str::studly($schema));
-            // foreach ($examination_dto->treatments as &$treatment_dto) {
-            //     $this->prepareAssessment($treatment_dto,Str::studly($schema),$examination_dto);
-            // }
-        }
-
-        // if (isset($attributes['medical_support']) && count($attributes['medical_support']) > 0) {
-        //     foreach ($attributes['medical_support'] as $key => $medical_support) {
-        //         if (!isset($medical_support['data'])) continue;
-        //         $new_collection['medical_support']->{$key} = (object) ['data' => []];
-        //         if (isset($medical_support['data']['name'])) {
-        //             $medical_support['data'] = [$medical_support['data']];
-        //         }
-        //         foreach ($medical_support['data'] as $keyData => $data) {
-        //             if ($key === $this->MedicalSupportModel()->getMorphClass()) {
-        //                 if (isset($attributes['medical_support_type_id'])) {
-        //                     $schema = $this->ExaminationStuffModel()->findOrFail($attributes['medical_support_type_id']);
-        //                     $medical_support_schema = $this->schemaContract($key);
-        //                 } else {
-        //                     $schema = 'medical_support';
-        //                     $medical_support_schema = $this->schemaContract($schema);
-        //                 }
-        //             } else {
-        //                 $schema = Str::snake($key, '_');
-        //                 $medical_support_schema = $this->schemaContract($schema);
-        //             }
-        //             $result = $this->dataPreparation($medical_support_schema, $data);
-        //             if (\is_bool($result)) continue;
-        //             $new_collection['medical_support']->{$key}->data[] = $result;
-        //         }
-        //         $new_collection['medical_support']->{$key}->data = new Collection($new_collection['medical_support']->{$key}->data);
-        //     }
-        //     $new_collection['medical_support'] = new Collection($new_collection['medical_support']);
-        // }
         // if (isset($attributes['prescription']) && count($attributes) > 0) {
         //     request()->merge([
         //         'warehouse_id' => request()->pharmacy_id ?? null
@@ -154,68 +109,22 @@ class Examination extends ModulePatient implements ContractsExamination
         return $examination_dto->response;
     }
 
-    // protected function initVisitExamination(mixed $visit_examination_id): self{
-    //     if (!isset($visit_examination_id)) throw new \Exception('visit_examination_id is required');
-    //     static::$__visit_examination = $this->VisitExaminationModel()->find($visit_examination_id);
-
-    //     if (!isset(static::$__visit_examination)) throw new \Exception('visit examination is not found');
-    //     $this->initExaminationSummary(static::$__visit_examination);
-    //     return $this;
-    // }
-
-    // protected function initExaminationSummary(Model $reference): self{
-    //     $reference = $reference->examinationSummary()->firstOrCreate();
-    //     static::$__examination_summary = $reference;
-    //     return $this;
-    // }
-
-    // protected function initializeExamination(array $attributes): self{
-    //     if (!isset($attributes['visit_examination_id'])) throw new \Exception('visit_examination_id is required');
-    //     $this->initVisitExamination($attributes['visit_examination_id'])
-    //         ->initExaminationSummary(static::$__visit_examination)
-    //         ->initPatientSummary(static::$__visit_examination);
-    //     if (isset($attributes['practitioner_id'])) {
-    //         static::$__practitioner_evaluation = $this->appPractitionerEvaluationSchema()->prepareStorePractitionerEvaluation($attributes);
-    //     }
-    //     return $this;
-    // }
-
-    protected function toPoliExamStart(): self
-    {
-        $visit_registration = static::$__visit_registration ?? static::$__visit_examination->visitRegistration;
-        $visit_patient      = static::$__visit_patient ?? $visit_registration->visitPatient;
-        $visit_registration->pushActivity(VisitRegistrationActivity::POLI_EXAM->value, [VisitRegistrationActivityStatus::POLI_EXAM_START->value]);
-        $this->appVisitPatientSchema()->preparePushLifeCycleActivity($visit_patient, $visit_registration, 'POLI_EXAM', [
-            'POLI_EXAM_START' => $visit_registration::$activityList[VisitRegistrationActivity::POLI_EXAM->value . '_' . VisitRegistrationActivityStatus::POLI_EXAM_START->value]
-        ]);
-        return $this;
-    }
-
-    protected function pharmacyDispense(&$new_collection, array &$attributes)
-    {
-        $patient_summary_id = isset(static::$__patient_summary) ? static::$__patient_summary->getKey() : null;
-        $prepare_attributes = [
-            'visit_examination_id'   => static::$__visit_examination->getKey(),
-            'examination_summary_id' => static::$__examination_summary->getKey(),
-            'patient_summary_id'     => $patient_summary_id ?? null,
-            'patient_id'             => static::$__visit_patient->patient_id ?? null
-        ];
-        $new_collection = $this->schemaContract('pharmacy_sale_examination')->prepareStore($this->mergeArray($prepare_attributes, $attributes));
-    }
-
-
     private function prepareExamination(ExaminationData &$examination_dto, $exam_key, ?string $morph = null){
         $examination_dto->response[$exam_key] = [];
+
         $response = &$examination_dto->response[$exam_key];
         $current_exam = $examination_dto->{$exam_key};
         foreach ($current_exam as $key => &$exam) {
             if (isset($exam['data'])){
+                $studly_key = Str::studly($key);
+                if ($exam_key == 'assessments') $this->setToOpenForm($studly_key);
+
                 $response = (object) $response;
                 $exam_data = $exam['data'];
                 if (array_is_list($exam_data)){
                     $response->{$key} = (object) ['data' => []];
                     $current_response = &$response->{$key};
-                    $key = Str::studly($key);
+                    $key = $studly_key;
                     foreach ($exam_data as $data) {
                         $result = $this->prepareAssessment($data,$key,$examination_dto);
                         if (is_bool($result)) continue;
@@ -224,7 +133,6 @@ class Examination extends ModulePatient implements ContractsExamination
                     $current_response->data = new Collection($current_response->data);
                 }else{
                     $response->{$key} = (object) ['data' => new stdClass];
-                    $studly_key = Str::studly($key);
                     $result = $this->prepareAssessment($exam_data,$studly_key,$examination_dto);
                     if (is_bool($result)) continue;
                     $response->{$key}->data = $result->toViewApi()->resolve();
@@ -253,11 +161,12 @@ class Examination extends ModulePatient implements ContractsExamination
     }
 
 
-    public function addScreenings(array $screenings): array{
+    public function addScreenings(ExaminationData $examination_dto): array{
         $new_screenings = [];
+        $screenings = &$examination_dto->screening_ids;
         $screenings = array_values(array_unique($screenings));
         if (isset($screenings) && count($screenings) > 0) {
-            $this->__screening_forms = [];
+            $this->__screening_forms ??= [];
             foreach ($screenings as $screening) {
                 $screening = $this->ScreeningModel()->with('forms')->find($screening);
                 if (isset($screening)) {
@@ -274,15 +183,15 @@ class Examination extends ModulePatient implements ContractsExamination
         return $new_screenings;
     }
 
-    private function setToOpenForm($key){
-        $is_form = true;
-        if (isset($this->__screening_forms) && count($this->__screening_forms) > 0) {
-            if (in_array($key, $this->__screening_forms)) $is_form = false;
-        }
-        if ($is_form) {
+    protected function setToOpenForm($key){
+        if (!(
+            !isset($this->__screening_forms) && 
+            count($this->__screening_forms) > 0 && 
+            in_array($key, $this->__screening_forms)
+        )) {
             $form = $this->FormModel()->where('morph', $key)->first();
             if (isset($form)) {
-                static::$__open_forms[] = [
+                $this->__open_forms[] = [
                     $form->getKeyName() => $form->getKey(),
                     'name' => $form->name
                 ];
@@ -290,7 +199,7 @@ class Examination extends ModulePatient implements ContractsExamination
         }
     }
 
-    private function dataPreparation($class, $assessment_dto){
+    protected function dataPreparation($class, $assessment_dto){
         if (isset($data->is_delete) && $data->is_delete) {
             return $class->prepareRemoveAssessment($data);
         } else {
@@ -300,5 +209,26 @@ class Examination extends ModulePatient implements ContractsExamination
 
     public function addPractitioner(?array $attributes = null): Model{
         return $this->schemaContract('practitioner_evaluation')->prepareStorePractitioner($attributes);
+    }
+
+    protected function toPoliExamStart(): self{
+        $visit_registration = static::$__visit_registration ?? static::$__visit_examination->visitRegistration;
+        $visit_patient      = static::$__visit_patient ?? $visit_registration->visitPatient;
+        $visit_registration->pushActivity(VisitRegistrationActivity::POLI_EXAM->value, [VisitRegistrationActivityStatus::POLI_EXAM_START->value]);
+        $this->appVisitPatientSchema()->preparePushLifeCycleActivity($visit_patient, $visit_registration, 'POLI_EXAM', [
+            'POLI_EXAM_START' => $visit_registration::$activityList[VisitRegistrationActivity::POLI_EXAM->value . '_' . VisitRegistrationActivityStatus::POLI_EXAM_START->value]
+        ]);
+        return $this;
+    }
+
+    protected function pharmacyDispense(&$new_collection, array &$attributes){
+        $patient_summary_id = isset(static::$__patient_summary) ? static::$__patient_summary->getKey() : null;
+        $prepare_attributes = [
+            'visit_examination_id'   => static::$__visit_examination->getKey(),
+            'examination_summary_id' => static::$__examination_summary->getKey(),
+            'patient_summary_id'     => $patient_summary_id ?? null,
+            'patient_id'             => static::$__visit_patient->patient_id ?? null
+        ];
+        $new_collection = $this->schemaContract('pharmacy_sale_examination')->prepareStore($this->mergeArray($prepare_attributes, $attributes));
     }
 }

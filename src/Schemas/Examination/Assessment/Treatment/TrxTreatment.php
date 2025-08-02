@@ -43,16 +43,12 @@ class TrxTreatment extends Assessment implements ContractsTrxTreatment
             'form'                   => $assessment_exam['form'] ?? null,
             'qty'                    => $assessment_exam['qty'] ?? 1,
             'medications'            => $assessment_exam['medications'] ?? [],
-            'paths'                  => [],
+            'treatment_at'           => $assessment_exam['treatment_at'] ?? now(),
+            'paths'                  => $assessment_exam['paths'] ?? [],
+            'treatment'              => $treatment_model->toViewApi()->resolve(),
             'status'                 => $assessment_exam['status'] ?? 'DRAFT'
         ]);
             
-        if (!isset($assessment_dto->id)){
-            $assessment_exam['treatment_at'] = now();
-            if ($assessment_exam['status'] == 'DRAFT'){
-                $assessment_exam['treatment'] = $treatment_model->toViewApi()->resolve();
-            }
-        }
 
         // $this->addExaminationTreatment($attributes);
 
