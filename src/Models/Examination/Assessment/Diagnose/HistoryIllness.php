@@ -2,6 +2,8 @@
 
 namespace Hanafalah\ModuleExamination\Models\Examination\Assessment\Diagnose;
 
+use Illuminate\Database\Eloquent\Model;
+
 class HistoryIllness extends Diagnose
 {
     protected $table = 'assessments';
@@ -17,8 +19,9 @@ class HistoryIllness extends Diagnose
         'since'
     ];
 
-    public function getExamResults($model): array
+    public function getExamResults(?Model $model = null): array
     {
+        $model ??= $this;
         $exam = $model->exam;
         return [
             'name'                => $exam['name'],

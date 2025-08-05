@@ -10,7 +10,7 @@ class SNST extends Assessment{
 
     protected $table  = 'assessments';
     public $specific  = [
-        'result','surveys'
+        'result','summary','surveys'
     ];
 
     protected function getSurveyFlag(): ?string {
@@ -18,28 +18,29 @@ class SNST extends Assessment{
     }
 
     public function getAfterResolve(): Model{
-        $dynamic_forms = $this->surveys;
-        $new_surveys   = $this->getSurveyByFlag()->dynamic_forms;
+        $exam = &$this->exam;
+        $dynamic_forms = &$exam['surveys'];
         $results       = 0;
         foreach ($dynamic_forms as $dynamic_form) {
             if (isset($dynamic_form[$dynamic_form['key']],$dynamic_form[$dynamic_form['key']]['value'])){
                 $results += $dynamic_form[$dynamic_form['key']]['value'];
-                $new_surveys[$dynamic_form['key']]['value'] = $dynamic_form[$dynamic_form['key']];
             }
         }
-        $this->result = $results;
-        $this->result_spell = $this->getResultSpell();
-        $this->setAttribute('surveys',$new_surveys);
-        $this->save();
+        $exam['result'] = $results;
+        $exam['summary'] = $this->conclusion($results);
+        $this->setAttribute('exam',$exam);
         return $this;
     }
 
-    private function getResultSpell(): string{
-        $result = $this->result;
+    private function conclusion($calc){
         switch (true) {
-            case $result < 2                    : return "Tidak berisiko malnutrisi";break;
-            case ($result >= 2)                  : return "Berisiko malnutrisi";break;
+            case $calc < 2                    : $arr = ['NORMAL',$calc,$calc." | Tidak berisiko malnutrisi"];break;
+            case ($calc >= 2)                  : $arr = ['BERISIKO',$calc,$calc." | Berisiko malnutrisi"];break;
         }
-        return '-';
+        return [
+            'label' => $arr[0] ?? null,
+            'score' => $arr[1] ?? null,
+            'result'=> $arr[2] ?? null
+        ];
     }
 }

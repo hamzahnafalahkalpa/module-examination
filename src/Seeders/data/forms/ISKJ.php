@@ -1,6 +1,6 @@
 <?php
 
-use Hanafalah\ModuleExamination\Models\Form\MasterSurvey;
+use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return [
     'label'  => 'ISKJ',
@@ -9,7 +9,7 @@ return [
         [
             'label'          => 'Apakah Anda mudah lelah?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -28,7 +28,7 @@ return [
         [
             'label'          => 'Apakah Anda mengalami kesulitan untuk mengambil keputusan?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -47,7 +47,7 @@ return [
         [
             'label'          => 'Apakah Anda merasa tidak enak di perut?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -66,7 +66,7 @@ return [
         [
             'label'          => 'Apakah Anda merasa tidak berharga?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -85,7 +85,7 @@ return [
         [
             'label'          => 'Apakah Anda merasa sulit untuk menikmati aktivitas sehari-hari?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,

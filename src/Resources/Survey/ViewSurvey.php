@@ -2,9 +2,9 @@
 
 namespace Hanafalah\ModuleExamination\Resources\Survey;
 
-use Hanafalah\ModuleExamination\Resources\Form\ViewForm;
+use Hanafalah\LaravelSupport\Resources\Unicode\ViewUnicode;
 
-class ViewSurvey extends ViewForm
+class ViewSurvey extends ViewUnicode
 {
   /**
    * Transform the resource into an array.
@@ -14,8 +14,13 @@ class ViewSurvey extends ViewForm
    */
   public function toArray(\Illuminate\Http\Request $request): array
   {
-    $arr = [];
-    $arr = $this->mergeArray(parent::toArray($request),$arr);
+    $arr = [
+      'id'        => $this->id,
+      'name'      => $this->name,
+      'label'     => $this->label,
+      'ordering'  => $this->ordering,
+      'dynamic_forms' => $this->dynamic_forms
+    ];
     return $arr;
   }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use Hanafalah\ModuleExamination\Models\Form\MasterSurvey;
+use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return [
     'label'  => 'GDS4',
@@ -9,7 +9,7 @@ return [
         [
             'label'          => 'Apakah Anda sebenarnya cukup puas dengan hidup Anda?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -17,18 +17,18 @@ return [
             'options'        => [
                 [
                     'label' => 'Ya',
-                    'value' => 'ya'
+                    'value' => 0
                 ],
                 [
                     'label' => 'Tidak',
-                    'value' => 'tidak'
+                    'value' => 1
                 ]
             ]
         ],
         [
             'label'          => 'Apakah Anda merasa tidak berharga seperti perasaan anda saat ini?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -36,18 +36,18 @@ return [
             'options'        => [
                 [
                     'label' => 'Ya',
-                    'value' => 'ya'
+                    'value' => 0
                 ],
                 [
                     'label' => 'Tidak',
-                    'value' => 'tidak'
+                    'value' => 1
                 ]
             ]
         ],
         [
             'label'          => 'Apakah Anda sering merasa tidak berdaya?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -55,18 +55,18 @@ return [
             'options'        => [
                 [
                     'label' => 'Ya',
-                    'value' => 'ya'
+                    'value' => 0
                 ],
                 [
                     'label' => 'Tidak',
-                    'value' => 'tidak'
+                    'value' => 1
                 ]
             ]
         ],
         [
             'label'          => 'Apakah Anda sering merasa bosan?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -74,11 +74,11 @@ return [
             'options'        => [
                 [
                     'label' => 'Ya',
-                    'value' => 'ya'
+                    'value' => 0
                 ],
                 [
                     'label' => 'Tidak',
-                    'value' => 'tidak'
+                    'value' => 1
                 ]
             ]
         ]

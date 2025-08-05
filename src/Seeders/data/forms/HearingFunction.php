@@ -1,15 +1,15 @@
 <?php
 
-use Hanafalah\ModuleExamination\Models\Form\MasterSurvey;
+use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return [
-    'label'  => 'HEARING_TEST',
+    'label'  => 'HearingFunction',
     'name'  => 'PEMERIKSAAN FUNGSI PENDENGARAN',
     'dynamic_forms'  => [
         [
             'label'          => 'Tes berbisik Modifikasi',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -40,7 +40,7 @@ return [
         [
             'label'          => 'Tes Penala Rinne',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -67,7 +67,7 @@ return [
         [
             'label'          => 'Tes Penala Weber',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,

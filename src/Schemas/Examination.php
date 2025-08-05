@@ -28,6 +28,9 @@ class Examination extends ModulePatient implements ContractsExamination
 
     public function prepareStoreExamination(ExaminationData $examination_dto): array{
         $visit_examination_model = &$examination_dto->visit_examination_model;
+        $visit_patient = $examination_dto->visit_patient_model;
+        $visit_patient->visit_code = Str::ulid();
+        $visit_patient->save();
         $this->__open_forms      = $visit_examination_model->form_summaries ?? [];
         $this->__screening_forms = $visit_examination_model->screening_summaries ?? [];
         $this->addScreenings($examination_dto);

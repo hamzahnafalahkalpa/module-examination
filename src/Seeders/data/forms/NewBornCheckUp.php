@@ -1,15 +1,15 @@
 <?php
 
-use Hanafalah\ModuleExamination\Models\Form\MasterSurvey;
+use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return [
-    'label'  => 'PBBL',
+    'label'  => 'NewBornCheckUp',
     'name'  => 'PEMERIKSAAN BAYI BARU LAHIR',
     'dynamic_forms'  => [
         [
             'label'          => 'Pemeriksaan dengan bagan MTBS (bayi muda)',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -23,7 +23,7 @@ return [
         [
             'label'          => 'Menanyakan kondisi bayi baru lahir secara umum',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -37,7 +37,7 @@ return [
         [
             'label'          => 'Memeriksa tanda bahaya dan identifikasi kuning',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -51,7 +51,7 @@ return [
         [
             'label'          => 'Pengukuran berat badan, panjang badan dan lingkar kepala',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -65,7 +65,7 @@ return [
         [
             'label'          => 'Mendampingi inisiasi menyusu dini',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -79,7 +79,7 @@ return [
         [
             'label'          => 'Memantau dan Konseling menyusui',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -93,7 +93,7 @@ return [
         [
             'label'          => 'Pemotongan dan perawatan tali pusat',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -107,7 +107,7 @@ return [
         [
             'label'          => 'Pemberian imunisasi hepatitis B0',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -121,7 +121,7 @@ return [
         [
             'label'          => 'Skrining Hipotiroid Kongenital (SHK)',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -135,7 +135,7 @@ return [
         [
             'label'          => 'Pencegahan Penularan dari Ibu ke Anak (HIV, Sifilis, Hepatitis B)',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -149,7 +149,7 @@ return [
         [
             'label'          => 'Merujuk kasus yang tidak dapat ditangani dalam kondisi stabil, tepat waktu ke fasilitas pelayanan kesehatan yang lebih mampu',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,

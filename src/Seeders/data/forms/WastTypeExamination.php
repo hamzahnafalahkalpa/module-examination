@@ -1,15 +1,15 @@
 <?php
 
-use Hanafalah\ModuleExamination\Models\Form\MasterSurvey;
+use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return [
-    'label'  => 'WAST TYPE',
+    'label'  => 'WastTypeExamination',
     'name'  => 'JENIS KEKERASAN TERHADAP PEREMPUAN',
     'dynamic_forms'  => [
         [
             'label'          => 'Kekerasan Psikis',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_CHECKBOX,
+            'type'           => Survey::TYPE_CHECKBOX,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -32,7 +32,7 @@ return [
         [
             'label'          => 'Kekerasan Psikis Lainnya',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_INPUT,
+            'type'           => Survey::TYPE_INPUT,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => [
@@ -45,7 +45,7 @@ return [
         [
             'label'          => 'Kekerasan Fisik',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_CHECKBOX,
+            'type'           => Survey::TYPE_CHECKBOX,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -76,7 +76,7 @@ return [
         [
             'label'          => 'Kekerasan Fisik Lainnya',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_INPUT,
+            'type'           => Survey::TYPE_INPUT,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => [
@@ -89,7 +89,7 @@ return [
         [
             'label'          => 'Kekerasan Seksual',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_CHECKBOX,
+            'type'           => Survey::TYPE_CHECKBOX,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -116,7 +116,7 @@ return [
         [
             'label'          => 'Kekerasan Seksual Lainnya',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_INPUT,
+            'type'           => Survey::TYPE_INPUT,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => [

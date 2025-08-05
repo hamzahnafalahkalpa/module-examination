@@ -16,6 +16,12 @@ class Form extends Unicode implements FormForm
 
     public function prepareStoreForm(FormData $form_dto): Model{
         $form = $this->prepareStoreUnicode($form_dto);
+        if (isset($form_dto->form_has_survey)){
+            $form_has_survey_dto = &$form_dto->form_has_survey;
+            $form_has_survey_dto->form_id = $form->getKey();
+            $this->schemaContract('form_has_survey')->prepareStoreFormHasSurvey($form_has_survey_dto);
+        }
+
         $this->fillingProps($form,$form_dto->props);
         $form->save();
         return $this->form_model = $form;

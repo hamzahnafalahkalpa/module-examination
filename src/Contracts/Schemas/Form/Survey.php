@@ -2,8 +2,8 @@
 
 namespace Hanafalah\ModuleExamination\Contracts\Schemas\Form;
 
-use Hanafalah\ModuleExamination\Contracts\Data\SurveyData;
-use Hanafalah\ModuleExamination\Contracts\Schemas\ExaminationStuff;
+use Hanafalah\ModuleExamination\Contracts\Data\Form\SurveyData;
+use Illuminate\Database\Eloquent\Builder;
 //use Hanafalah\ModuleExamination\Contracts\Data\SurveyUpdateData;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,4 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method array storeMultipleSurvey(array $datas)
  */
 
-interface Survey extends Form{}
+interface Survey extends Form{
+    public function prepareStoreSurvey(SurveyData $survey_dto): Model;
+    public function survey(mixed $conditionals = null): Builder;
+}

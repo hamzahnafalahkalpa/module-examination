@@ -1,15 +1,15 @@
 <?php
 
-use Hanafalah\ModuleExamination\Models\Form\MasterSurvey;
+use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return [
-    'label'  => 'PENGAMATAN_NIFAS',
+    'label'  => 'PostpartumObservation',
     'name'  => 'PELAYANAN KESEHATAN IBU NIFAS',
     'dynamic_forms'  => [
         [
             'label'          => 'Menanyakan kondisi ibu nifas secara umum',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -32,7 +32,7 @@ return [
         [
             'label'          => 'Pengukuran tekanan darah, suhu tubuh, pernafasan, dan nadi',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -55,7 +55,7 @@ return [
         [
             'label'          => 'Pemeriksaan lokhia dan perdarahan',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -78,7 +78,7 @@ return [
         [
             'label'          => 'Pemeriksaan kondisi jalan lahir dan tanda infeksi',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -101,7 +101,7 @@ return [
         [
             'label'          => 'Pemeriksaan kontraksi rahim dan tinggi fundus uteri',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -124,7 +124,7 @@ return [
         [
             'label'          => 'Pemeriksaan payudara dan anjuran pemberian ASI eksklusif',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -147,7 +147,7 @@ return [
         [
             'label'          => 'Pemberian kapsul vitamin A (2 kapsul)',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -170,7 +170,7 @@ return [
         [
             'label'          => 'Pelayanan kontrasepsi pasca persalinan',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -193,7 +193,7 @@ return [
         [
             'label'          => 'Konseling',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -216,7 +216,7 @@ return [
         [
             'label'          => 'Tatalaksana pada ibu nifas sakit atau ibu nifas dengan komplikasi',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -239,7 +239,7 @@ return [
         [
             'label'          => 'Memberikan nasehat',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,

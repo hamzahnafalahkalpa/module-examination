@@ -2,7 +2,7 @@
 
 
 
-use Hanafalah\ModuleExamination\Models\Form\MasterSurvey;
+use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return [
     'label'  => 'AMT',
@@ -11,7 +11,7 @@ return [
         [
             'label'          => 'Mengenali orang lain di RS. (dokter, perawat, dll)',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -19,18 +19,18 @@ return [
             'options'        => [
                 [
                     'label' => 'Salah',
-                    'value' => 'salah'
+                    'value' => 0
                 ],
                 [
                     'label' => 'Benar',
-                    'value' => 'benar'
+                    'value' => 1
                 ]
             ]
         ],
         [
             'label'          => 'Menghitung terbalik (20 s/d 1)',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -38,18 +38,18 @@ return [
             'options'        => [
                 [
                     'label' => 'Salah',
-                    'value' => 'salah'
+                    'value' => 0
                 ],
                 [
                     'label' => 'Benar',
-                    'value' => 'benar'
+                    'value' => 1
                 ]
             ]
         ],
         [
             'label'          => 'Nama Presiden RI',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -57,18 +57,18 @@ return [
             'options'        => [
                 [
                     'label' => 'Salah',
-                    'value' => 'salah'
+                    'value' => 0
                 ],
                 [
                     'label' => 'Benar',
-                    'value' => 'benar'
+                    'value' => 1
                 ]
             ]
         ],
         [
             'label'          => 'Saat ini berada di mana',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -76,18 +76,18 @@ return [
             'options'        => [
                 [
                     'label' => 'Salah',
-                    'value' => 'salah'
+                    'value' => 0
                 ],
                 [
                     'label' => 'Benar',
-                    'value' => 'benar'
+                    'value' => 1
                 ]
             ]
         ],
         [
             'label'          => 'Tahun kelahiran pasien atau anak terakhir',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -95,18 +95,18 @@ return [
             'options'        => [
                 [
                     'label' => 'Salah',
-                    'value' => 'salah'
+                    'value' => 0
                 ],
                 [
                     'label' => 'Benar',
-                    'value' => 'benar'
+                    'value' => 1
                 ]
             ]
         ],
         [
             'label'          => 'Umur',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -114,18 +114,18 @@ return [
             'options'        => [
                 [
                     'label' => 'Salah',
-                    'value' => 'salah'
+                    'value' => 0
                 ],
                 [
                     'label' => 'Benar',
-                    'value' => 'benar'
+                    'value' => 1
                 ]
             ]
         ],
         [
             'label'          => 'Tahun ini',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -133,18 +133,18 @@ return [
             'options'        => [
                 [
                     'label' => 'Salah',
-                    'value' => 'salah'
+                    'value' => 0
                 ],
                 [
                     'label' => 'Benar',
-                    'value' => 'benar'
+                    'value' => 1
                 ]
             ]
         ],
         [
             'label'          => 'Tahun kemerdekaan RI',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -152,18 +152,18 @@ return [
             'options'        => [
                 [
                     'label' => 'Salah',
-                    'value' => 'salah'
+                    'value' => 0
                 ],
                 [
                     'label' => 'Benar',
-                    'value' => 'benar'
+                    'value' => 1
                 ]
             ]
         ],
         [
             'label'          => 'Waktu / jam sekarang',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -171,18 +171,18 @@ return [
             'options'        => [
                 [
                     'label' => 'Salah',
-                    'value' => 'salah'
+                    'value' => 0
                 ],
                 [
                     'label' => 'Benar',
-                    'value' => 'benar'
+                    'value' => 1
                 ]
             ]
         ],
         [
             'label'          => 'Alamat tempat tinggal',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -190,11 +190,11 @@ return [
             'options'        => [
                 [
                     'label' => 'Salah',
-                    'value' => 'salah'
+                    'value' => 0
                 ],
                 [
                     'label' => 'Benar',
-                    'value' => 'benar'
+                    'value' => 1
                 ]
             ]
         ]

@@ -1,6 +1,6 @@
 <?php
 
-use Hanafalah\ModuleExamination\Models\Form\MasterSurvey;
+use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return [
     'label'  => 'SNST',
@@ -9,7 +9,7 @@ return [
         [
             'label'          => 'Apakah Anda merasakan lemah, loyo dan tidak bertenaga?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -28,7 +28,7 @@ return [
         [
             'label'          => 'Apakah akhir-akhir ini Anda kehilangan berat badan secara tidak sengaja (6 bulan terakhir)?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -47,7 +47,7 @@ return [
         [
             'label'          => 'Apakah Anda mengalami penurunan asupan makan selama 1 minggu terakhir?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -66,7 +66,7 @@ return [
         [
             'label'          => 'Apakah Anda menderita suatu penyakit yang mengakibatkan adanya perubahan jumlah atau jenis makanan yang Anda makan?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -85,7 +85,7 @@ return [
         [
             'label'          => 'Apakah pakaian anda terasa lebih longgar?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,

@@ -1,15 +1,15 @@
 <?php
 
-use Hanafalah\ModuleExamination\Models\Form\MasterSurvey;
+use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return [
-    'label'  => 'TB PARU',
+    'label'  => 'TBRiskFactor',
     'name'  => 'FAKTOR RISIKO TBC',
     'dynamic_forms'  => [
         [
             'label'          => 'Pernah Terdiagnosis / Berobat TBC?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -28,7 +28,7 @@ return [
         [
             'label'          => 'Ibu Hamil',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -47,7 +47,7 @@ return [
         [
             'label'          => 'ODHIV',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -66,7 +66,7 @@ return [
         [
             'label'          => 'Pernah Berobat TBC, tapi tidak tuntas?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -85,7 +85,7 @@ return [
         [
             'label'          => 'Lansian > 65',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -104,7 +104,7 @@ return [
         [
             'label'          => 'Tinggal diwilayah kumuh miskin ?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -123,7 +123,7 @@ return [
         [
             'label'          => 'Merokok / Peroko Pasif',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -142,7 +142,7 @@ return [
         [
             'label'          => 'Riwayat DM / Kencing Manis',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -161,7 +161,7 @@ return [
         [
             'label'          => 'Malnutrisi',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -180,7 +180,7 @@ return [
         [
             'label'          => 'Warga Binaan Pemastarakatam (WBP)',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,

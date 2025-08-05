@@ -10,7 +10,7 @@ class ADL extends Assessment{
 
     protected $table  = 'assessments';
     public $specific  = [
-        'result','surveys'
+        'result','summary','surveys'
     ];
 
     protected function getSurveyFlag(): ?string {
@@ -18,31 +18,32 @@ class ADL extends Assessment{
     }
 
     public function getAfterResolve(): Model{
-        $dynamic_forms = $this->surveys;
-        $new_surveys   = $this->getSurveyByFlag()->dynamic_forms;
+        $exam = &$this->exam;
+        $dynamic_forms = $exam['surveys'];
         $results       = 0;
         foreach ($dynamic_forms as $dynamic_form) {
             if (isset($dynamic_form[$dynamic_form['key']],$dynamic_form[$dynamic_form['key']]['value'])){
                 $results += $dynamic_form[$dynamic_form['key']]['value'];
-                $new_surveys[$dynamic_form['key']]['value'] = $dynamic_form[$dynamic_form['key']];
             }
         }
-        $this->result = $results;
-        $this->result_spell = $this->getResultSpell();
-        $this->setAttribute('surveys',$new_surveys);
-        $this->save();
+        $exam['result'] = $results;
+        $exam['summary'] = $this->conclusion($results);
+        $this->setAttribute('exam',$exam);
         return $this;
     }
 
-    private function getResultSpell(): string{
-        $result = $this->result;
+    private function conclusion($calc){
         switch (true) {
-            case $result >= 20                    : return "Mandiri (A)";break;
-            case ($result >= 12 && $result <= 19) : return "Ketergantungan Ringan (B)";break;
-            case ($result >= 9 && $result <= 11)  : return "Ketergantungan Sedang (B)";break;
-            case ($result >= 5 && $result <= 8)   : return "Ketergantungan Berat (C)";break;
-            case ($result <= 4)                   : return "Ketergantungan Total (C)";break;
+            case $calc >= 20                    : $arr = ['MANDIRI',$calc."| Mandiri (A)"];break;
+            case ($calc >= 12 && $calc <= 19) : $arr = ['RINGAN',$calc."| Ketergantungan Ringan (B)"];break;
+            case ($calc >= 9 && $calc <= 11)  : $arr = ['SEDANG',$calc."| Ketergantungan Sedang (B)"];break;
+            case ($calc >= 5 && $calc <= 8)   : $arr = ['BERAT',$calc."| Ketergantungan Berat (C)"];break;
+            case ($calc <= 4)                   : $arr = ['TOTAL',$calc."| Ketergantungan Total (C)"];break;
         }
-        return '-';
+        return [
+            'label' => $arr[0] ?? null,
+            'score' => $arr[1] ?? null,
+            'result'=> $arr[2] ?? null
+        ];
     }
 }

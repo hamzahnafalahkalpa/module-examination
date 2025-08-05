@@ -1,6 +1,6 @@
 <?php
 
-use Hanafalah\ModuleExamination\Models\Form\MasterSurvey;
+use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return [
     'label'  => 'ADL',
@@ -9,7 +9,7 @@ return [
         [
             'label'          => 'Mengendalikan rangsang Buang Air Besar (BAB)',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => [
                 'label' => 'Mandiri',
@@ -35,7 +35,7 @@ return [
         [
             'label'          => 'Makan minum (jika makan harus berupa potongan, dianggap dibantu)',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => [
                 'label' => 'Mandiri',
@@ -61,7 +61,7 @@ return [
         [
             'label'          => 'Penggunaan WC (keluar masuk WC, melepas/memakai celana, cebok, menyiram)',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => [
                 'label' => 'Mandiri',
@@ -87,7 +87,7 @@ return [
         [
             'label'          => 'Bergerak dari kursi roda ke tempat tidur dan sebaliknya (termasuk duduk di tempat tidur)',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => [
                 'label' => 'Mandiri',
@@ -117,7 +117,7 @@ return [
         [
             'label'          => 'Membersihkan diri (mencuci wajah, menyikat Rambut, mencukur kumis, sikat gigi)',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => [
                 'label' => 'Mandiri',
@@ -139,7 +139,7 @@ return [
         [
             'label'          => 'Mengendalikan rangsang Buang Air Kecil (BAK)',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => [
                 'label' => 'Mandiri',
@@ -165,7 +165,7 @@ return [
         [
             'label'          => 'Naik turun tangga',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => [
                 'label' => 'Mandiri',
@@ -191,7 +191,7 @@ return [
         [
             'label'          => 'Mandi',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => [
                 'label' => 'Mandiri',
@@ -213,7 +213,7 @@ return [
         [
             'label'          => 'Berpakaian (termasuk memasang tali sepatu, Mengencangkan sabuk)',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => [
                 'label' => 'Mandiri',
@@ -239,7 +239,7 @@ return [
         [
             'label'          => 'Berjalan di tempat rata (atau jika tidak bisa berjalan, menjalankan kursi roda)',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => [
                 'label' => 'Mandiri',

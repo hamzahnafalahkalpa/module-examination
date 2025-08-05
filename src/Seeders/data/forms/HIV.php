@@ -1,6 +1,6 @@
 <?php
 
-use Hanafalah\ModuleExamination\Models\Form\MasterSurvey;
+use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return [
     'label'  => 'HIV',
@@ -9,7 +9,7 @@ return [
         [
             'label'          => 'Hubungan seks vaginal berisiko',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -17,7 +17,18 @@ return [
             'options'        => [
                 [
                     'label' => 'Ya',
-                    'value' => 'Ya'
+                    'value' => 'Ya',
+                    'dynamic_forms' => [
+                        [
+                            'label'          => 'Tanggal',
+                            'key'            => 'value',
+                            'type'           => Survey::TYPE_DATE,
+                            'component_name' => null,
+                            'default_value'  => null,
+                            'attribute'      => null,
+                            'rule'           => null,
+                        ]
+                    ]
                 ],
                 [
                     'label' => 'Tidak',
@@ -28,7 +39,7 @@ return [
         [
             'label'          => 'Bergantian peralatan suntik',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -36,7 +47,18 @@ return [
             'options'        => [
                 [
                     'label' => 'Ya',
-                    'value' => 'Ya'
+                    'value' => 'Ya',
+                    'dynamic_forms' => [
+                        [
+                            'label'          => 'Tanggal',
+                            'key'            => 'value',
+                            'type'           => Survey::TYPE_DATE,
+                            'component_name' => null,
+                            'default_value'  => null,
+                            'attribute'      => null,
+                            'rule'           => null,
+                        ]
+                    ]
                 ],
                 [
                     'label' => 'Tidak',
@@ -47,7 +69,7 @@ return [
         [
             'label'          => 'Transmisi ibu ke anak',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -55,7 +77,18 @@ return [
             'options'        => [
                 [
                     'label' => 'Ya',
-                    'value' => 'Ya'
+                    'value' => 'Ya',
+                    'dynamic_forms' => [
+                        [
+                            'label'          => 'Tanggal',
+                            'key'            => 'value',
+                            'type'           => Survey::TYPE_DATE,
+                            'component_name' => null,
+                            'default_value'  => null,
+                            'attribute'      => null,
+                            'rule'           => null,
+                        ]
+                    ]
                 ],
                 [
                     'label' => 'Tidak',
@@ -66,7 +99,7 @@ return [
         [
             'label'          => 'Periode jendela',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -74,7 +107,18 @@ return [
             'options'        => [
                 [
                     'label' => 'Ya',
-                    'value' => 'Ya'
+                    'value' => 'Ya',
+                    'dynamic_forms' => [
+                        [
+                            'label'          => 'Tanggal',
+                            'key'            => 'value',
+                            'type'           => Survey::TYPE_DATE,
+                            'component_name' => null,
+                            'default_value'  => null,
+                            'attribute'      => null,
+                            'rule'           => null,
+                        ]
+                    ]
                 ],
                 [
                     'label' => 'Tidak',
@@ -85,7 +129,7 @@ return [
         [
             'label'          => 'Anal seks berisiko',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -93,7 +137,18 @@ return [
             'options'        => [
                 [
                     'label' => 'Ya',
-                    'value' => 'Ya'
+                    'value' => 'Ya',
+                    'dynamic_forms' => [
+                        [
+                            'label'          => 'Tanggal',
+                            'key'            => 'value',
+                            'type'           => Survey::TYPE_DATE,
+                            'component_name' => null,
+                            'default_value'  => null,
+                            'attribute'      => null,
+                            'rule'           => null,
+                        ]
+                    ]
                 ],
                 [
                     'label' => 'Tidak',
@@ -104,7 +159,7 @@ return [
         [
             'label'          => 'Transfusi darah',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -112,7 +167,18 @@ return [
             'options'        => [
                 [
                     'label' => 'Ya',
-                    'value' => 'Ya'
+                    'value' => 'Ya',
+                    'dynamic_forms' => [
+                        [
+                            'label'          => 'Tanggal',
+                            'key'            => 'value',
+                            'type'           => Survey::TYPE_DATE,
+                            'component_name' => null,
+                            'default_value'  => null,
+                            'attribute'      => null,
+                            'rule'           => null,
+                        ]
+                    ]
                 ],
                 [
                     'label' => 'Tidak',
@@ -123,7 +189,7 @@ return [
         [
             'label'          => 'Pernah tes HIV sebelumnya',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -131,7 +197,18 @@ return [
             'options'        => [
                 [
                     'label' => 'Ya',
-                    'value' => 'Ya'
+                    'value' => 'Ya',
+                    'dynamic_forms' => [
+                        [
+                            'label'          => 'Lokasi tes HIV sebelumnya',
+                            'key'            => 'value',
+                            'type'           => Survey::TYPE_INPUT,
+                            'component_name' => null,
+                            'default_value'  => null,
+                            'attribute'      => null,
+                            'rule'           => null,
+                        ]
+                    ]
                 ],
                 [
                     'label' => 'Tidak',
@@ -142,7 +219,7 @@ return [
         [
             'label'          => 'Kesediaan untuk test',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -150,7 +227,10 @@ return [
             'options'        => [
                 [
                     'label' => 'Ya',
-                    'value' => 'Ya'
+                    'value' => 'Ya',
+                    'forms' => [
+                        'HIVAntibodyTest'
+                    ]
                 ],
                 [
                     'label' => 'Tidak',

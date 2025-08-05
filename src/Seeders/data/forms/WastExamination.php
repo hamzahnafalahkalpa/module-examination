@@ -1,15 +1,15 @@
 <?php
 
-use Hanafalah\ModuleExamination\Models\Form\MasterSurvey;
+use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return [
-    'label'  => 'WAST',
+    'label'  => 'WastExamination',
     'name'  => 'PEMERIKSAAN KEKERASAN TERHADAP PEREMPUAN & ANAK',
     'dynamic_forms'  => [
         [
             'label'          => 'Apakah pertengakaran mulut mengakibatkan pasangan ibu memukul, menendang, atau mendorong?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -32,7 +32,7 @@ return [
         [
             'label'          => 'Secara umum bagaimana ibu menggambarkan hubungan ibu dengan pasangan?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -55,7 +55,7 @@ return [
         [
             'label'          => 'Apakah ibu merasa ketakutan terhadap apa yang dikatakan atau dilakukan oleh pasangan ibu?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -78,7 +78,7 @@ return [
         [
             'label'          => 'Apakah ibu merasa dibatasi dalam mengatur pembelanjaan rumah tangga?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -101,7 +101,7 @@ return [
         [
             'label'          => 'Apakah pertengakaran mulut mengakibatkan ibu merasa direndahkan atau merasa tidak nyaman dengan diri sendiri?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -124,7 +124,7 @@ return [
         [
             'label'          => 'Apakah ibu dan pasangan ibu mengatasi pertengakaran mulut dengan?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -147,7 +147,7 @@ return [
         [
             'label'          => 'Apakah pertengakaran mulut mengakibatkan pasangan ibu memukul, menendang, atau mendorong?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -170,7 +170,7 @@ return [
         [
             'label'          => 'Apakah ibu merasa dibatasi dalam mengatur pembelanjaan rumah tangga?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -193,7 +193,7 @@ return [
         [
             'label'          => 'Secara umum bagaimana ibu menggambarkan hubungan ibu dengan pasangan?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -216,7 +216,7 @@ return [
         [
             'label'          => 'Apakah ibu dan pasangan ibu mengatasi pertengakaran mulut dengan?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -239,7 +239,7 @@ return [
         [
             'label'          => 'Apakah ibu merasa ketakutan terhadap apa yang dikatakan atau dilakukan oleh pasangan ibu?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -262,7 +262,7 @@ return [
         [
             'label'          => 'Apakah pertengakaran mulut mengakibatkan ibu merasa direndahkan atau merasa tidak nyaman dengan diri sendiri?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,

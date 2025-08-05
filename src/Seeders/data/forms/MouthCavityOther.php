@@ -1,15 +1,15 @@
 <?php
 
-use Hanafalah\ModuleExamination\Models\Form\MasterSurvey;
+use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return [
-    'label'  => 'MOUTH',
+    'label'  => 'MouthCavityOther',
     'name'  => 'KEADAAN GUSI, KEBERSIHAN GIGI,DAN KONDISI LAINNYA',
     'dynamic_forms'  => [
         [
             'label'          => 'Gusi Sehat',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -28,7 +28,7 @@ return [
         [
             'label'          => 'Gusi Bengkak/Abses/Fistel',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -47,7 +47,7 @@ return [
         [
             'label'          => 'Karang gigi',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -66,7 +66,7 @@ return [
         [
             'label'          => 'Gigi Kotor (ada plak & sisa makanan)',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -85,7 +85,7 @@ return [
         [
             'label'          => 'Susunan gigi depan tidak teratur',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -104,7 +104,7 @@ return [
         [
             'label'          => 'Gusi Mudah Berdarah',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,

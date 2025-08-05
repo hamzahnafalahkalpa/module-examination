@@ -2,19 +2,23 @@
 
 namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
 
+use Illuminate\Database\Eloquent\Model;
+
 class Allergy extends Assessment {
     protected $table       = 'assessments';
     public $response_model = 'array';
     public $specific = [
-        'allergy_type_id', 'name', 'allergy_scale', 'allergen'
+        'allergy_type_id', 'name', 'allergy_scale', 'allergen', 'effects'
     ];
 
-    public function getExamResults($model): array{
+    public function getExamResults(?Model $model = null): array{
+        $model ??= $this;
         $exam = $model->exam;
         return [
             'allergy_type_id'     => $exam['allergy_type_id'],
             'allergy_type_spell'  => $this->getAllergyTypeSpell($exam),
             'name'                => $exam['name'],
+            'effects'             => $exam['effects'] ?? [],
             'allergy_scale'       => $exam['allergy_scale'],
             'allergy_scale_spell' => $this->getScaleSpell($exam),
             'allergen'            => $exam['allergen'] 
@@ -22,7 +26,7 @@ class Allergy extends Assessment {
     }
 
     public function getAllergyTypeSpell($exam): string{
-        $stuff = $this->ExaminationStuffModel()->find($exam['allergy_type_id']);
+        $stuff = $this->AllergyStuffModel()->findOrFail($exam['allergy_type_id']);
         return $stuff->name;
     }
     

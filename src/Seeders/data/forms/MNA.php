@@ -1,6 +1,6 @@
 <?php
 
-use Hanafalah\ModuleExamination\Models\Form\MasterSurvey;
+use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return [
     'label'  => 'MNA',
@@ -9,7 +9,7 @@ return [
         [
             'label'          => 'Mobilitas',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -32,7 +32,7 @@ return [
         [
             'label'          => 'Penurunan berat badan dalam 3 bulan terakhir',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -59,7 +59,7 @@ return [
         [
             'label'          => 'Masalah neuropsikologi',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -83,7 +83,7 @@ return [
             'label'          => 'Apakah ada penurunan asupan makanan dalam jangka waktu 3 bulan oleh karena kehilangan nafsu makan, masalah
         pencernaan, kesulitan menelan atau mengunyah?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -106,7 +106,7 @@ return [
         [
             'label'          => 'Indeks Massa Tubuh (IMT) berat badan dalam kg/tinggi badan dalam',
             'key'            => 'BMI',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -133,7 +133,7 @@ return [
         [
             'label'          => '6 Menderita stress psikologis/penyakit akut dalam 3 bulan terakhir:',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,

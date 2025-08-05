@@ -2,7 +2,6 @@
 
 namespace Hanafalah\ModuleExamination\Models\Form;
 
-use Hanafalah\ModuleExamination\Enums\Form\Flag;
 use Hanafalah\ModuleExamination\Resources\Form\{ViewForm,ShowForm};
 use Hanafalah\LaravelSupport\Models\Unicode\Unicode;
 
@@ -12,8 +11,7 @@ class Form extends Unicode{
     protected static function booted(): void{
         parent::booted();
         static::creating(function ($query) {
-            if (!isset($query->ordering)) $query->ordering = 1;
-            if (!isset($query->flag))     $query->flag     = Flag::FORM->value;
+            $query->ordering ??= 1;
         });
         static::created(function ($query) {
             $query->setAttribute('personalize', [
@@ -31,9 +29,18 @@ class Form extends Unicode{
         return 'form_id';
     }
 
+    public function showUsingRelation():array {
+        $relation = ['childs','formHasSurvey'];
+        if ($this->isUsingService()){
+            $relation[] = 'service.servicePrices.tariffComponent';
+        }
+        return $relation;
+    }
+
     public function masterFeature(){return $this->belongsToModel('MasterFeature');}
     public function screening(){return $this->belongsToMOdel('Screening', 'parent_id');}
     public function formHasAnatomies(){return $this->hasManyModel('FormHasAnatomy');}
+    public function formHasSurvey(){return $this->hasOneModel('FormHasSurvey');}
     public function anatomies(){
         return $this->belongsToManyModel(
             'Anatomy',

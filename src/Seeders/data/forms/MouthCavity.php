@@ -1,15 +1,15 @@
 <?php
 
-use Hanafalah\ModuleExamination\Models\Form\MasterSurvey;
+use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return [
-    'label'  => 'MOUTH',
-    'name'  => 'Keadaan Ronggal Mulut',
+    'label'  => 'MouthCavity',
+    'name'  => 'Keadaan Rongga Mulut',
     'dynamic_forms'  => [
         [
             'label'          => 'Stomatitis Aphtosa',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -28,7 +28,7 @@ return [
         [
             'label'          => 'Celah bibir/langit-langit',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -47,7 +47,7 @@ return [
         [
             'label'          => 'Lesi-Lesi Lainnya',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -66,7 +66,7 @@ return [
         [
             'label'          => 'Lidah Kotor',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -85,7 +85,7 @@ return [
         [
             'label'          => 'Luka pada sudut mulut',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,

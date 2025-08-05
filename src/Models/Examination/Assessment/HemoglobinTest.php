@@ -7,6 +7,6 @@ use Hanafalah\ModuleExamination\Models\Examination\Assessment\Assessment;
 class HemoglobinTest extends Assessment {
     protected $table = 'assessments';
     public $specific = [
-        "score","resume"
+        'hb_value', 'result'
     ];
 }

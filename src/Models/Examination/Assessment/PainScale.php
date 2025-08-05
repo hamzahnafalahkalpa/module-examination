@@ -2,13 +2,16 @@
 
 namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
 
+use Illuminate\Database\Eloquent\Model;
+
 class PainScale extends Assessment {
     protected $table = 'assessments';
     public $specific = [
         'rating_scale'
     ];
 
-    public function getExamResults($model): array{
+    public function getExamResults(?Model $model = null): array{
+        $model ??= $this;
         $exam = $model->exam;
         return [
             'rating_scale' => $exam['rating_scale'],

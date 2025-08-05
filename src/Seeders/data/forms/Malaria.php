@@ -1,6 +1,6 @@
 <?php
 
-use Hanafalah\ModuleExamination\Models\Form\MasterSurvey;
+use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return [
     'label'  => 'Malaria',
@@ -9,7 +9,7 @@ return [
         [
             'label'          => 'Pernahkah pasien menderita penyakit malaria sebelumnya?*',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_SELECT,
+            'type'           => Survey::TYPE_SELECT,
             'component_name' => null,
             'default_value'  => [
                 'label' => 'Pilih Jawaban',
@@ -39,7 +39,7 @@ return [
         [
             'label'          => 'Apakah sebelum sakit, 2 minggu yang lalu pernah berkunjung ke tempat/kota lain?*',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,

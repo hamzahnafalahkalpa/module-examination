@@ -45,5 +45,6 @@ return [
         //ADD YOUR LIBS HERE AS STRING
         //ex: HIV_AIDS in HUMAN DISEASE, ENGINE TROUBLE in ENGINE DISEASE, etc
     ],
-    'warehouse' => null
+    'warehouse' => null,
+    'survey_flag_key' => 'flag'
 ];

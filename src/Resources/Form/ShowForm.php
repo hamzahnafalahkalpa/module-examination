@@ -15,6 +15,9 @@ class ShowForm extends ViewForm
   public function toArray(\Illuminate\Http\Request $request): array
   {
     $arr = [
+      'form_has_survey' => $this->relationValidation('formHasSurvey', function () {
+        return $this->formHasSurvey->toViewApi()->resolve();
+      }),
     ];
     $show = $this->resolveNow(new ShowUnicode($this));
     $arr = $this->mergeArray(parent::toArray($request),$show,$arr);

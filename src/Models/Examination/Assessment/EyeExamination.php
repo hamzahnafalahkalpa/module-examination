@@ -8,9 +8,9 @@ class EyeExamination extends Assessment {
     protected $table = 'assessments';
 
     public $specific = [
-        'Visus', 'Palpebra','Konjungtiva', 'Kornea',
-        'COA', 'Iris', 'Pupil','Lensa','Vitreus',
-        'Fundus','TIO'
+        'visus', 'skelera','konjungtiva', 'palpebra', 'kesegarisan', 'kornea',
+        'bilik_mata_depan', 'iris', 'pupil','lensa','vitreous_humor',
+        'funduskopi', 'tanometri', 'anel', 'persepsi_warna'
     ];
 
     public function getExams(mixed $default = null,? array $vars = null): array{

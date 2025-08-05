@@ -2,8 +2,6 @@
 
 namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
 
-use Hanafalah\ModuleExamination\Concerns\HasSurvey;
-
 class FinalConclusionLabor extends Assessment{
     protected $table  = 'assessments';
     public $specific  = [

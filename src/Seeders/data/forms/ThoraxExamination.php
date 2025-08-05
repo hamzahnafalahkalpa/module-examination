@@ -1,15 +1,15 @@
 <?php
 
-use Hanafalah\ModuleExamination\Models\Form\MasterSurvey;
+use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return [
-    'label'  => 'TB PARU',
+    'label'  => 'ThoraxExamination',
     'name'  => 'PEMERIKSAAN FOTO TORAKS',
     'dynamic_forms'  => [
         [
             'label'          => 'Kondisi',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -32,7 +32,7 @@ return [
         [
             'label'          => 'Tanggal Pemeriksaan',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_INPUT,
+            'type'           => Survey::TYPE_INPUT,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => [
@@ -44,7 +44,7 @@ return [
         [
             'label'          => 'No.Seri',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_INPUT,
+            'type'           => Survey::TYPE_INPUT,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => [
@@ -56,7 +56,7 @@ return [
         [
             'label'          => 'Saran',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_TEXTAREA,
+            'type'           => Survey::TYPE_TEXTAREA,
             'component_name' => null,
             'default_value'  => null,
             'rule'           => null,

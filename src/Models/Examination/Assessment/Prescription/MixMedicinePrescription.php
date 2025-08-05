@@ -2,6 +2,8 @@
 
 namespace Hanafalah\ModuleExamination\Models\Examination\Assessment\Prescription;
 
+use Illuminate\Database\Eloquent\Model;
+
 class MixMedicinePrescription extends TrxPrescription
 {
     protected $table = 'assessments';
@@ -25,7 +27,8 @@ class MixMedicinePrescription extends TrxPrescription
         'warehouse_type'
     ];
 
-    public function getExamResults($model): array{
+    public function getExamResults(?Model $model = null): array{
+        $model ??= $this;
         $result     = parent::getExamResults($model = null);
         $frqunecty_unit = $this->ItemStuffModel()->where('id', $result['frequency_unit_id'])->first() ?? null;
         $result['frequency_unit'] = null;

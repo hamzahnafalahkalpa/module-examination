@@ -44,6 +44,14 @@ class Assessment extends Examination implements ContractsAssessment
         return $this->assessment_model = $assessment;
     }
 
+    public function storeAssessment(? AssessmentData $assessment_dto = null): array{
+        return $this->transaction(function() use ($assessment_dto) {
+           return $this->showEntityResource(function() use ($assessment_dto){
+                return $this->prepareStore($assessment_dto ?? $this->requestDTO(config('app.contracts.AssessmentData'))); 
+           });
+        });
+    }
+
     private function setPractitioner(&$assessment, $practitioner){
         $prop_practitioner = $assessment->prop_practitioners;
         $assessment->setAttribute('prop_practitioners', $this->mergeArray($prop_practitioner ?? [], [[
@@ -95,7 +103,7 @@ class Assessment extends Examination implements ContractsAssessment
         //         $visit_registration->save();
         //     }
         // }
-        $model = $this->usingEntity();
+        $model = $this->{$assessment_dto->morph.'Model'}();
         if (isset($attributes->id)) {
             $assessment = $model->find($attributes->id);
         } else {
@@ -109,9 +117,18 @@ class Assessment extends Examination implements ContractsAssessment
                 'morph'                  => $assessment_dto->morph ?? $model->getMorphClass()
             ]);
         }
+        $assessment->setAttribute('exam', $assessment_dto->props['exam']);
+        $this->prepareAfterResolve($assessment);
+        $assessment_dto->props['exam'] = $this->mergeArray($assessment->getExamResults(), $assessment_dto->props['exam']);
         $this->fillingProps($assessment,$assessment_dto->props);
         $assessment->save();
         return $this->assessment_model = $assessment;
+    }
+
+    protected function prepareAfterResolve(Model &$assessment_model): void{
+        if (method_exists($assessment_model,'getAfterResolve')){
+            $assessment_model = $assessment_model->getAfterResolve();
+        }
     }
 
     public function prepareShowAssessment(?Model $model = null, ?array $attributes = null): mixed{
@@ -120,7 +137,7 @@ class Assessment extends Examination implements ContractsAssessment
 
         if (!isset($model)) {
             $id                   = $attributes['id'] ?? null;
-            $flag                 = $attributes['flag'];
+            $flag                 = $attributes['morph'];
             $visit_examination_id = $attributes['visit_examination_id'] ?? null;
             $patient_summary_id   = $attributes['patient_summary_id'] ?? null;
 
@@ -129,14 +146,12 @@ class Assessment extends Examination implements ContractsAssessment
             if (!isset($validation) && !isset($id)) throw new \Exception('No visit_examination_id/id provided', 422);
             if (isset($validation) && !isset($id) && !isset($flag)) throw new \Exception('Flag is required if id is not provided', 422);
 
-            $model = $this->usingEntity()->with($this->showUsingRelation());
+            $model = $this->generalSchemaModel()->with($this->showUsingRelation());
             if (isset($id)) {
                 $model = $model->find($id);
             } else {
-                $flag = $attributes['flag'];
+                $flag = $attributes['morph'];
                 $flag = Str::studly($flag);
-                $model;
-
                 if (isset($patient_summary_id)) {
                     $model = $model->paginate(20);
                 } else {

@@ -18,7 +18,7 @@ class ViewAssessment extends ApiResource
       'id'                 => $this->id,
       'patient_summary_id' => $this->patient_summary_id,
       'morph'              => $this->morph,
-      'exam'               => $this->{$this->morph . 'Model'}()->getExamResults($this),
+      'exam'               => $this->exam,
       'practitioners'      => $this->prop_practitioners ?? [],
       'is_settled'         => ($this->is_settled ?? 0) == 1,
       'created_at'         => $this->created_at,

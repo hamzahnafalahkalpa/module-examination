@@ -7,6 +7,7 @@ use Hanafalah\ModuleExamination\Resources\Examination\Assessment\{
     ViewAssessment, ShowAssessment
 };
 use Hanafalah\LaravelHasProps\Concerns\HasProps;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Assessment extends Examination
@@ -21,15 +22,10 @@ class Assessment extends Examination
     protected $casts = [
         'visit_registration_id'  => 'string',
         'examination_summary_id' => 'string',
-        'visit_examination_id'   => 'string',
+        'examination_id'         => 'string',
+        'examination_type'       => 'string',
         'morph'                  => 'string'
     ]; 
-
-    public function getPropsQuery(): array{
-        return [
-            'visit_examination_id' => 'props->visit_examination_id',
-        ];
-    }
 
     protected static function booted(): void{
         parent::booted();
@@ -55,9 +51,10 @@ class Assessment extends Examination
 
         $result = [];
         $specifics = $vars ?? $this->specific;
+        $has_default = isset($default);
         foreach ($specifics as $var) {
             if ($this->inArray($var,$this->hideAttributes())) continue;
-
+            $default ??=  Str::plural($var) == $var ? [] : null;
             if (method_exists($this,'getSurveyKey')){
                 $result[$var] = ($this->getSurveyKey() == $var) 
                         ? $this->getSurveys()
@@ -65,18 +62,19 @@ class Assessment extends Examination
             }else{
                 $result[$var] = $default;
             }
+            if (!$has_default) $default = null;
         }
         return ['exam' => $result];
     }
 
-    public function getExamResults($model): array{
+    public function getExamResults(?Model $model = null): array{
         $result = [];
         $model   ??= $this;
         $new_model = $this->{$model->morph . 'Model'}();
         $specifics = $new_model->specific;
         foreach ($specifics as $var) {
             if (!isset($model->exam[$var])){
-                $value = Str::plural($var) ? [] : null;
+                $value = Str::plural($var) == $var ? [] : null;
             }else{
                 $value = $model->exam[$var];
             }

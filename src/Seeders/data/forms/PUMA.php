@@ -1,15 +1,15 @@
 <?php
 
-use Hanafalah\ModuleExamination\Models\Form\MasterSurvey;
+use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return [
-    'label'  => 'MNA',
+    'label'  => 'PUMA',
     'name'  => 'PENGKAJIAN NUTRISI (SHORT FROM MNA)',
     'dynamic_forms'  => [
         [
             'label'          => 'Apakah peserta pernah merokok?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -28,7 +28,7 @@ return [
         [
             'label'          => 'Berapa rata-rata jumlah batang rokok per hari?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_INPUT,
+            'type'           => Survey::TYPE_INPUT,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => [
@@ -39,7 +39,7 @@ return [
         [
             'label'          => 'Lama merokok dalam tahun',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_INPUT,
+            'type'           => Survey::TYPE_INPUT,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => [
@@ -51,7 +51,7 @@ return [
             'label'          => 'Apakah Dokter atau tenaga medis lainnya pernah meminta peserta untuk melakukan pemeriksaan spirometri atau
             peak flow meter (meniup ke dalam suatu alat) untuk mengetahui fungsi paru peserta?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -71,7 +71,7 @@ return [
             'label'          => 'Apakah peserta pernah merasa napas pendek ketika peserta berjalan lebih cepat pada jalan yang datar atau
             pada jalan yang sedikit menanjak?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -90,7 +90,7 @@ return [
         [
             'label'          => 'Apakah peserta biasanya batuk saat peserta sedang tidak menderita selesma/flu?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -109,7 +109,7 @@ return [
         [
             'label'          => 'Status merokok',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -129,7 +129,7 @@ return [
             'label'          => 'Apakah peserta biasanya mempunyai dahak yang berasal dari paru atau kesulitan mengeluarkan dahak saat
             peserta sedang tidak menderita selesma/flu?',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,

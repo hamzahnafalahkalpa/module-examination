@@ -2,6 +2,8 @@
 
 namespace Hanafalah\ModuleExamination\Models\Examination\Assessment\Diagnose;
 
+use Illuminate\Database\Eloquent\Model;
+
 class FamilyIllness extends Diagnose
 {
     protected $table = 'assessments';
@@ -18,8 +20,9 @@ class FamilyIllness extends Diagnose
         'child_position'
     ];
 
-    public function getExamResults($model): array
+    public function getExamResults(?Model $model = null): array
     {
+        $model ??= $this;
         $exam = $model->exam;
         $family_role = $this->ExaminationStuffModel()->find($exam['family_role_id']);
         return [

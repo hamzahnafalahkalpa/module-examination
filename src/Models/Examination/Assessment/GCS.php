@@ -2,6 +2,8 @@
 
 namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
 
+use Illuminate\Database\Eloquent\Model;
+
 class GCS extends Assessment {
     protected $table = 'assessments';
     public $specific = [
@@ -12,7 +14,8 @@ class GCS extends Assessment {
         return 'gcs_id';
     }
 
-    public function getExamResults($model): array{
+    public function getExamResults(?Model $model = null): array{
+        $model ??= $this;
         $exam   = $model->exam;
         $eyes   = $this->ExaminationStuffModel()->find($exam['eyes_id']);
         $verbal = $this->ExaminationStuffModel()->find($exam['verbal_id']);

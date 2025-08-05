@@ -1,6 +1,6 @@
 <?php
 
-use Hanafalah\ModuleExamination\Models\Form\MasterSurvey;
+use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return [
     'label'  => 'SPPB',
@@ -9,7 +9,7 @@ return [
         [
             'label'          => 'Berdiri tandem',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -17,15 +17,15 @@ return [
             'options'        => [
                 [
                     'label' => 'Bertahan 10 detik',
-                    'value' => 4
-                ],
-                [
-                    'label' => 'Bertahan 3 – 9,99 detik',
                     'value' => 3
                 ],
                 [
+                    'label' => 'Bertahan 3 – 9,99 detik',
+                    'value' => 2
+                ],
+                [
                     'label' => 'Bertahan <3 detik',
-                    'value' => 0
+                    'value' => 1
                 ],
                 [
                     'label' => 'Tidak dilakukan',
@@ -36,7 +36,7 @@ return [
         [
             'label'          => 'Tes kecepatan berjalan: waktu untuk berjalan sejauh empat meter',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -67,7 +67,7 @@ return [
         [
             'label'          => 'Berdiri semi-tandem',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -90,7 +90,7 @@ return [
         [
             'label'          => 'Berdiri berdampingan',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
@@ -113,7 +113,7 @@ return [
         [
             'label'          => 'Tes berdiri dari kursi: waktu untuk bangkit dari kursi lima kali',
             'key'            => 'value',
-            'type'           => MasterSurvey::TYPE_RADIO,
+            'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,
             'attribute'      => null,
