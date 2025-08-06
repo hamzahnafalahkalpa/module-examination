@@ -2,12 +2,14 @@
 
 namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
 
-use Hanafalah\ModuleExamination\Models\Examination\Assessment\Assessment;
-
 class EyeRefractionExamination extends EyeExamination {
     protected $table = 'assessments';
 
     public $specific = [
-        'Autoref', 'Refraksi Subjektif'
+        'autoref', 'refraksi_subjektif'
     ];
+
+    public function getExams(mixed $default = null,? array $vars = null): array{
+        return parent::getExams(['kanan' => null, 'kiri' => null]);
+    }
 }

@@ -2,18 +2,17 @@
 
 namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
 
+use Hanafalah\ModuleExamination\Concerns\HasSurvey;
+
 class ChildGrowth extends Assessment{
-
-    protected $table  = 'object';
-    public $response_model = 'array';
+    use HasSurvey;
+    
+    protected $table  = 'assessments';
     public $specific  = [
-        // Pemeriksaan Tumbuh Kembang Anak
-        'pb_tb_by_age',
-        // Perkembangan Anak
-        // Pemeliharaan Atas Indikasi/Jika ada Keluhan
-        'gpph','autisme',
-        // Tindakan Intervensi
-        'stimulation_counseling','development_intervention'
-
+        'surveys'
     ];
+
+    protected function getSurveyFlag(): ?string {
+        return 'ChildGrowth';
+    }
 }

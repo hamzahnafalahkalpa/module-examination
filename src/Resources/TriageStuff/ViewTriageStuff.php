@@ -2,9 +2,9 @@
 
 namespace Hanafalah\ModuleExamination\Resources\TriageStuff;
 
-use Hanafalah\LaravelSupport\Resources\ApiResource;
+use Hanafalah\ModuleExamination\Resources\ExaminationStuff\ViewExaminationStuff;
 
-class ViewTriageStuff extends ApiResource
+class ViewTriageStuff extends ViewExaminationStuff
 {
   /**
    * Transform the resource into an array.
@@ -14,7 +14,8 @@ class ViewTriageStuff extends ApiResource
    */
   public function toArray(\Illuminate\Http\Request $request): array
   {
-    $arr = parent::toArray($request);
+    $arr = [];
+    $arr = $this->mergeArray(parent::toArray($request),$arr);
     return $arr;
   }
 }

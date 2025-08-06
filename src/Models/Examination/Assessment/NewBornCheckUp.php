@@ -10,7 +10,7 @@ class NewBornCheckUp extends Assessment{
 
     protected $table  = 'assessments';
     public $specific  = [
-        'result','surveys'
+        'surveys'
     ];
 
     protected function getSurveyFlag(): ?string {

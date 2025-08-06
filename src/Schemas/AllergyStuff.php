@@ -26,6 +26,6 @@ class AllergyStuff extends ExaminationStuff implements ContractsAllergyStuff
     }
 
     public function allergyStuff(mixed $conditionals = null): Builder{
-        return $this->unicode($conditionals);
+        return $this->examinationStuff($conditionals);
     }
 }

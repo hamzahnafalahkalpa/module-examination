@@ -17,9 +17,9 @@ class GCS extends Assessment {
     public function getExamResults(?Model $model = null): array{
         $model ??= $this;
         $exam   = $model->exam;
-        $eyes   = $this->ExaminationStuffModel()->find($exam['eyes_id']);
-        $verbal = $this->ExaminationStuffModel()->find($exam['verbal_id']);
-        $motor  = $this->ExaminationStuffModel()->find($exam['motor_id']);
+        $eyes   = $this->GcsStuffModel()->findOrFail($exam['eyes_id']);
+        $verbal = $this->GcsStuffModel()->findOrFail($exam['verbal_id']);
+        $motor  = $this->GcsStuffModel()->findOrFail($exam['motor_id']);
         $score  = intval($eyes->score) + intval($verbal->score) + intval($motor->score);
         $gcs_results = $this->gcsLogic($score);
         return [
@@ -27,14 +27,11 @@ class GCS extends Assessment {
             'verbal_id'            => $exam['verbal_id'],
             'motor_id'             => $exam['motor_id'],
             'score'                => $score,
-            'gcs_result'           => $gcs_results['name'],
-            'examination_stuff_id' => $gcs_results['examination_stuff_id'],
-            'description'          => $gcs_results['description']
+            'loc'                  => $gcs_results
         ];
     }
 
     public function gcsLogic($score){
-        $vital_stuff = $this->ExaminationStuffModel()->flagIn($this->VitalSignModel()->getMorphClass().'_LOC');
         switch (true) {
             case $score === 15                : $category = 'COMPOS MENTIS';break;
             case $score >= 13 && $score <= 14 : $category = 'APATIS';break;
@@ -49,12 +46,8 @@ class GCS extends Assessment {
                 ];
             break;
         }
-        $vital_stuff = $vital_stuff->where('name', $category)->firstOrFail();
-        return [
-            'examination_stuff_id' => $vital_stuff->getKey(),
-            'name'                 => $vital_stuff->name,
-            'description'          => $vital_stuff->description
-        ];
+        $vital_stuff = $this->VitalSignStuffModel()->where('label',$category)->firstOrFail();
+        return $vital_stuff->toViewApiOnlies('id','name','flag','label');
     }
 
     public function eyes(){return $this->belongsToModel('ExaminationStuff','eyes_id');}

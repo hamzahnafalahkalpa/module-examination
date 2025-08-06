@@ -6,6 +6,6 @@ class ImmunizationHistory extends Assessment{
     protected $table  = 'assessments';
     public $response_model = 'array';
     public $specific  = [
-        'immunization','date'
+        'immunization_id','estimate_date'
     ];
 }

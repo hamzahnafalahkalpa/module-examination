@@ -4,7 +4,6 @@ namespace Hanafalah\ModuleExamination\Contracts\Schemas;
 
 use Hanafalah\ModuleExamination\Contracts\Data\VitalSignStuffData;
 //use Hanafalah\ModuleExamination\Contracts\Data\VitalSignStuffUpdateData;
-use Hanafalah\LaravelSupport\Contracts\Supports\DataManagement;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,7 +27,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method array storeMultipleVitalSignStuff(array $datas)
  */
 
-interface VitalSignStuff extends DataManagement
+interface VitalSignStuff extends ExaminationStuff
 {
     public function prepareStoreVitalSignStuff(VitalSignStuffData $vital_sign_stuff_dto): Model;
+    public function vitalSignStuff(mixed $conditionals = null): Builder;
 }

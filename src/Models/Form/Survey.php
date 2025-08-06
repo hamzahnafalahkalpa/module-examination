@@ -19,6 +19,8 @@ class Survey extends Form
     const TYPE_TIME       = 'TIME';
     const TYPE_DATE_TIME  = 'DATE_TIME';
     const TYPE_DATE_RANGE = 'DATE_RANGE';
+    const TYPE_CARD       = 'CARD';
+    const TYPE_MULTIPLE_FORM       = 'MULTIPLE_FORM';
 
     public function getForeignKey(){
         return 'survey_id';

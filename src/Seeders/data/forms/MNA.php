@@ -105,7 +105,7 @@ return [
         ],
         [
             'label'          => 'Indeks Massa Tubuh (IMT) berat badan dalam kg/tinggi badan dalam',
-            'key'            => 'BMI',
+            'key'            => 'value',
             'type'           => Survey::TYPE_RADIO,
             'component_name' => null,
             'default_value'  => null,

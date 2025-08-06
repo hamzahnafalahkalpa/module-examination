@@ -11,7 +11,7 @@ class ISKJ extends Assessment{
 
     protected $table  = 'assessments';
     public $specific  = [
-        'result','summary','surveys'
+        'summary','surveys'
     ];
 
     protected function getSurveyFlag(): ?string {
@@ -19,15 +19,14 @@ class ISKJ extends Assessment{
     }
 
     public function getAfterResolve(): Model{
-        $exam = &$this->exam;
-        $dynamic_forms = &$exam['surveys'];
+        $exam = $this->exam;
+        $dynamic_forms = $exam['surveys'];
         $results       = 0;
         foreach ($dynamic_forms as $dynamic_form) {
             if (isset($dynamic_form[$dynamic_form['key']],$dynamic_form[$dynamic_form['key']]['value'])){
                 $results += $dynamic_form[$dynamic_form['key']]['value'];
             }
         }
-        $exam['result'] = $results;
         $exam['summary'] = $this->conclusion($results);
         $this->setAttribute('exam',$exam);
         return $this;

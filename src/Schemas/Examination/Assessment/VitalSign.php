@@ -12,13 +12,12 @@ class VitalSign extends Assessment implements AssessmentVitalSign
     protected string $__entity   = 'VitalSign';
 
     public function prepareStore(AssessmentData $assessment_dto): Model{
-        $assessment_exam = &$assessment_dto->exam;
+        $assessment_exam = &$assessment_dto->props['exam'];
         $loc = $this->VitalSignStuffModel();
         if (isset($assessment_exam['loc_id'])){
-            $loc = $loc->flagIn();
+            $loc = $loc->findOrFail($assessment_exam['loc_id']);
         }
-
-        $assessment = $this->prepareStoreAssessment($assessment_dto);
-        return $this->assessment_model = $assessment;
+        $assessment_exam['loc'] = $loc->toViewApiOnlies('id','name','flag','label');
+        return parent::prepareStore($assessment_dto);
     }
 }

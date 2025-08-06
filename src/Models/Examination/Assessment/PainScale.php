@@ -20,7 +20,7 @@ class PainScale extends Assessment {
     }
 
     public function getResult(int $scale): string{
-        $pain_config = config('puskesmas-module-examination.examinations.'.$this->getMorphClass());
+        $pain_config = config('module-examination.examinations.'.$this->getMorphClass());
         $method      = $pain_config['type']; 
         switch ($method) {
             case 0: return $this->getWongBakerPainScaleResult($scale);break;

@@ -2,6 +2,8 @@
 
 namespace Hanafalah\ModuleExamination\Resources\TriageStuff;
 
+use Hanafalah\ModuleExamination\Resources\ExaminationStuff\ShowExaminationStuff;
+
 class ShowTriageStuff extends ViewTriageStuff
 {
   /**
@@ -13,7 +15,8 @@ class ShowTriageStuff extends ViewTriageStuff
   public function toArray(\Illuminate\Http\Request $request): array
   {
     $arr = [];
-    $arr = $this->mergeArray(parent::toArray($request),$arr);
+    $show = $this->resolveNow(new ShowExaminationStuff($this));
+    $arr = $this->mergeArray(parent::toArray($request),$show,$arr);
     return $arr;
   }
 }

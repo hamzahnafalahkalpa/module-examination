@@ -1,242 +1,70 @@
-<?php
+<?php 
 
 use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return [
-    'label'  => 'HIVAntibodyTrst',
-    'name'  => 'KAJIAN TINGKAT RISIKO',
-    'dynamic_forms'  => [
+    'label' => 'HIVAntibodyTest',
+    'name' => 'HIV Antibody Test',
+    'dynamic_forms' => [
         [
-            'label'          => 'Hubungan seks vaginal berisiko',
-            'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
+            'label' => 'Tanggal Pemeriksaan',
+            'key' => 'value',
+            'type' => Survey::TYPE_DATE,
             'component_name' => null,
-            'default_value'  => null,
-            'attribute'      => null,
-            'rule'           => null,
-            'options'        => [
-                [
-                    'label' => 'Ya',
-                    'value' => 'Ya',
-                    'dynamic_forms' => [
-                        [
-                            'label'          => 'Tanggal',
-                            'key'            => 'value',
-                            'type'           => Survey::TYPE_DATE,
-                            'component_name' => null,
-                            'default_value'  => null,
-                            'attribute'      => null,
-                            'rule'           => null,
-                        ]
-                    ]
-                ],
-                [
-                    'label' => 'Tidak',
-                    'value' => 'Tidak'
-                ]
+            'default_value' => null,
+            'attribute' => null,
+            'rule' => null,
+            'options' => null
+        ],
+        [
+            'label' => 'Jenis Tes HIV',
+            'key' => 'value',
+            'type' => Survey::TYPE_INPUT, // bebas diisi
+            'component_name' => null,
+            'default_value' => null,
+            'attribute' => null,
+            'rule' => null,
+            'options' => null
+        ],
+        [
+            'label' => 'Urutan Tes',
+            'key' => 'value',
+            'type' => Survey::TYPE_SELECT,
+            'component_name' => null,
+            'default_value' => null,
+            'attribute' => null,
+            'rule' => null,
+            'options' => [
+                ['label' => 'Tes 1', 'value' => 'Tes 1'],
+                ['label' => 'Tes 2', 'value' => 'Tes 2'],
+                ['label' => 'Tes 3', 'value' => 'Tes 3'],
+                ['label' => 'Ulangan', 'value' => 'Ulangan']
             ]
         ],
         [
-            'label'          => 'Bergantian peralatan suntik',
-            'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
+            'label' => 'Hasil Tes',
+            'key' => 'value',
+            'type' => Survey::TYPE_SELECT,
             'component_name' => null,
-            'default_value'  => null,
-            'attribute'      => null,
-            'rule'           => null,
-            'options'        => [
-                [
-                    'label' => 'Ya',
-                    'value' => 'Ya',
-                    'dynamic_forms' => [
-                        [
-                            'label'          => 'Tanggal',
-                            'key'            => 'value',
-                            'type'           => Survey::TYPE_DATE,
-                            'component_name' => null,
-                            'default_value'  => null,
-                            'attribute'      => null,
-                            'rule'           => null,
-                        ]
-                    ]
-                ],
-                [
-                    'label' => 'Tidak',
-                    'value' => 'Tidak'
-                ]
+            'default_value' => null,
+            'attribute' => null,
+            'rule' => null,
+            'options' => [
+                ['label' => 'Reaktif', 'value' => 'Reaktif'],
+                ['label' => 'Non Reaktif', 'value' => 'Non Reaktif'],
+                ['label' => 'Invalid', 'value' => 'Invalid'],
+                ['label' => 'Perlu Ulang', 'value' => 'Perlu Ulang']
             ]
         ],
         [
-            'label'          => 'Transmisi ibu ke anak',
-            'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
+            'label' => 'Nama Reagen',
+            'key' => 'value',
+            'type' => Survey::TYPE_INPUT, // bebas diisi
             'component_name' => null,
-            'default_value'  => null,
-            'attribute'      => null,
-            'rule'           => null,
-            'options'        => [
-                [
-                    'label' => 'Ya',
-                    'value' => 'Ya',
-                    'dynamic_forms' => [
-                        [
-                            'label'          => 'Tanggal',
-                            'key'            => 'value',
-                            'type'           => Survey::TYPE_DATE,
-                            'component_name' => null,
-                            'default_value'  => null,
-                            'attribute'      => null,
-                            'rule'           => null,
-                        ]
-                    ]
-                ],
-                [
-                    'label' => 'Tidak',
-                    'value' => 'Tidak'
-                ]
-            ]
+            'default_value' => null,
+            'attribute' => null,
+            'rule' => null,
+            'options' => null
         ],
-        [
-            'label'          => 'Periode jendela',
-            'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
-            'default_value'  => null,
-            'attribute'      => null,
-            'rule'           => null,
-            'options'        => [
-                [
-                    'label' => 'Ya',
-                    'value' => 'Ya',
-                    'dynamic_forms' => [
-                        [
-                            'label'          => 'Tanggal',
-                            'key'            => 'value',
-                            'type'           => Survey::TYPE_DATE,
-                            'component_name' => null,
-                            'default_value'  => null,
-                            'attribute'      => null,
-                            'rule'           => null,
-                        ]
-                    ]
-                ],
-                [
-                    'label' => 'Tidak',
-                    'value' => 'Tidak'
-                ]
-            ]
-        ],
-        [
-            'label'          => 'Anal seks berisiko',
-            'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
-            'default_value'  => null,
-            'attribute'      => null,
-            'rule'           => null,
-            'options'        => [
-                [
-                    'label' => 'Ya',
-                    'value' => 'Ya',
-                    'dynamic_forms' => [
-                        [
-                            'label'          => 'Tanggal',
-                            'key'            => 'value',
-                            'type'           => Survey::TYPE_DATE,
-                            'component_name' => null,
-                            'default_value'  => null,
-                            'attribute'      => null,
-                            'rule'           => null,
-                        ]
-                    ]
-                ],
-                [
-                    'label' => 'Tidak',
-                    'value' => 'Tidak'
-                ]
-            ]
-        ],
-        [
-            'label'          => 'Transfusi darah',
-            'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
-            'default_value'  => null,
-            'attribute'      => null,
-            'rule'           => null,
-            'options'        => [
-                [
-                    'label' => 'Ya',
-                    'value' => 'Ya',
-                    'dynamic_forms' => [
-                        [
-                            'label'          => 'Tanggal',
-                            'key'            => 'value',
-                            'type'           => Survey::TYPE_DATE,
-                            'component_name' => null,
-                            'default_value'  => null,
-                            'attribute'      => null,
-                            'rule'           => null,
-                        ]
-                    ]
-                ],
-                [
-                    'label' => 'Tidak',
-                    'value' => 'Tidak'
-                ]
-            ]
-        ],
-        [
-            'label'          => 'Pernah tes HIV sebelumnya',
-            'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
-            'default_value'  => null,
-            'attribute'      => null,
-            'rule'           => null,
-            'options'        => [
-                [
-                    'label' => 'Ya',
-                    'value' => 'Ya',
-                    'dynamic_forms' => [
-                        [
-                            'label'          => 'Lokasi tes HIV sebelumnya',
-                            'key'            => 'value',
-                            'type'           => Survey::TYPE_INPUT,
-                            'component_name' => null,
-                            'default_value'  => null,
-                            'attribute'      => null,
-                            'rule'           => null,
-                        ]
-                    ]
-                ],
-                [
-                    'label' => 'Tidak',
-                    'value' => 'Tidak'
-                ]
-            ]
-        ],
-        [
-            'label'          => 'Kesediaan untuk test',
-            'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
-            'default_value'  => null,
-            'attribute'      => null,
-            'rule'           => null,
-            'options'        => [
-                [
-                    'label' => 'Ya',
-                    'value' => 'Ya',
-                    'surveys' => [
-                        'HIVAntibodyTest'
-                    ]
-                ],
-                [
-                    'label' => 'Tidak',
-                    'value' => 'Tidak'
-                ]
-            ]
-        ]
     ]
 ];

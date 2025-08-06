@@ -2,10 +2,17 @@
 
 namespace Hanafalah\ModuleExamination\Models\Examination\Assessment;
 
+use Hanafalah\ModuleExamination\Concerns\HasSurvey;
+
 class HIVAntibodyTest extends Assessment{
+    use HasSurvey;
+
     protected $table  = 'assessments';
-    public $response_model = 'array';
     public $specific  = [
-        'date','type_test','ordering_test','result_test','reagen_name'
+        'surveys'
     ];
+
+    protected function getSurveyFlag(): ?string {
+        return 'HIVAntibodyTest';
+    }
 }

@@ -21,8 +21,8 @@ class SurveyData extends FormData implements DataSurveyData
 
     private function initializeDynamicForm(&$dynamic_forms){
         foreach ($dynamic_forms as &$dynamic_form) {
-            $dynamic_form[$dynamic_form['key']] ??= null;
             $dynamic_form['options'] ??= [];
+            $dynamic_form['dynamic_forms'] ??= [];
             if (isset($dynamic_form['options']) && count($dynamic_form['options']) > 0){
                 foreach ($dynamic_form['options'] as &$option) {
                     if (isset($option['dynamic_forms']) && count($option['dynamic_forms']) > 0){
@@ -37,6 +37,11 @@ class SurveyData extends FormData implements DataSurveyData
                         $dynamic_form['default_value'] = $option;
                     }
                 }
+            }
+            if (isset($dynamic_form['dynamic_forms']) && count($dynamic_form['dynamic_forms']) > 0){
+                $this->initializeDynamicForm($dynamic_form['dynamic_forms']);
+            }else{
+                $dynamic_form[$dynamic_form['key']] ??= null;
             }
         }
     }

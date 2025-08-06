@@ -26,6 +26,6 @@ class TriageStuff extends ExaminationStuff implements ContractsTriageStuff
     }
 
     public function triageStuff(mixed $conditionals = null): Builder{
-        return $this->unicode($conditionals);
+        return $this->examinationStuff($conditionals);
     }
 }

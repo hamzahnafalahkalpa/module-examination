@@ -62,7 +62,10 @@ class FormSeeder extends Seeder{
                 'name' => 'Anak dan Riwayat Persalinan'
             ],
             $this->modelMorph('ChildGrowth') => [
-                'name' => 'Tumbuh Kembang Anak'
+                'name' => 'Tumbuh Kembang Anak',
+                'form_has_survey' => [
+                    "survey" => include(__DIR__ . '/data/forms/ChildGrowth.php')
+                ]
             ],
             $this->modelMorph('EarExamination') => [
                 'name' => 'Pemeriksaan Telinga'
@@ -79,8 +82,11 @@ class FormSeeder extends Seeder{
             $this->modelMorph('FamilyPlanningService') => [
                 "name" => "Pelayanan KB"
             ],
-            $this->modelMorph('FinalConclusionLabor') => [
-                "name" => "Kesimpulan Akhir Persalinan"    
+            $this->modelMorph('Partus') => [
+                "name" => "Persalinan",
+                'form_has_survey' => [
+                    "survey" => include(__DIR__ . '/data/forms/Partus.php')
+                ]
             ],
             $this->modelMorph('FoodHandlerExamination') => [
                 "name" => "Pemeriksaan Penyelenggara Makanan"    
@@ -101,7 +107,10 @@ class FormSeeder extends Seeder{
                 ]
             ],
             $this->modelMorph('HIVAntibodyTest') => [
-                "name" => "Tes Antibodi HIV"    
+                "name" => "Tes Antibodi HIV",
+                'form_has_survey' => [
+                    "survey" => include(__DIR__ . '/data/forms/HIVAntibodyTest.php')
+                ]
             ],
             $this->modelMorph('HearingFunction') => [
                 'name'    => 'PEMERIKSAAN FUNGSI PENDENGARAN',
@@ -124,18 +133,18 @@ class FormSeeder extends Seeder{
             $this->modelMorph('ImmunizationHistory') => [
                 "name" => "Riwayat Imunisasi"    
             ],
-            $this->modelMorph('KalaIExamination') => [
-                "name" => "Pemeriksaan Kala I"    
-            ],
-            $this->modelMorph('KalaIIExamination') => [
-                "name" => "Pemeriksaan Kala II"    
-            ],
-            $this->modelMorph('KalaIIIExamination') => [
-                "name" => "Pemeriksaan Kala III"    
-            ],
-            $this->modelMorph('KalaIVExamination') => [
-                "name" => "Pemeriksaan Kala IV"    
-            ],
+            // $this->modelMorph('KalaIExamination') => [
+            //     "name" => "Pemeriksaan Kala I"    
+            // ],
+            // $this->modelMorph('KalaIIExamination') => [
+            //     "name" => "Pemeriksaan Kala II"    
+            // ],
+            // $this->modelMorph('KalaIIIExamination') => [
+            //     "name" => "Pemeriksaan Kala III"    
+            // ],
+            // $this->modelMorph('KalaIVExamination') => [
+            //     "name" => "Pemeriksaan Kala IV"    
+            // ],
             $this->modelMorph('LarynxExamination') => [
                 'name' => 'Pemeriksaan Laring'
             ],
@@ -163,8 +172,11 @@ class FormSeeder extends Seeder{
                     "survey" => include(__DIR__ . '/data/forms/Malaria.php')
                 ]
             ],
-            $this->modelMorph('MorceFallScale') => [
-                "name" => "Risiko Jatuh (Morce Fall Scale)"    
+            $this->modelMorph('MorseFallScale') => [
+                "name" => "Risiko Jatuh (Morse Fall Scale)",
+                'form_has_survey' => [
+                    "survey" => include(__DIR__ . '/data/forms/MorseFallScale.php')
+                ]
             ],
             $this->modelMorph('MouthCavity') => [
                 'name'    => 'KEADAAN RONGGA MULUT',
@@ -178,8 +190,11 @@ class FormSeeder extends Seeder{
                     "survey" => include(__DIR__ . '/data/forms/MouthCavityOther.php')
                 ]
             ],
-            $this->modelMorph('NeonatalEsential') => [
-                "name" => "Neonatal Esential"    
+            $this->modelMorph('NeonatalEsensial') => [
+                "name" => "Neonatal Esential",
+                'form_has_survey' => [
+                    "survey" => include(__DIR__ . '/data/forms/NeonatalEsensial.php')
+                ] 
             ],
             $this->modelMorph('NewBornCheckUp') => [
                 'name'    => 'PEMERIKSAAN BAYI BARU LAHIR',
@@ -194,7 +209,10 @@ class FormSeeder extends Seeder{
                 'name' => 'Odontogram'
             ],
             $this->modelMorph('PARQ') => [
-                "name" => "Physical Activity Readiness Questionnaire (PAR-Q)"
+                "name" => "Physical Activity Readiness Questionnaire (PAR-Q)",
+                'form_has_survey' => [
+                    "survey" => include(__DIR__ . '/data/forms/PARQ.php')
+                ]
             ],
             $this->modelMorph('POPMHistory') => [
                 "name" => "Pemberian obat pencegahan massal cacingan (POPM)"    
@@ -209,7 +227,10 @@ class FormSeeder extends Seeder{
                 'name' => 'Sekala Nyeri'
             ],
             $this->modelMorph('PhysicalActivity') => [
-                "name" => "Pemeriksaan Fisik"    
+                "name" => "Aktifitas Harian",
+                'form_has_survey' => [
+                    "survey" => include(__DIR__ . '/data/forms/PhysicalActivity.php')
+                ]
             ],
             $this->modelMorph('PostpartumObservation') => [
                 'name'    => 'PELAYANAN KESEHATAN IBU NIFAS',
@@ -221,7 +242,10 @@ class FormSeeder extends Seeder{
                 "name" => "Rocport Test"    
             ],
             $this->modelMorph('SNST') => [
-                "name" => "Formulir Gizi SNST"    
+                "name" => "Formulir Gizi SNST",
+                'form_has_survey' => [
+                    "survey" => include(__DIR__ . '/data/forms/SNST.php')
+                ]
             ],
             $this->modelMorph('SOAP') => [
                 "name" => "SOAP"    

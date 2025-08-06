@@ -2,7 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Resources\VitalSignStuff;
 
-use Hanafalah\LaravelSupport\Resources\Unicode\ShowUnicode;
+use Hanafalah\ModuleExamination\Resources\ExaminationStuff\ShowExaminationStuff;
 
 class ShowVitalSignStuff extends ViewVitalSignStuff
 {
@@ -15,7 +15,7 @@ class ShowVitalSignStuff extends ViewVitalSignStuff
   public function toArray(\Illuminate\Http\Request $request): array
   {
     $arr = [];
-    $show = $this->resolveNow(new ShowUnicode($this));
+    $show = $this->resolveNow(new ShowExaminationStuff($this));
     $arr = $this->mergeArray(parent::toArray($request),$show,$arr);
     return $arr;
   }

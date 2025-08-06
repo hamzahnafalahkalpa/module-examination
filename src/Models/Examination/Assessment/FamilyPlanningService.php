@@ -8,14 +8,7 @@ class FamilyPlanningService extends Assessment{
     public $specific  = [
         'is_inflamation','note_inflamation',
         'is_gynecological_tumor','note_gynecological_tumor',
-        'position_uterus','contraception_histories'
+        'is_diabetic_sign','is_coagulation_disorder',
+        'uterus_position','contraception_type_id'
     ];
-
-    public function setContraceptionHistories(array $contraceptionHistory){
-        $this->contraception_histories[] = [
-            'contraception' => $contraceptionHistory['contraception'],
-            'status'        => $contraceptionHistory['status'],
-            'stop_date'     => $contraceptionHistory['stop_date']
-        ];
-    }
 }

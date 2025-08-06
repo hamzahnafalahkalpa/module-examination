@@ -10,7 +10,7 @@ class AMT extends Assessment{
 
     protected $table  = 'assessments';
     public $specific  = [
-        'result','summary','surveys'
+        'summary','surveys'
     ];
 
     
@@ -27,7 +27,6 @@ class AMT extends Assessment{
                 $results += $dynamic_form[$dynamic_form['key']]['value'];
             }
         }
-        $exam['result'] = $results;
         $exam['summary'] = $this->conclusion($results);    
         $this->setAttribute('exam',$exam);
         return $this;

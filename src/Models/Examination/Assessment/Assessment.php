@@ -47,7 +47,8 @@ class Assessment extends Examination
     }
 
     public function getExams(mixed $default = null,? array $vars = null): array{
-        if ($this->response_model == 'array') return [];
+        $as_form = isset(request()->as_form) && request()->as_form;
+        if ($this->response_model == 'array' && !$as_form) return [];
 
         $result = [];
         $specifics = $vars ?? $this->specific;
@@ -85,6 +86,14 @@ class Assessment extends Examination
 
     public function getMorph(){
         return $this->morph;
+    }
+
+    protected static function uncommitVisitExamination($query){
+        if ($query->examination_type == 'VisitExamination'){
+            $visit_examination = $query->examination;
+            $visit_examination->is_commit = false;
+            $visit_examination->save();
+        }
     }
 
     public function examination(){return $this->morphTo();}
