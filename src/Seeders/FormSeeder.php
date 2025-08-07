@@ -241,6 +241,9 @@ class FormSeeder extends Seeder{
             $this->modelMorph('RocportTest') => [
                 "name" => "Rocport Test"    
             ],
+            $this->modelMorph('SingleTest') => [
+                "name" => "Single Test"    
+            ],
             $this->modelMorph('SNST') => [
                 "name" => "Formulir Gizi SNST",
                 'form_has_survey' => [

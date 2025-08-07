@@ -148,7 +148,8 @@ class Examination extends ModulePatient implements ContractsExamination
         $exam_data['morph'] = $studly_key;
         $exam_data['visit_examination_model'] = $examination_dto->visit_examination_model;
         $exam_data = $this->requestDTO(AssessmentData::class,$exam_data);
-        return $this->dataPreparation($this->schemaContract($studly_key), $exam_data);
+        $contract_exists = config('app.contracts.'.$studly_key) !== null;
+        return $this->dataPreparation($this->schemaContract($contract_exists ? $studly_key : 'Assessment'), $exam_data);
     }
 
     public function commitExamination(): array{

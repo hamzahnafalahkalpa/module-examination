@@ -328,8 +328,19 @@ class ExaminationStuffSeeder extends Seeder
                         ],
                     ]
                 ]
+            ],
+            'SingleTestStuff' => [
+                [
+                    'name'  => 'Kategori Single Test',
+                    'label' => 'KATEGORI SINGLE TEST ',
+                    'childs' => [
+                        ['label' => 'MALE 1000M 10-12', 'name' => 'Single test 1000m laki-laki usia 10-12 tahun'],
+                        ['label' => 'FEMALE 1000M 10-12', 'name' => 'Single test 1000m perempuan usia 10-12 tahun'],
+                        ['label' => 'MALE 1600M 13-19', 'name' => 'Single test 1600m laki-laki usia 13-19 tahun'],
+                        ['label' => 'FEMALE 1600M 13-19', 'name' => 'Single test 1600m perempuan usia 13-19 tahun'],
+                    ]
+                ]
             ]
-
         ];
     
     public function run(){

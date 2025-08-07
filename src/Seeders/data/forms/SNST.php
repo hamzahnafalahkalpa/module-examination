@@ -4,7 +4,7 @@ use Hanafalah\ModuleExamination\Models\Form\Survey;
 
 return [
     'label'  => 'SNST',
-    'name'  => 'FORMULIR GIZI SNST',
+    'name'  => 'FORMULIR GIZI SIMPLE NUTRITION SCREENING TOOL (SNST)',
     'dynamic_forms'  => [
         [
             'label'          => 'Apakah Anda merasakan lemah, loyo dan tidak bertenaga?',

@@ -8,30 +8,50 @@ class MCUExamSummary extends Assessment {
     protected $table = 'assessments';
 
     public $specific = [
-        'Physical Examination', 'Opthalmology Examination',
-        'Tone Audiogram', 'Electrocardiogram', 'CBC (Hematology Panel)',
-        'Urinalysis', 'Chemistry Panel', 'Hepatitis Panel',
-        'VDLR (RPR) Test', 'Stool Analysis', 'Chest X-ray',
-        'Drug Test', 'Stool Culture', 'Mantoux Test', 'Pregnancy Test'
+        'physical_examination',
+        'opthalmology_examination',
+        'tone_audiogram',
+        'electrocardiogram',
+        'cbc_hematology_panel',
+        'urinalysis',
+        'chemistry_panel',
+        'hepatitis_panel',
+        'vdrl_rpr_test',
+        'stool_analysis',
+        'chest_x_ray',
+        'drug_test',
+        'stool_culture',
+        'mantoux_test',
+        'pregnancy_test'
     ];
 
-    public function getExams(mixed $default = null,? array $vars = null): array{
+    public function getExams(mixed $default = null, ?array $vars = null): array {
         $results = $this->mergeExams([
-            'Physical Examination', 'Opthalmology Examination',
-            'Tone Audiogram', 'Electrocardiogram', 'CBC (Hematology Panel)',
-            'Urinalysis', 'Chemistry Panel', 'Hepatitis Panel',
-            'VDLR (RPR) Test', 'Stool Analysis', 'Chest X-ray'
-        ], ['Normal' => true, 'Abnormal' => false]);
+            'physical_examination',
+            'opthalmology_examination',
+            'tone_audiogram',
+            'electrocardiogram',
+            'cbc_hematology_panel',
+            'urinalysis',
+            'chemistry_panel',
+            'hepatitis_panel',
+            'vdrl_rpr_test',
+            'stool_analysis',
+            'chest_x_ray',
+        ], ['normal' => true, 'abnormal' => false]);
 
-        $results = $this->mergeArray($results,$this->mergeExams([
-            'Drug Test', 'Stool Culture', 'Mantoux Test'
-        ], ['Positive' => false, 'Negative' => true]));
+        $results = $this->mergeArray($results, $this->mergeExams([
+            'drug_test',
+            'stool_culture',
+            'mantoux_test'
+        ], ['positive' => false, 'negative' => true]));
 
-        $results['Pregnancy Test'] = ['Positive' => false, 'Negative' => false];
+        $results['pregnancy_test'] = ['positive' => false, 'negative' => false];
+
         return ['exam' => $results];
     }
 
-    private function mergeExams(array $exams,mixed $default = null){
+    private function mergeExams(array $exams, mixed $default = null): array {
         $results = [];
         $exam = parent::getExams($default, $exams);
         $results = $this->mergeArray($results, $exam['exam']);
