@@ -3,12 +3,12 @@
     "description": "module for examination in klinik or puskesmas",
     "type": "library",
     "require": {
-        "hanafalah/laravel-support": "1.x-dev as 1.0",
-        "hanafalah/module-transaction": "1.x-dev as 1.0",
-        "hanafalah/module-patient": "1.x-dev as 1.0",
-        "hanafalah/module-service": "1.x-dev as 1.0",
-        "hanafalah/module-summary": "1.x-dev as 1.0",
-        "hanafalah/module-disease": "1.x-dev as 1.0"
+        "hanafalah/laravel-support": "dev-main as 1.0",
+        "hanafalah/module-transaction": "dev-main as 1.0",
+        "hanafalah/module-patient": "dev-main as 1.0",
+        "hanafalah/module-service": "dev-main as 1.0",
+        "hanafalah/module-summary": "dev-main as 1.0",
+        "hanafalah/module-disease": "dev-main as 1.0"
     },
     "autoload": {
         "psr-4": {
