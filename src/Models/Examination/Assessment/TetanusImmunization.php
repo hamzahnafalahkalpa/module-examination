@@ -9,6 +9,11 @@ class TetanusImmunization extends Assessment{
 
     protected $table  = 'assessments';
     public $specific  = [
-        'tetanus_date_1','tetanus_date_2','tetanus_date_2','tetanus_date_3','tetanus_date_4','tetanus_date_5'
+        'tetanus_date_1',
+        'tetanus_date_2',
+        'tetanus_date_2',
+        'tetanus_date_3',
+        'tetanus_date_4',
+        'tetanus_date_5'
     ];
 }

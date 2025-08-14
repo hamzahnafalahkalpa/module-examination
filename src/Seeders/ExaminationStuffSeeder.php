@@ -340,6 +340,24 @@ class ExaminationStuffSeeder extends Seeder
                         ['label' => 'FEMALE 1600M 13-19', 'name' => 'Single test 1600m perempuan usia 13-19 tahun'],
                     ]
                 ]
+            ],
+            'HearingLossStuff' => [
+                [
+                    'name' => 'Kategori Hearing Loss',
+                    'label' => 'KATEGORI HEARING LOSS',
+                    'childs' => [
+                        ['label' => 'Gangguan Pendengaran', 'name' => 'Gangguan Pendengaran', 'childs' => [
+                            ['label' => 'Otitis Media Supuratif Kronik', 'name' => 'Otitis Media Supuratif Kronik'],
+                            ['label' => '(OMSK/Congek)', 'name' => '(OMSK/Congek)'],
+                            ['label' => 'Sumbatan Serumen', 'name' => 'Sumbatan Serumen'],
+                            ['label' => 'Presbikusis', 'name' => 'Presbikusis'],
+                            ['label' => 'Tuli akibat Bising (NIHL)', 'name' => 'Tuli akibat Bising (NIHL)'],
+                            ['label' => 'Curiga Tuli Kongenital', 'name' => 'Curiga Tuli Kongenital'],
+                            ['label' => 'Tuli Akibat Obat Ototoksik', 'name' => 'Tuli Akibat Obat Ototoksik'],
+                            ['label' => 'Lainnya', 'name' => 'Lain-lain'],
+                        ]],
+                    ]
+                ]
             ]
         ];
     

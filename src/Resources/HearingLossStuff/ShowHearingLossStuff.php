@@ -1,10 +1,10 @@
 <?php
 
-namespace Hanafalah\ModuleExamination\Resources\ImmunizationStuff;
+namespace Hanafalah\ModuleExamination\Resources\HearingLossStuff;
 
 use Hanafalah\ModuleExamination\Resources\ExaminationStuff\ShowExaminationStuff;
 
-class ShowImmunizationStuff extends ViewImmunizationStuff
+class ShowHearingLossStuff extends ViewHearingLossStuff
 {
   /**
    * Transform the resource into an array.
