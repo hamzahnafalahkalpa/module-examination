@@ -53,6 +53,10 @@ class ExaminationData extends Data implements DataExaminationData
     #[MapName('treatments')]
     public ?array $treatments = null;
 
+    #[MapInputName('prescription')]
+    #[MapName('prescription')]
+    public null|array|object $prescription = null;
+
     #[MapInputName('props')]
     #[MapName('props')]
     public ?array $props = null;

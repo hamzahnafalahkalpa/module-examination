@@ -28,6 +28,9 @@ class Examination extends ModulePatient implements ContractsExamination
 
     public function prepareStoreExamination(ExaminationData $examination_dto): array{
         $visit_examination_model = &$examination_dto->visit_examination_model;
+
+        $visit_examination_model->is_has_prescription ??= null;
+
         $visit_patient = $examination_dto->visit_patient_model;
         $visit_patient->visit_code = Str::ulid();
         $visit_patient->save();
@@ -47,19 +50,21 @@ class Examination extends ModulePatient implements ContractsExamination
         // EXAMINATION STORE PROSES
         $exam_cores = array_values(array_keys($core));
         foreach ($exam_cores as $exam_core) {
-            if (isset($examination_dto->{$exam_core}) && count($examination_dto->{$exam_core}) > 0) {
+            if (isset($examination_dto->{$exam_core})) {
                 switch ($exam_core) {
                     case 'treatments':
-                        $medic_service = $examination_dto->visit_registration_model->medicService;
-                        switch ($medic_service->flag) {
-                            case Label::PATHOLOGY_CLINIC->value     : 
-                            case Label::PATHOLOGY_ANATOMY->value    : $schema = 'lab_treatment';break;
-                            case Label::RADIOLOGY->value            : $schema = 'radiology_treatment';break;
-                            case Label::OUTPATIENT->value           : 
-                            case Label::MCU->value                  : 
-                            default                                 : $schema = 'clinical_treatment';break;
+                        if (count($examination_dto->{$exam_core}) > 0){
+                            $medic_service = $examination_dto->visit_registration_model->medicService;
+                            switch ($medic_service->flag) {
+                                case Label::PATHOLOGY_CLINIC->value     : 
+                                case Label::PATHOLOGY_ANATOMY->value    : $schema = 'lab_treatment';break;
+                                case Label::RADIOLOGY->value            : $schema = 'radiology_treatment';break;
+                                case Label::OUTPATIENT->value           : 
+                                case Label::MCU->value                  : 
+                                default                                 : $schema = 'clinical_treatment';break;
+                            }
+                            $this->prepareExamination($examination_dto,'treatments',Str::studly($schema));
                         }
-                        $this->prepareExamination($examination_dto,'treatments',Str::studly($schema));
                     break;
                     default:
                         $examination_dto->response[$exam_core] = new stdClass();
@@ -112,6 +117,7 @@ class Examination extends ModulePatient implements ContractsExamination
 
         $response = &$examination_dto->response[$exam_key];
         $current_exam = $examination_dto->{$exam_key};
+
         foreach ($current_exam as $key => &$exam) {
             if (isset($exam['data'])){
                 $studly_key = Str::studly($key);
@@ -147,7 +153,9 @@ class Examination extends ModulePatient implements ContractsExamination
     private function prepareAssessment(array &$exam_data, string $studly_key, ExaminationData $examination_dto){
         $exam_data['morph'] = $studly_key;
         $exam_data['visit_examination_model'] = $examination_dto->visit_examination_model;
-        $exam_data = $this->requestDTO(AssessmentData::class,$exam_data);
+        $contract_data = config('app.contracts.'.$studly_key.'Data');
+        $contract_data ??= AssessmentData::class;
+        $exam_data = $this->requestDTO($contract_data,$exam_data);
         $contract_exists = config('app.contracts.'.$studly_key) !== null;
         return $this->dataPreparation($this->schemaContract($contract_exists ? $studly_key : 'Assessment'), $exam_data);
     }

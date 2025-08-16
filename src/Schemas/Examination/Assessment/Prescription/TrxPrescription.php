@@ -2,6 +2,7 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment\Prescription;
 
+use Hanafalah\ModuleExamination\Contracts\Data\AssessmentData;
 use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\Prescription\TrxPrescription as PrescriptionTrxPrescription;
 use Hanafalah\ModuleExamination\Schemas\Examination\Assessment\Assessment;
 use Illuminate\Database\Eloquent\Model;
@@ -10,13 +11,12 @@ class TrxPrescription extends Assessment implements PrescriptionTrxPrescription
 {
     public $trx_treatment_model;
 
-    public function prepareRemoveAssessment(?array $attributes = null): bool
-    {
+    public function prepareDeleteAssessment(?array $attributes = null): bool{
         $attributes ??= \request()->all();
-        $assessment = $this->AssessmentModel()->findOrFail($attributes['id']);
+        $assessment = $this->usingEntity()->findOrFail($attributes['id']);
         $child      = $assessment->child;
 
-        $result = parent::prepareRemoveAssessment($attributes);
+        $result = parent::prepareDeleteAssessment($attributes);
         $reference_id = [$this->assessment_model->getKey()];
         if (isset($child)) {
             $child->delete();
@@ -29,11 +29,8 @@ class TrxPrescription extends Assessment implements PrescriptionTrxPrescription
         return $result;
     }
 
-    protected function medicationSetup(?array $attributes = null): array
-    {
-        $attributes ??= request()->all();
-
-        if (isset($attributes['id'])) $trx_prescription = $this->trxPrescription()->find($attributes['id']);
+    protected function medicationSetup(AssessmentData &$assessment_dto): array{
+        if (isset($attributes['id'])) $trx_prescription = $this->usingEntity()->find($attributes['id']);
         $attributes['card_stock']['item_id'] ??= $trx_prescription->card_stock['item_id'];
 
         $item = $this->ItemModel()->findOrFail($attributes['card_stock']['item_id']);

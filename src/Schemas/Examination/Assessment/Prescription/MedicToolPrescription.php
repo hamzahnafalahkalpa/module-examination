@@ -9,21 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 class MedicToolPrescription extends TrxPrescription implements ContractsMedicToolPrescription
 {
     protected string $__entity   = 'MedicToolPrescription';
-    public function trxPrescription(): Builder
-    {
-        $this->booting();
-        return $this->MedicToolPrescriptionModel()->withParameters('or')->orderBy('props->name', 'asc');
-    }
 
-    public function prepareStore(mixed $attributes = null): Model
-    {
-        $attributes ??= request()->all();
-
-        $attributes = $this->medicationSetup($attributes);
-
-        $assessment = parent::prepareStore($attributes);
-        $attributes['card_stocks'][] = $attributes['card_stock'];
-        $this->addPrescription($attributes);
-        return $this->assessment_model = $assessment;
+    public function prepareStore(mixed $medicine_prescription_dto): Model{
+        return parent::prepareStore($medicine_prescription_dto);
     }
 }
