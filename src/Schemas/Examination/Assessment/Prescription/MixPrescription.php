@@ -3,8 +3,6 @@
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment\Prescription;
 
 use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\Prescription\MixPrescription as ContractsMixPrescription;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 
 class MixPrescription extends TrxPrescription implements ContractsMixPrescription
 {
