@@ -48,9 +48,6 @@ class TrxTreatment extends Assessment implements ContractsTrxTreatment
             'treatment'              => $treatment_model->toViewApi()->resolve(),
             'status'                 => $assessment_exam['status'] ?? 'DRAFT'
         ]);
-            
-
-        // $this->addExaminationTreatment($attributes);
 
         // $assessment = $this->assessment_model;
 
@@ -80,16 +77,27 @@ class TrxTreatment extends Assessment implements ContractsTrxTreatment
             $assessment_exam = $this->storePdf($assessment_exam, 'treatment_' . $treatment_model->reference_type);
         }
         $this->trx_treatment_model = $treatment = $this->prepareStoreAssessment($assessment_dto);
+        $this->addExaminationTreatment($assessment_dto,$treatment,$treatment_model);
+
         return $this->assessment_model = $treatment;
     }
 
-    public function addExaminationTreatment(?array $attributes = null): Model{
-        $attributes['reference_id']   = $this->assessment_model->getKey();
-        $attributes['reference_type'] = $this->assessment_model->morph;
-        unset($attributes['id']);
-
-        $examination_treatment_schema = $this->schemaContract('examination_treatment');
-        return $examination_treatment_schema->prepareStoreExaminationTreatment($attributes);
+    public function addExaminationTreatment(AssessmentData $assessment_dto,Model $assessment, Model $treatment): Model{
+        return $this->schemaContract('examination_treatment')
+                    ->prepareStoreExaminationTreatment($this->requestDTO(
+                        config('app.contracts.ExaminationTreatmentData'),[
+                        'reference_id'   => $assessment->getKey(),
+                        'reference_type' => $assessment->morph,
+                        'treatment_id'   => $assessment->exam['treatment_id'],
+                        'patient_summary_id'       => $assessment_dto->patient_summary_model->getKey(),
+                        'visit_examination_id'     => $assessment_dto->visit_examination_id,
+                        'treatment_model'          => $treatment,
+                        'visit_examination_model'  => $assessment_dto->visit_examination_model,
+                        'visit_registration_model' => $assessment_dto->visit_registration_model,
+                        'visit_patient_model'      => $assessment_dto->visit_patient_model,
+                        'patient_model'            => $assessment_dto->patient_model,
+                        'patient_summary_model'    => $assessment_dto->patient_summary_model,
+                    ]));
     }
 
     public function trxTreatment(): Builder{

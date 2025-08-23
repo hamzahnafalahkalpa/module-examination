@@ -27,8 +27,5 @@
             "name": "Hamzah",
             "email": "hamzahnafalah@gmail.com"
         }
-    ],
-    "license": "MIT",
-    "minimum-stability": "dev",
-    "prefer-stable": false
+    ]
 }

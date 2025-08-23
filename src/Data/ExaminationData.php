@@ -37,6 +37,14 @@ class ExaminationData extends Data implements DataExaminationData
     #[MapName('patient_model')]
     public ?object $patient_model = null;
 
+    #[MapInputName('patient_summary_id')]
+    #[MapName('patient_summary_id')]
+    public mixed $patient_summary_id = null;
+
+    #[MapInputName('patient_summary_model')]
+    #[MapName('patient_summary_model')]
+    public ?object $patient_summary_model = null;
+
     #[MapInputName('screening_ids')]
     #[MapName('screening_ids')]
     public ?array $screening_ids = null;
@@ -67,13 +75,15 @@ class ExaminationData extends Data implements DataExaminationData
         $data->screening_ids ??= [];
         if (isset($data->visit_examination_id) || isset($data->visit_examination_model)){
             $data->visit_examination_model ??=  $new->VisitExaminationModel()->with([
-                'visitRegistration.visitPatient.patient'
+                'visitRegistration.visitPatient.patient.patientSummary'
             ])->findOrFail($data->visit_examination_id);    
             $data->visit_examination_id ??= $data->visit_examination_model->getKey();
             $visit_examination = $data->visit_examination_model;
             $data->visit_registration_model = $visit_registration = $visit_examination->visitRegistration;
             $data->visit_patient_model = $visit_patient = $visit_registration->visitPatient;
             $data->patient_model = $visit_patient->patient;
+            $data->patient_summary_model = $data->patient_model->patientSummary;
+            $data->patient_summary_id = $data->patient_summary_model->getKey();
             $data->screening_ids = array_column($visit_examination->screenings ?? [], 'id');
         }
             

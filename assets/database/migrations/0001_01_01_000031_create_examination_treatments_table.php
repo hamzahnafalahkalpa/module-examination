@@ -50,7 +50,7 @@ return new class extends Migration
                     ->nullable()->constrained('summaries', $patient_summary->getKeyName(), 'ps_et')
                     ->cascadeOnUpdate()->restrictOnDelete();
 
-                $table->foreignIdFor($treatment::class)
+                $table->foreignIdFor($treatment::class,'treatment_id')
                     ->nullable()->constrained($treatment->getTable(), $treatment->getKeyName(), 'tr_et')
                     ->cascadeOnUpdate()->restrictOnDelete();
 
