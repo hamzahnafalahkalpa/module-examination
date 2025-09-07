@@ -48,11 +48,9 @@ class TrxTreatment extends Assessment implements ContractsTrxTreatment
             'treatment'              => $treatment_model->toViewApi()->resolve(),
             'status'                 => $assessment_exam['status'] ?? 'DRAFT'
         ]);
-
         // $assessment = $this->assessment_model;
 
         if (isset($assessment_exam['form'])) {
-            $service_label = $treatment_model->prop_service_label;
             //FOR VACCINE
             // if (isset($service_label) && $service_label['name'] == 'VACCINE') {
             //     $medical_treatment = $treatment_model->reference;
@@ -78,7 +76,6 @@ class TrxTreatment extends Assessment implements ContractsTrxTreatment
         }
         $this->trx_treatment_model = $treatment = $this->prepareStoreAssessment($assessment_dto);
         $this->addExaminationTreatment($assessment_dto,$treatment,$treatment_model);
-
         return $this->assessment_model = $treatment;
     }
 
@@ -88,7 +85,8 @@ class TrxTreatment extends Assessment implements ContractsTrxTreatment
                         config('app.contracts.ExaminationTreatmentData'),[
                         'reference_id'   => $assessment->getKey(),
                         'reference_type' => $assessment->morph,
-                        'treatment_id'   => $assessment->exam['treatment_id'],
+                        'reference_model' => $assessment,
+                        'treatment_id'   => $treatment->getKey(),
                         'patient_summary_id'       => $assessment_dto->patient_summary_model->getKey(),
                         'visit_examination_id'     => $assessment_dto->visit_examination_id,
                         'treatment_model'          => $treatment,

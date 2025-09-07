@@ -30,10 +30,6 @@ class Examination extends ModulePatient implements ContractsExamination
         $visit_examination_model = &$examination_dto->visit_examination_model;
 
         $visit_examination_model->is_has_prescription ??= null;
-
-        $visit_patient = $examination_dto->visit_patient_model;
-        $visit_patient->visit_code = Str::ulid();
-        $visit_patient->save();
         $this->__open_forms      = $visit_examination_model->form_summaries ?? [];
         $this->__screening_forms = $visit_examination_model->screening_summaries ?? [];
         $this->addScreenings($examination_dto);
@@ -46,6 +42,8 @@ class Examination extends ModulePatient implements ContractsExamination
             'treatments'         => [],
             'pharmacy_sale'      => [],
         ];
+
+        $examination_dto->prop_response = $core;
 
         // EXAMINATION STORE PROSES
         $exam_cores = array_values(array_keys($core));
@@ -132,19 +130,19 @@ class Examination extends ModulePatient implements ContractsExamination
                     foreach ($exam_data as $data) {
                         $result = $this->prepareAssessment($data,$key,$examination_dto);
                         if (is_bool($result)) continue;
-                        $current_response->data[] = $result->toViewApi()->resolve();
+                        $current_response->data[] = ($examination_dto->in_view_response) ? $result->toViewApi()->resolve() : $result->toShowApi()->resolve();
                     }
                     $current_response->data = new Collection($current_response->data);
                 }else{
                     $response->{$key} = (object) ['data' => new stdClass];
                     $result = $this->prepareAssessment($exam_data,$studly_key,$examination_dto);
                     if (is_bool($result)) continue;
-                    $response->{$key}->data = $result->toViewApi()->resolve();
+                    $response->{$key}->data = ($examination_dto->in_view_response) ? $result->toViewApi()->resolve() : $result->toShowApi()->resolve();
                 }
             }else{
                 $result = $this->prepareAssessment($exam,$morph,$examination_dto);
                 if (is_bool($result)) continue;
-                $response[] = $result->toViewApi()->resolve();
+                $response[] = ($examination_dto->in_view_response) ? $result->toViewApi()->resolve() : $result->toShowApi()->resolve();
             }
         }
         if (array_is_list($current_exam)) $response = new Collection($response);

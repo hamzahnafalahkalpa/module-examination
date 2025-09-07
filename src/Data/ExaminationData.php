@@ -13,6 +13,10 @@ class ExaminationData extends Data implements DataExaminationData
 {
     use HasRequestData;
 
+    #[MapInputName('in_view_response')]
+    #[MapName('in_view_response')]
+    public ?bool $in_view_response = false;
+
     #[MapInputName('response')]
     #[MapName('response')]
     public ?array $response = [];
@@ -73,9 +77,20 @@ class ExaminationData extends Data implements DataExaminationData
         $new = self::new();
 
         $data->screening_ids ??= [];
+        $data->in_view_response ??= true;
         if (isset($data->visit_examination_id) || isset($data->visit_examination_model)){
             $data->visit_examination_model ??=  $new->VisitExaminationModel()->with([
-                'visitRegistration.visitPatient.patient.patientSummary'
+                'visitRegistration' => function($query){
+                    $query->with([
+                        'transaction',
+                        'visitPatient' => function($query){
+                            $query->with([
+                                'transaction',
+                                'patient.patientSummary'
+                            ]);                            
+                        }
+                    ]);
+                }
             ])->findOrFail($data->visit_examination_id);    
             $data->visit_examination_id ??= $data->visit_examination_model->getKey();
             $visit_examination = $data->visit_examination_model;

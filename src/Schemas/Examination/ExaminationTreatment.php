@@ -95,11 +95,11 @@ class ExaminationTreatment extends Examination implements ExaminationExamination
         }
         $examination_treatment = $this->usingEntity()->updateOrCreate($guard, $add);
         if (isset($examination_treatment_dto->transaction_item)) {
-            $transaction_item = &$examination_treatment_dto->transaction_item;
-            $transaction_item->item_id   = $examination_treatment->reference_id;
-            $transaction_item->item_type = $examination_treatment->reference_type;
+            $transaction_item_dto = &$examination_treatment_dto->transaction_item;
+            $transaction_item_dto->item_id   = $examination_treatment->reference_id;
+            $transaction_item_dto->item_type = $examination_treatment->reference_type;
             $this->schemaContract('transaction_item')
-                 ->prepareStoreTransactionItem($transaction_item);
+                 ->prepareStoreTransactionItem($transaction_item_dto);
         }
 
         $this->fillingProps($examination_treatment, $examination_treatment_dto->props);

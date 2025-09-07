@@ -13,6 +13,7 @@ class ShowAssessment extends ViewAssessment
   public function toArray(\Illuminate\Http\Request $request): array
   {
     $arr = [
+      'exam'            => $this->exam,
       'patient_summary' => $this->relationValidation('patientSummary', function () {
         return $this->patientSummary->toViewApi()->resolve();
       })

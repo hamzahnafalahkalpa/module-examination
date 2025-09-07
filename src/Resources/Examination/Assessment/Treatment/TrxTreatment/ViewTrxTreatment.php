@@ -1,10 +1,10 @@
 <?php
 
-namespace Hanafalah\ModuleExamination\Resources\Examination\Assessment;
+namespace Hanafalah\ModuleExamination\Resources\Examination\Assessment\Treatment\TrxTreatment;
 
-use Hanafalah\LaravelSupport\Resources\ApiResource;
+use Hanafalah\ModuleExamination\Resources\Examination\Assessment\ViewAssessment;
 
-class ViewAssessment extends ApiResource
+class ViewTrxTreatment extends ViewAssessment
 {
   /**
    * Transform the resource into an array.
@@ -14,10 +14,15 @@ class ViewAssessment extends ApiResource
    */
   public function toArray(\Illuminate\Http\Request $request): array
   {
+    $exam = $this->exam;
     $arr = [
       'id'                 => $this->id,
       'morph'              => $this->morph,
-      'exam'               => $this->exam,
+      'exam'               => [
+        'name'             => $exam['name'],
+        'treatment_id'     => $exam['treatment_id'],
+        'service_label'    => $exam['service_label']
+      ],
       'practitioners'      => $this->prop_practitioners ?? [],
       'is_settled'         => ($this->is_settled ?? 0) == 1,
       'created_at'         => $this->created_at,

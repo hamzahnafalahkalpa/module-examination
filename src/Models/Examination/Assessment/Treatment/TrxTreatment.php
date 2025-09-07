@@ -3,6 +3,7 @@
 namespace Hanafalah\ModuleExamination\Models\Examination\Assessment\Treatment;
 
 use Hanafalah\ModuleExamination\Models\Examination\Assessment\Assessment;
+use Hanafalah\ModuleExamination\Resources\Examination\Assessment\Treatment\TrxTreatment\{ViewTrxTreatment};
 
 class TrxTreatment extends Assessment
 {
@@ -15,6 +16,10 @@ class TrxTreatment extends Assessment
         static::deleted(function ($query) {
             $query->examinationTreatment()->delete();
         });
+    }
+
+    public function getViewResource(){
+        return ViewTrxTreatment::class;
     }
 
     public function examinationTreatment(){
