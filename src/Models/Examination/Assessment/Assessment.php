@@ -24,7 +24,8 @@ class Assessment extends Examination
         'examination_summary_id' => 'string',
         'examination_id'         => 'string',
         'examination_type'       => 'string',
-        'morph'                  => 'string'
+        'morph'                  => 'string',
+        'patient_summary_id'     => 'string'
     ]; 
 
     protected static function booted(): void{
@@ -97,4 +98,5 @@ class Assessment extends Examination
     }
 
     public function examination(){return $this->morphTo();}
+    public function patientSummary(){return $this->belongsToModel('PatientSummary');}
 }
