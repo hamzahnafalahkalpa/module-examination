@@ -19,6 +19,7 @@ class FormData extends UnicodeData implements DataFormData
     public ?FormHasSurveyData $form_has_survey = null;
 
     public static function before(array &$attributes){
+        $attributes['ordering'] ??= 1;
         $attributes['flag'] ??= 'Form';
         parent::before($attributes);
     }

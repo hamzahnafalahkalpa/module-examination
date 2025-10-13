@@ -50,7 +50,7 @@ class FormSeeder extends Seeder{
             ],
             $this->modelMorph('ANCTerpadu') => [
                 'name'    => 'ANC TERPADU',
-                'type'    => 'Subjeivect',
+                'type'    => 'Subjective',
                 'form_has_survey' => [
                     "survey" => include(__DIR__ . '/data/forms/ANCTerpadu.php')
                 ]
@@ -69,7 +69,7 @@ class FormSeeder extends Seeder{
             ],
             $this->modelMorph('ChildAndPregnancyHistory') => [
                 'name' => 'Anak dan Riwayat Persalinan',
-                'type'    => 'Subjeivect'
+                'type'    => 'Subjective'
             ],
             $this->modelMorph('ChildGrowth') => [
                 'name' => 'Tumbuh Kembang Anak',

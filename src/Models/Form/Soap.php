@@ -23,15 +23,15 @@ class Soap extends Screening
     }
 
     public function subjectives(){
-        return $this->hasManyModel('ScreeningHasForm','screening_id')->where('props->form_type','Subjective');
+        return $this->hasManyModel('ScreeningHasForm','screening_id')->where('props->form_type','Subjective')->orderBy('props->ordering','asc');
     }
     
     public function objectives(){
-        return $this->hasManyModel('ScreeningHasForm','screening_id')->where('props->form_type','Objective');
+        return $this->hasManyModel('ScreeningHasForm','screening_id')->where('props->form_type','Objective')->orderBy('props->ordering','asc');
     }
     
     public function plans(){
-        return $this->hasManyModel('ScreeningHasForm','screening_id')->where('props->form_type','Plan');
+        return $this->hasManyModel('ScreeningHasForm','screening_id')->where('props->form_type','Plan')->orderBy('props->ordering','asc');
     }
 
     public function getViewResource(){return ViewSoap::class;}
