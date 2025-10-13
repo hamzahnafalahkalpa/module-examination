@@ -2,9 +2,9 @@
 
 namespace Hanafalah\ModuleExamination\Resources\Screening;
 
-use Hanafalah\ModuleExamination\Resources\Form\ViewForm;
+use Hanafalah\LaravelSupport\Resources\ApiResource;
 
-class ViewScreening extends ViewForm
+class ViewScreening extends ApiResource
 {
     /**
      * Transform the resource into an array.
@@ -15,14 +15,14 @@ class ViewScreening extends ViewForm
     public function toArray(\Illuminate\Http\Request $request): array
     {
         $arr = [
+            'id'        => $this->id,
+            'parent_id' => $this->parent_id,
+            'name'      => $this->name,
+            'flag'      => $this->flag,
+            'label'     => $this->label,
             "screening_has_forms" => $this->relationValidation("screeningHasForms", function () {
                 return $this->screeningHasForms->transform(function ($form) {
                     return $form->toViewApi()->resolve();
-                });
-            }),
-            'services' => $this->relationValidation('hasServices', function () {
-                return $this->hasServices->transform(function ($service) {
-                    return $service->toViewApi();
                 });
             })
         ];
