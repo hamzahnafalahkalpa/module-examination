@@ -15,10 +15,11 @@ class ViewScreeningHasForm extends ApiResource
     public function toArray(\Illuminate\Http\Request $request): array
     {
         $arr = [
-            'id' => $this->id,
-            'form_id' => $this->form_id,
-            'screening_id' => $this->screening_id,
-            'form' => $this->prop_form
+            // 'id' => $this->id,
+            // 'form_id' => $this->form_id,
+            // 'screening_id' => $this->screening_id,
+            // 'form' => $this->prop_form
+            ...$this->prop_form
         ];
         return $arr;
     }
