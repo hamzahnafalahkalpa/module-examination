@@ -9,8 +9,7 @@ return [
         [
             'label'          => 'Menanyakan kondisi ibu nifas secara umum',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -32,8 +31,7 @@ return [
         [
             'label'          => 'Pengukuran tekanan darah, suhu tubuh, pernafasan, dan nadi',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -55,8 +53,7 @@ return [
         [
             'label'          => 'Pemeriksaan lokhia dan perdarahan',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -78,8 +75,7 @@ return [
         [
             'label'          => 'Pemeriksaan kondisi jalan lahir dan tanda infeksi',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -101,8 +97,7 @@ return [
         [
             'label'          => 'Pemeriksaan kontraksi rahim dan tinggi fundus uteri',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -124,8 +119,7 @@ return [
         [
             'label'          => 'Pemeriksaan payudara dan anjuran pemberian ASI eksklusif',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -147,8 +141,7 @@ return [
         [
             'label'          => 'Pemberian kapsul vitamin A (2 kapsul)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -170,8 +163,7 @@ return [
         [
             'label'          => 'Pelayanan kontrasepsi pasca persalinan',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -193,8 +185,7 @@ return [
         [
             'label'          => 'Konseling',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -216,8 +207,7 @@ return [
         [
             'label'          => 'Tatalaksana pada ibu nifas sakit atau ibu nifas dengan komplikasi',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -239,8 +229,7 @@ return [
         [
             'label'          => 'Memberikan nasehat',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,

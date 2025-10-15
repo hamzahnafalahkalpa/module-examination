@@ -9,8 +9,7 @@ return [
         [
             'label'          => 'Pernahkah pasien menderita penyakit malaria sebelumnya?*',
             'key'            => 'value',
-            'type'           => Survey::TYPE_SELECT,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_SELECT,
             'default_value'  => [
                 'label' => 'Pilih Jawaban',
                 'value' => null
@@ -39,8 +38,7 @@ return [
         [
             'label'          => 'Apakah sebelum sakit, 2 minggu yang lalu pernah berkunjung ke tempat/kota lain?*',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,

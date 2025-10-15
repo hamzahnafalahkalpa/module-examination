@@ -9,8 +9,7 @@ return [
         [
             'label'          => 'Mengendalikan rangsang Buang Air Besar (BAB)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => [
                 'label' => 'Mandiri',
                 'value' => 2
@@ -35,8 +34,7 @@ return [
         [
             'label'          => 'Makan minum (jika makan harus berupa potongan, dianggap dibantu)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => [
                 'label' => 'Mandiri',
                 'value' => 2
@@ -61,8 +59,7 @@ return [
         [
             'label'          => 'Penggunaan WC (keluar masuk WC, melepas/memakai celana, cebok, menyiram)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => [
                 'label' => 'Mandiri',
                 'value' => 2
@@ -87,8 +84,7 @@ return [
         [
             'label'          => 'Bergerak dari kursi roda ke tempat tidur dan sebaliknya (termasuk duduk di tempat tidur)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => [
                 'label' => 'Mandiri',
                 'value' => 2
@@ -117,8 +113,7 @@ return [
         [
             'label'          => 'Membersihkan diri (mencuci wajah, menyikat Rambut, mencukur kumis, sikat gigi)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => [
                 'label' => 'Mandiri',
                 'value' => 2
@@ -139,8 +134,7 @@ return [
         [
             'label'          => 'Mengendalikan rangsang Buang Air Kecil (BAK)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => [
                 'label' => 'Mandiri',
                 'value' => 2
@@ -165,8 +159,7 @@ return [
         [
             'label'          => 'Naik turun tangga',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => [
                 'label' => 'Mandiri',
                 'value' => 2
@@ -191,8 +184,7 @@ return [
         [
             'label'          => 'Mandi',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => [
                 'label' => 'Mandiri',
                 'value' => 2
@@ -213,8 +205,7 @@ return [
         [
             'label'          => 'Berpakaian (termasuk memasang tali sepatu, Mengencangkan sabuk)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => [
                 'label' => 'Mandiri',
                 'value' => 2
@@ -239,8 +230,7 @@ return [
         [
             'label'          => 'Berjalan di tempat rata (atau jika tidak bisa berjalan, menjalankan kursi roda)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => [
                 'label' => 'Mandiri',
                 'value' => 2

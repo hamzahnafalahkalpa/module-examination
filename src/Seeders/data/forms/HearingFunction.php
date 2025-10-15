@@ -9,8 +9,7 @@ return [
         [
             'label'          => 'Tes berbisik Modifikasi',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -40,8 +39,7 @@ return [
         [
             'label'          => 'Tes Penala Rinne',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -67,8 +65,7 @@ return [
         [
             'label'          => 'Tes Penala Weber',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,

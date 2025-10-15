@@ -11,8 +11,7 @@ return [
         [
             'label'          => 'Mengenali orang lain di RS. (dokter, perawat, dll)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -30,8 +29,7 @@ return [
         [
             'label'          => 'Menghitung terbalik (20 s/d 1)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -49,8 +47,7 @@ return [
         [
             'label'          => 'Nama Presiden RI',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -68,8 +65,7 @@ return [
         [
             'label'          => 'Saat ini berada di mana',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -87,8 +83,7 @@ return [
         [
             'label'          => 'Tahun kelahiran pasien atau anak terakhir',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -106,8 +101,7 @@ return [
         [
             'label'          => 'Umur',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -125,8 +119,7 @@ return [
         [
             'label'          => 'Tahun ini',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -144,8 +137,7 @@ return [
         [
             'label'          => 'Tahun kemerdekaan RI',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -163,8 +155,7 @@ return [
         [
             'label'          => 'Waktu / jam sekarang',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -182,8 +173,7 @@ return [
         [
             'label'          => 'Alamat tempat tinggal',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,

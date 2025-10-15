@@ -9,8 +9,7 @@ return [
         [
             'label'          => 'Riwayat jatuh dalam 3 bulan terakhir',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -22,8 +21,7 @@ return [
         [
             'label'          => 'Diagnosis sekunder (lebih dari 1)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -35,8 +33,7 @@ return [
         [
             'label'          => 'Alat bantu berjalan',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -49,8 +46,7 @@ return [
         [
             'label'          => 'Terpasang infus / heparin lock',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -62,8 +58,7 @@ return [
         [
             'label'          => 'Cara berjalan / gaya berjalan',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -76,8 +71,7 @@ return [
         [
             'label'          => 'Status mental',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,

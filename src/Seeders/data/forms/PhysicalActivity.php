@@ -9,8 +9,7 @@ return [
         [
             'label'          => 'Makan dan Minum',
             'key'            => 'value',
-            'type'           => Survey::TYPE_SELECT,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_SELECT,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -25,8 +24,7 @@ return [
         [
             'label'          => 'Toileting',
             'key'            => 'value',
-            'type'           => Survey::TYPE_SELECT,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_SELECT,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -41,8 +39,7 @@ return [
         [
             'label'          => 'Mandi',
             'key'            => 'value',
-            'type'           => Survey::TYPE_SELECT,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_SELECT,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -57,8 +54,7 @@ return [
         [
             'label'          => 'Berpakaian',
             'key'            => 'value',
-            'type'           => Survey::TYPE_SELECT,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_SELECT,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -73,8 +69,7 @@ return [
         [
             'label'          => 'Mobilisasi',
             'key'            => 'value',
-            'type'           => Survey::TYPE_SELECT,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_SELECT,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -89,8 +84,7 @@ return [
         [
             'label'          => 'Catatan',
             'key'            => 'value',
-            'type'           => Survey::TYPE_TEXTAREA,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_TEXTAREA,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,

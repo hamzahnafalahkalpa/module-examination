@@ -9,8 +9,7 @@ return [
         [
             'label'          => 'Apakah pertengakaran mulut mengakibatkan pasangan ibu memukul, menendang, atau mendorong?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -32,8 +31,7 @@ return [
         [
             'label'          => 'Secara umum bagaimana ibu menggambarkan hubungan ibu dengan pasangan?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -55,8 +53,7 @@ return [
         [
             'label'          => 'Apakah ibu merasa ketakutan terhadap apa yang dikatakan atau dilakukan oleh pasangan ibu?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -78,8 +75,7 @@ return [
         [
             'label'          => 'Apakah ibu merasa dibatasi dalam mengatur pembelanjaan rumah tangga?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -101,8 +97,7 @@ return [
         [
             'label'          => 'Apakah pertengakaran mulut mengakibatkan ibu merasa direndahkan atau merasa tidak nyaman dengan diri sendiri?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -124,8 +119,7 @@ return [
         [
             'label'          => 'Apakah ibu dan pasangan ibu mengatasi pertengakaran mulut dengan?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -147,8 +141,7 @@ return [
         [
             'label'          => 'Apakah pertengakaran mulut mengakibatkan pasangan ibu memukul, menendang, atau mendorong?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -170,8 +163,7 @@ return [
         [
             'label'          => 'Apakah ibu merasa dibatasi dalam mengatur pembelanjaan rumah tangga?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -193,8 +185,7 @@ return [
         [
             'label'          => 'Secara umum bagaimana ibu menggambarkan hubungan ibu dengan pasangan?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -216,8 +207,7 @@ return [
         [
             'label'          => 'Apakah ibu dan pasangan ibu mengatasi pertengakaran mulut dengan?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -239,8 +229,7 @@ return [
         [
             'label'          => 'Apakah ibu merasa ketakutan terhadap apa yang dikatakan atau dilakukan oleh pasangan ibu?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -262,8 +251,7 @@ return [
         [
             'label'          => 'Apakah pertengakaran mulut mengakibatkan ibu merasa direndahkan atau merasa tidak nyaman dengan diri sendiri?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,

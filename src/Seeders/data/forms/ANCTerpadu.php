@@ -9,8 +9,7 @@ return [
         [
             'label'          => 'Timbang Berat Badan dan Ukur Tinggi Badan',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => [
                 'label' => 'Tidak dilakukan',
                 'value' => 2
@@ -35,8 +34,7 @@ return [
         [
             'label'          => 'Ukur Tekanan Darah',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => [
                 'label' => 'Tidak dilakukan',
                 'value' => 2
@@ -61,8 +59,7 @@ return [
         [
             'label'          => 'Ukur Lingkar Lengan Atas (LILA)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => [
                 'label' => 'Tidak dilakukan',
                 'value' => 2
@@ -87,8 +84,7 @@ return [
         [
             'label'          => 'Pemeriksaan Tinggi Fundus (penilaian usia/ besar janin)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => [
                 'label' => 'Tidak dilakukan',
                 'value' => 2
@@ -113,8 +109,7 @@ return [
         [
             'label'          => 'Tentukan Presentase dan Denyut Jantung Janin (DJJ)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => [
                 'label' => 'Tidak dilakukan',
                 'value' => 2
@@ -139,8 +134,7 @@ return [
         [
             'label'          => 'Pemberian Imunisasi Tetanus Teksoid (TT)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => [
                 'label' => 'Tidak dilakukan',
                 'value' => 2
@@ -165,8 +159,7 @@ return [
         [
             'label'          => 'Pemberian Tablet Tambah Darah (TTD)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => [
                 'label' => 'Tidak dilakukan',
                 'value' => 2
@@ -191,8 +184,7 @@ return [
         [
             'label'          => 'Pemeriksaan Laboratorium (Termasuk status Anemia)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => [
                 'label' => 'Tidak dilakukan',
                 'value' => 2
@@ -217,8 +209,7 @@ return [
         [
             'label'          => 'Tata laksana kasus',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => [
                 'label' => 'Tidak dilakukan',
                 'value' => 2
@@ -243,8 +234,7 @@ return [
         [
             'label'          => 'Temu Wicara/konseling',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => [
                 'label' => 'Tidak dilakukan',
                 'value' => 2
@@ -269,8 +259,7 @@ return [
         [
             'label'          => 'USG Obstetri Dasar Terbatas',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => [
                 'label' => 'Tidak dilakukan',
                 'value' => 2

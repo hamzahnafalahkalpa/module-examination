@@ -9,8 +9,7 @@ return [
         [
             'label'          => 'Pemeriksaan dengan bagan MTBS (bayi muda)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -23,8 +22,7 @@ return [
         [
             'label'          => 'Menanyakan kondisi bayi baru lahir secara umum',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -37,8 +35,7 @@ return [
         [
             'label'          => 'Memeriksa tanda bahaya dan identifikasi kuning',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -51,8 +48,7 @@ return [
         [
             'label'          => 'Pengukuran berat badan, panjang badan dan lingkar kepala',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -65,8 +61,7 @@ return [
         [
             'label'          => 'Mendampingi inisiasi menyusu dini',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -79,8 +74,7 @@ return [
         [
             'label'          => 'Memantau dan Konseling menyusui',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -93,8 +87,7 @@ return [
         [
             'label'          => 'Pemotongan dan perawatan tali pusat',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -107,8 +100,7 @@ return [
         [
             'label'          => 'Pemberian imunisasi hepatitis B0',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -121,8 +113,7 @@ return [
         [
             'label'          => 'Skrining Hipotiroid Kongenital (SHK)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -135,8 +126,7 @@ return [
         [
             'label'          => 'Pencegahan Penularan dari Ibu ke Anak (HIV, Sifilis, Hepatitis B)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -149,8 +139,7 @@ return [
         [
             'label'          => 'Merujuk kasus yang tidak dapat ditangani dalam kondisi stabil, tepat waktu ke fasilitas pelayanan kesehatan yang lebih mampu',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,

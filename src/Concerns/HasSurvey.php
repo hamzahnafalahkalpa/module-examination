@@ -30,18 +30,4 @@ trait HasSurvey {
         }
         return $surveys ?? [];
     }
-
-    // public function getAfterResolve(): Model{
-    //     $survey_name   = $this->getSurveyKey();
-    //     $dynamic_forms = $this->{$survey_name};
-    //     $new_surveys   = $this->getSurveyByFlag()->dynamic_forms;
-    //     foreach ($dynamic_forms as $dynamic_form) {
-    //         if (isset($dynamic_form[$dynamic_form['key']],$dynamic_form[$dynamic_form['key']]['value'])){
-    //             $new_surveys[$dynamic_form['key']]['value'] = $dynamic_form[$dynamic_form['key']];
-    //         }
-    //     }
-    //     $this->setAttribute($survey_name,$new_surveys);
-    //     $this->save();
-    //     return $this;
-    // }
 }

@@ -9,8 +9,7 @@ return [
         [
             'label'          => 'Punya Pasangan',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -28,8 +27,7 @@ return [
         [
             'label'          => 'Nama Pasangan',
             'key'            => 'value',
-            'type'           => Survey::TYPE_INPUT,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_INPUT_TEXT,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -39,8 +37,7 @@ return [
         [
             'label'          => 'Apakah Pasangan Hamil',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -62,8 +59,7 @@ return [
         [
             'label'          => 'Kondisi Pasangan Saat Ini',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -85,8 +81,7 @@ return [
         [
             'label'          => 'Penyimpanan/Kelompok Berisiko Penularan',
             'key'            => 'value',
-            'type'           => Survey::TYPE_SELECT,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_SELECT,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -109,8 +104,7 @@ return [
         [
             'label'          => 'Populasi Khusus/Warga Binaan Permasyarakatan (WBP)',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -128,8 +122,7 @@ return [
         [
             'label'          => 'Apakah pasien penderita baru',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -147,8 +140,7 @@ return [
         [
             'label'          => 'Alasan Tes HIV',
             'key'            => 'value',
-            'type'           => Survey::TYPE_TEXTAREA,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_TEXTAREA,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -158,234 +150,218 @@ return [
         [
             'label'          => 'Hubungan seks vaginal berisiko',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => 'VaginalSexRisk',
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
             'options'        => [
-                [
-                    'label' => 'Ya',
-                    'value' => 'Ya',
-                    'dynamic_forms' => [
-                        [
-                            'label'          => 'Tanggal',
-                            'key'            => 'value',
-                            'type'           => Survey::TYPE_DATE,
-                            'component_name' => null,
-                            'default_value'  => null,
-                            'attribute'      => null,
-                            'rule'           => null,
-                        ]
-                    ]
-                ],
-                [
-                    'label' => 'Tidak',
-                    'value' => 'Tidak'
-                ]
+            //     [
+            //         'label' => 'Ya',
+            //         'value' => 'Ya',
+            //         'dynamic_forms' => [
+            //             [
+            //                 'label'          => 'Tanggal',
+            //                 'key'            => 'value',
+            //                 'component_name' => Survey::TYPE_DATE,
+            //                 'default_value'  => null,
+            //                 'attribute'      => null,
+            //                 'rule'           => null,
+            //             ]
+            //         ]
+            //     ],
+            //     [
+            //         'label' => 'Tidak',
+            //         'value' => 'Tidak'
+            //     ]
             ]
         ],
-
         [
             'label'          => 'Bergantian peralatan suntik',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => 'SyringeExchangeRisk',
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
             'options'        => [
-                [
-                    'label' => 'Ya',
-                    'value' => 'Ya',
-                    'dynamic_forms' => [
-                        [
-                            'label'          => 'Tanggal',
-                            'key'            => 'value',
-                            'type'           => Survey::TYPE_DATE,
-                            'component_name' => null,
-                            'default_value'  => null,
-                            'attribute'      => null,
-                            'rule'           => null,
-                        ]
-                    ]
-                ],
-                [
-                    'label' => 'Tidak',
-                    'value' => 'Tidak'
-                ]
+            //     [
+            //         'label' => 'Ya',
+            //         'value' => 'Ya',
+            //         'dynamic_forms' => [
+            //             [
+            //                 'label'          => 'Tanggal',
+            //                 'key'            => 'value',
+            //                 'component_name' => Survey::TYPE_DATE,
+            //                 'default_value'  => null,
+            //                 'attribute'      => null,
+            //                 'rule'           => null,
+            //             ]
+            //         ]
+            //     ],
+            //     [
+            //         'label' => 'Tidak',
+            //         'value' => 'Tidak'
+            //     ]
             ]
         ],
         [
             'label'          => 'Transmisi ibu ke anak',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => 'BloodTransfusionRisk',
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
             'options'        => [
-                [
-                    'label' => 'Ya',
-                    'value' => 'Ya',
-                    'dynamic_forms' => [
-                        [
-                            'label'          => 'Tanggal',
-                            'key'            => 'value',
-                            'type'           => Survey::TYPE_DATE,
-                            'component_name' => null,
-                            'default_value'  => null,
-                            'attribute'      => null,
-                            'rule'           => null,
-                        ]
-                    ]
-                ],
-                [
-                    'label' => 'Tidak',
-                    'value' => 'Tidak'
-                ]
+                // [
+                //     'label' => 'Ya',
+                //     'value' => 'Ya',
+                //     'dynamic_forms' => [
+                //         [
+                //             'label'          => 'Tanggal',
+                //             'key'            => 'value',
+                //             'component_name' => Survey::TYPE_DATE,
+                //             'default_value'  => null,
+                //             'attribute'      => null,
+                //             'rule'           => null,
+                //         ]
+                //     ]
+                // ],
+                // [
+                //     'label' => 'Tidak',
+                //     'value' => 'Tidak'
+                // ]
             ]
         ],
         [
             'label'          => 'Periode jendela',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => 'WindowPeriodRisk',
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
             'options'        => [
-                [
-                    'label' => 'Ya',
-                    'value' => 'Ya',
-                    'dynamic_forms' => [
-                        [
-                            'label'          => 'Tanggal',
-                            'key'            => 'value',
-                            'type'           => Survey::TYPE_DATE,
-                            'component_name' => null,
-                            'default_value'  => null,
-                            'attribute'      => null,
-                            'rule'           => null,
-                        ]
-                    ]
-                ],
-                [
-                    'label' => 'Tidak',
-                    'value' => 'Tidak'
-                ]
+                // [
+                //     'label' => 'Ya',
+                //     'value' => 'Ya',
+                //     'dynamic_forms' => [
+                //         [
+                //             'label'          => 'Tanggal',
+                //             'key'            => 'value',
+                //             'component_name' => Survey::TYPE_DATE,
+                //             'default_value'  => null,
+                //             'attribute'      => null,
+                //             'rule'           => null,
+                //         ]
+                //     ]
+                // ],
+                // [
+                //     'label' => 'Tidak',
+                //     'value' => 'Tidak'
+                // ]
             ]
         ],
         [
             'label'          => 'Anal seks berisiko',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => 'AnalSexRisk',
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
             'options'        => [
-                [
-                    'label' => 'Ya',
-                    'value' => 'Ya',
-                    'dynamic_forms' => [
-                        [
-                            'label'          => 'Tanggal',
-                            'key'            => 'value',
-                            'type'           => Survey::TYPE_DATE,
-                            'component_name' => null,
-                            'default_value'  => null,
-                            'attribute'      => null,
-                            'rule'           => null,
-                        ]
-                    ]
-                ],
-                [
-                    'label' => 'Tidak',
-                    'value' => 'Tidak'
-                ]
+                // [
+                //     'label' => 'Ya',
+                //     'value' => 'Ya',
+                //     'dynamic_forms' => [
+                //         [
+                //             'label'          => 'Tanggal',
+                //             'key'            => 'value',
+                //             'component_name' => Survey::TYPE_DATE,
+                //             'default_value'  => null,
+                //             'attribute'      => null,
+                //             'rule'           => null,
+                //         ]
+                //     ]
+                // ],
+                // [
+                //     'label' => 'Tidak',
+                //     'value' => 'Tidak'
+                // ]
             ]
         ],
         [
             'label'          => 'Transfusi darah',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => 'TransfusionRisk',
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
             'options'        => [
-                [
-                    'label' => 'Ya',
-                    'value' => 'Ya',
-                    'dynamic_forms' => [
-                        [
-                            'label'          => 'Tanggal',
-                            'key'            => 'value',
-                            'type'           => Survey::TYPE_DATE,
-                            'component_name' => null,
-                            'default_value'  => null,
-                            'attribute'      => null,
-                            'rule'           => null,
-                        ]
-                    ]
-                ],
-                [
-                    'label' => 'Tidak',
-                    'value' => 'Tidak'
-                ]
+                // [
+                //     'label' => 'Ya',
+                //     'value' => 'Ya',
+                //     'dynamic_forms' => [
+                //         [
+                //             'label'          => 'Tanggal',
+                //             'key'            => 'value',
+                //             'component_name' => Survey::TYPE_DATE,
+                //             'default_value'  => null,
+                //             'attribute'      => null,
+                //             'rule'           => null,
+                //         ]
+                //     ]
+                // ],
+                // [
+                //     'label' => 'Tidak',
+                //     'value' => 'Tidak'
+                // ]
             ]
         ],
         [
             'label'          => 'Pernah tes HIV sebelumnya',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => 'PreviousHIVTest',
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
             'options'        => [
-                [
-                    'label' => 'Ya',
-                    'value' => 'Ya',
-                    'dynamic_forms' => [
-                        [
-                            'label'          => 'Lokasi tes HIV sebelumnya',
-                            'key'            => 'value',
-                            'type'           => Survey::TYPE_INPUT,
-                            'component_name' => null,
-                            'default_value'  => null,
-                            'attribute'      => null,
-                            'rule'           => null,
-                        ]
-                    ]
-                ],
-                [
-                    'label' => 'Tidak',
-                    'value' => 'Tidak'
-                ]
+                // [
+                //     'label' => 'Ya',
+                //     'value' => 'Ya',
+                //     'dynamic_forms' => [
+                //         [
+                //             'label'          => 'Lokasi tes HIV sebelumnya',
+                //             'key'            => 'value',
+                //             'component_name' => Survey::TYPE_INPUT,
+                //             'default_value'  => null,
+                //             'attribute'      => null,
+                //             'rule'           => null,
+                //         ]
+                //     ]
+                // ],
+                // [
+                //     'label' => 'Tidak',
+                //     'value' => 'Tidak'
+                // ]
             ]
         ],
         [
             'label'          => 'Kesediaan untuk test',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => 'WillingHIVToTest',
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
             'options'        => [
-                [
-                    'label' => 'Ya',
-                    'value' => 'Ya',
-                    'forms' => [
-                        'HIVAntibodyTest'
-                    ]
-                ],
-                [
-                    'label' => 'Tidak',
-                    'value' => 'Tidak'
-                ]
+                // [
+                //     'label' => 'Ya',
+                //     'value' => 'Ya',
+                //     'forms' => [
+                //         'HIVAntibodyTest'
+                //     ]
+                // ],
+                // [
+                //     'label' => 'Tidak',
+                //     'value' => 'Tidak'
+                // ]
             ]
         ]
     ]

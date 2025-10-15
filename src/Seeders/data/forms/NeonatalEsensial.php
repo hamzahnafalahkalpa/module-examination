@@ -9,9 +9,9 @@ return [
         [
             'label' => 'Anak ke',
             'key' => 'anak_ke',
-            'type' => Survey::TYPE_INPUT,
+            'component_name' => Survey::TYPE_INPUT_NUMBER,
             'attribute' => [
-                'input_type' => 'number'
+                'mode' => 'number' //number, currency, text
             ],
             'default_value' => null,
             'options' => null, // integer, contoh: 1, 2, 3, ...
@@ -19,9 +19,9 @@ return [
         [
             'label' => 'Berat Badan (kg)',
             'key' => 'weight',
-            'type' => Survey::TYPE_INPUT,
+            'type' => Survey::TYPE_INPUT_NUMBER,
             'attribute' => [
-                'input_type' => 'number'
+                'mode' => 'number'
             ],
             'default_value' => null,
             'options' => null, // kg
@@ -29,9 +29,9 @@ return [
         [
             'label' => 'Tinggi Badan (cm)',
             'key' => 'height',
-            'type' => Survey::TYPE_INPUT,
+            'type' => Survey::TYPE_INPUT_NUMBER,
             'attribute' => [
-                'input_type' => 'number'
+                'mode' => 'number'
             ],
             'default_value' => null,
             'options' => null, // cm

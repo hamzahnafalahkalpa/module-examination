@@ -9,8 +9,7 @@ return [
         [
             'label'          => 'Apakah Anda sebenarnya cukup puas dengan hidup Anda?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -28,8 +27,7 @@ return [
         [
             'label'          => 'Apakah Anda merasa tidak berharga seperti perasaan anda saat ini?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -47,8 +45,7 @@ return [
         [
             'label'          => 'Apakah Anda sering merasa tidak berdaya?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -66,8 +63,7 @@ return [
         [
             'label'          => 'Apakah Anda sering merasa bosan?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,

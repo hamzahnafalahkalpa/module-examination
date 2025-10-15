@@ -9,8 +9,7 @@ return [
         [
             'label'          => 'Apakah peserta pernah merokok?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -28,22 +27,20 @@ return [
         [
             'label'          => 'Berapa rata-rata jumlah batang rokok per hari?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_INPUT,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_INPUT_NUMBER,
             'default_value'  => null,
             'attribute'      => [
-                'input_type'    => 'number'
+                'mode'    => 'number'
             ],
             'rule'           => null
         ],
         [
             'label'          => 'Lama merokok dalam tahun',
             'key'            => 'value',
-            'type'           => Survey::TYPE_INPUT,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_INPUT_NUMBER,
             'default_value'  => null,
             'attribute'      => [
-                'input_type'    => 'number'
+                'mode'    => 'number'
             ],
             'rule'           => null
         ],
@@ -51,8 +48,7 @@ return [
             'label'          => 'Apakah Dokter atau tenaga medis lainnya pernah meminta peserta untuk melakukan pemeriksaan spirometri atau
             peak flow meter (meniup ke dalam suatu alat) untuk mengetahui fungsi paru peserta?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -71,8 +67,7 @@ return [
             'label'          => 'Apakah peserta pernah merasa napas pendek ketika peserta berjalan lebih cepat pada jalan yang datar atau
             pada jalan yang sedikit menanjak?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -90,8 +85,7 @@ return [
         [
             'label'          => 'Apakah peserta biasanya batuk saat peserta sedang tidak menderita selesma/flu?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -109,8 +103,7 @@ return [
         [
             'label'          => 'Status merokok',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -129,8 +122,7 @@ return [
             'label'          => 'Apakah peserta biasanya mempunyai dahak yang berasal dari paru atau kesulitan mengeluarkan dahak saat
             peserta sedang tidak menderita selesma/flu?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,

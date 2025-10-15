@@ -8,19 +8,24 @@ class Survey extends Form
 {
     protected $table = 'unicodes';
 
-    const TYPE_INPUT      = 'INPUT';
-    const TYPE_TOGGLE     = 'TOGGLE';
-    const TYPE_TEXTAREA   = 'TEXT_AREA';
-    const TYPE_RADIO      = 'RADIO';
-    const TYPE_CHECKBOX   = 'CHECKBOX';
-    const TYPE_SELECT     = 'SELECT';
-    const TYPE_SLIDER     = 'SLIDER';
-    const TYPE_DATE       = 'DATE';
-    const TYPE_TIME       = 'TIME';
-    const TYPE_DATE_TIME  = 'DATE_TIME';
-    const TYPE_DATE_RANGE = 'DATE_RANGE';
-    const TYPE_CARD       = 'CARD';
-    const TYPE_MULTIPLE_FORM       = 'MULTIPLE_FORM';
+    const TYPE_INPUT_TEXT    = 'InputText';
+    const TYPE_INPUT_NUMBER  = 'InputNumber';
+    const TYPE_INPUT_OTP     = 'InputOtp';
+    const TYPE_TEXT_EDITOR   = 'TextEditor';
+    const TYPE_TEXTAREA      = 'Textarea';
+    const TYPE_CHECKBOX      = 'Checkbox';
+    const TYPE_RADIO_BUTTON  = 'RadioButton';
+    const TYPE_SELECT        = 'Select';
+    const TYPE_SELECT_BUTTON = 'SelectButton';
+    const TYPE_MULTI_SELECT  = 'MultiSelect';
+    const TYPE_SLIDER        = 'Slider';
+    const TYPE_TOGGLE_BUTTON = 'ToggleButton';
+    const TYPE_TOGGLE_SWITCH = 'ToggleSwitch';
+    const TYPE_DATE_PICKER   = 'DatePicker';
+    const TYPE_DATE_TIME_PICKER  = 'DateTimePicker';
+    const TYPE_MONTH_PICKER      = 'MonthPicker';
+    const TYPE_TIME_PICKER       = 'TimePicker';
+    const TYPE_DATE_RANGE_PICKER = 'DateRangePicker';
 
     public function getForeignKey(){
         return 'survey_id';
@@ -37,7 +42,6 @@ class Survey extends Form
         $dynamic_form    = [
             'label'          => $attributes['name'],
             'key'            => $attributes['key'] ?? null,
-            'type'           => $attributes['type'],
             'component_name' => $attributes['component_name'] ?? null,
             'default_value'  => $attributes['default_value'] ?? [],
             'ordering'       => $attributes['ordering'] ?? 1,
@@ -52,18 +56,16 @@ class Survey extends Form
     public function getDynamicAttribute(string $type,? object $attribute = null){
         if (isset($attribute)) {
             $attribute = (array) $attribute;
-            switch ($type) {
-                case self::TYPE_INPUT       : return ['input_type' => $attribute['input_type'] ?? 'text','placeholder'=>$attribute['placeholder'] ?? null,'min'=>$attribute['min'] ?? null,'max'=>$attribute['max'] ?? null,'step'=>$attribute['step'] ?? null];break;
-                // case self::TYPE_TOGGLE      : return null;break;
-                case self::TYPE_TEXTAREA    : return ['rows' => $attribute['rows'] ?? 30,'maxlength' => $attribute['maxlength'] ?? null,'placeholder'=>$attribute['placeholder'] ?? null];break;
-                // case self::TYPE_RADIO       : ;break;
-                // case self::TYPE_CHECKBOX    : ;break;
-                // case self::TYPE_SELECT      : ;break;
-                case self::TYPE_SLIDER      : return ['min' => $attribute['min'] ?? null,'step' => $attribute['step'] ?? null,'max' => $attribute['max'] ?? null];break;
-                case self::TYPE_DATE        : return ['date_type' => $attribute['date_type'] ?? 'daily','format' => $attribute['format'] ?? 'yyyy-MM-dd','min' => $attribute['min'] ?? null,'max' => $attribute['max'] ?? null];break;
-                case self::TYPE_TIME        : return ['format' => $attribute['format'] ?? 'HH:mm','min' => $attribute['min'] ?? null,'max' => $attribute['max'] ?? null];break;
-                case self::TYPE_DATE_TIME   : return ['format' => $attribute['format'] ?? 'yyyy-MM-dd HH:mm','min' => $attribute['min'] ?? null,'max' => $attribute['max'] ?? null];break;
-                case self::TYPE_DATE_RANGE  : return ['format' => $attribute['format'] ?? 'yyyy-MM-dd','min' => $attribute['min'] ?? null,'max' => $attribute['max'] ?? null];break;
+            $component_attribute = config('module-examination.survey.dynamic_form.component');
+            if (isset($component_attribute[$type])){
+                if (isset($component_attribute[$type])){
+                    $fixed_attributes = $component_attribute[$type];
+                    foreach ($fixed_attributes as $key => $value) {
+                        if (!is_array($value) && isset($value[$attribute['key']])) $attribute[$key] = $attribute[$key] ?? $value;
+                    }
+                }
+            }else{
+                return [];
             }
         }
         return null;

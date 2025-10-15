@@ -9,8 +9,7 @@ return [
         [
             'label'          => 'Mobilitas',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -32,8 +31,7 @@ return [
         [
             'label'          => 'Penurunan berat badan dalam 3 bulan terakhir',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -59,8 +57,7 @@ return [
         [
             'label'          => 'Masalah neuropsikologi',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -83,8 +80,7 @@ return [
             'label'          => 'Apakah ada penurunan asupan makanan dalam jangka waktu 3 bulan oleh karena kehilangan nafsu makan, masalah
         pencernaan, kesulitan menelan atau mengunyah?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -106,8 +102,7 @@ return [
         [
             'label'          => 'Indeks Massa Tubuh (IMT) berat badan dalam kg/tinggi badan dalam',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -133,8 +128,7 @@ return [
         [
             'label'          => '6 Menderita stress psikologis/penyakit akut dalam 3 bulan terakhir:',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,

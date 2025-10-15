@@ -9,8 +9,7 @@ return [
         [
             'label'          => 'Apakah Anda merasakan lemah, loyo dan tidak bertenaga?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -28,8 +27,7 @@ return [
         [
             'label'          => 'Apakah akhir-akhir ini Anda kehilangan berat badan secara tidak sengaja (6 bulan terakhir)?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -47,8 +45,7 @@ return [
         [
             'label'          => 'Apakah Anda mengalami penurunan asupan makan selama 1 minggu terakhir?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -66,8 +63,7 @@ return [
         [
             'label'          => 'Apakah Anda menderita suatu penyakit yang mengakibatkan adanya perubahan jumlah atau jenis makanan yang Anda makan?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -85,8 +81,7 @@ return [
         [
             'label'          => 'Apakah pakaian anda terasa lebih longgar?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,

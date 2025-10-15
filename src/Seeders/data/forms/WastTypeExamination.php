@@ -9,8 +9,7 @@ return [
         [
             'label'          => 'Kekerasan Psikis',
             'key'            => 'value',
-            'type'           => Survey::TYPE_CHECKBOX,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_CHECKBOX,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -32,12 +31,10 @@ return [
         [
             'label'          => 'Kekerasan Psikis Lainnya',
             'key'            => 'value',
-            'type'           => Survey::TYPE_INPUT,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_INPUT_TEXT,
             'default_value'  => null,
             'attribute'      => [
-                'placeholder' => 'Lainnya',
-                'type'        => 'text'
+                'placeholder' => 'Lainnya'
             ],
             'rule'           => null,
             'options'        => null
@@ -45,8 +42,7 @@ return [
         [
             'label'          => 'Kekerasan Fisik',
             'key'            => 'value',
-            'type'           => Survey::TYPE_CHECKBOX,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_CHECKBOX,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -76,12 +72,10 @@ return [
         [
             'label'          => 'Kekerasan Fisik Lainnya',
             'key'            => 'value',
-            'type'           => Survey::TYPE_INPUT,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_INPUT_TEXT,
             'default_value'  => null,
             'attribute'      => [
-                'placeholder' => 'Lainnya',
-                'type'        => 'text'
+                'placeholder' => 'Lainnya'
             ],
             'rule'           => null,
             'options'        => null
@@ -89,8 +83,7 @@ return [
         [
             'label'          => 'Kekerasan Seksual',
             'key'            => 'value',
-            'type'           => Survey::TYPE_CHECKBOX,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_CHECKBOX,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -116,12 +109,10 @@ return [
         [
             'label'          => 'Kekerasan Seksual Lainnya',
             'key'            => 'value',
-            'type'           => Survey::TYPE_INPUT,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_INPUT_TEXT,
             'default_value'  => null,
             'attribute'      => [
-                'placeholder' => 'Lainnya',
-                'type'        => 'text'
+                'placeholder' => 'Lainnya'
             ],
             'rule'           => null,
             'options'        => null

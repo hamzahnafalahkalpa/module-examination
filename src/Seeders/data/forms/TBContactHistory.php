@@ -9,8 +9,7 @@ return [
         [
             'label'          => 'Apakah Pasien memiliki Riwayat Kontak TBC?',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -28,8 +27,7 @@ return [
         [
             'label'          => 'Sebutkan Jenis Kontak TBC',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,

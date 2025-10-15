@@ -9,8 +9,7 @@ return [
         [
             'label'          => 'Kondisi',
             'key'            => 'value',
-            'type'           => Survey::TYPE_RADIO,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_RADIO_BUTTON,
             'default_value'  => null,
             'attribute'      => null,
             'rule'           => null,
@@ -32,11 +31,9 @@ return [
         [
             'label'          => 'Tanggal Pemeriksaan',
             'key'            => 'value',
-            'type'           => Survey::TYPE_INPUT,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_DATE_PICKER,
             'default_value'  => null,
             'attribute'      => [
-                "type" => "date"
             ],
             'rule'           => null,
             'options'        => null
@@ -44,11 +41,9 @@ return [
         [
             'label'          => 'No.Seri',
             'key'            => 'value',
-            'type'           => Survey::TYPE_INPUT,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_DATE_PICKER,
             'default_value'  => null,
             'attribute'      => [
-                "type" => "text"
             ],
             'rule'           => null,
             'options'        => null
@@ -56,8 +51,7 @@ return [
         [
             'label'          => 'Saran',
             'key'            => 'value',
-            'type'           => Survey::TYPE_TEXTAREA,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_TEXTAREA,
             'default_value'  => null,
             'rule'           => null,
             'options'        => null

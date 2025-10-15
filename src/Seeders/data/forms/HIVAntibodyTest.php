@@ -9,8 +9,7 @@ return [
         [
             'label' => 'Tanggal Pemeriksaan',
             'key' => 'value',
-            'type' => Survey::TYPE_DATE,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_DATE_PICKER,
             'default_value' => null,
             'attribute' => null,
             'rule' => null,
@@ -19,8 +18,7 @@ return [
         [
             'label' => 'Jenis Tes HIV',
             'key' => 'value',
-            'type' => Survey::TYPE_INPUT, // bebas diisi
-            'component_name' => null,
+            'component_name' => Survey::TYPE_INPUT_TEXT,
             'default_value' => null,
             'attribute' => null,
             'rule' => null,
@@ -29,8 +27,7 @@ return [
         [
             'label' => 'Urutan Tes',
             'key' => 'value',
-            'type' => Survey::TYPE_SELECT,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_SELECT,
             'default_value' => null,
             'attribute' => null,
             'rule' => null,
@@ -44,8 +41,7 @@ return [
         [
             'label' => 'Hasil Tes',
             'key' => 'value',
-            'type' => Survey::TYPE_SELECT,
-            'component_name' => null,
+            'component_name' => Survey::TYPE_SELECT,
             'default_value' => null,
             'attribute' => null,
             'rule' => null,
@@ -59,8 +55,7 @@ return [
         [
             'label' => 'Nama Reagen',
             'key' => 'value',
-            'type' => Survey::TYPE_INPUT, // bebas diisi
-            'component_name' => null,
+            'component_name' => Survey::TYPE_INPUT_TEXT, // bebas diisi
             'default_value' => null,
             'attribute' => null,
             'rule' => null,
