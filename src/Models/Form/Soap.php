@@ -11,11 +11,11 @@ class Soap extends Screening
     const FLAG_SCREENING = 'Soap';
 
     public function viewUsingRelation(): array{
-        return ['subjectives','objectives','plans'];
+        return ['subjectives','objectives','assessments','plans'];
     }
 
     public function showUsingRelation(): array{
-        return ['subjectives','objectives','plans'];
+        return ['subjectives','objectives','assessments','plans'];
     }
 
     protected function isUsingService(): bool{
@@ -28,6 +28,10 @@ class Soap extends Screening
     
     public function objectives(){
         return $this->hasManyModel('ScreeningHasForm','screening_id')->where('props->form_type','Objective')->orderBy('props->ordering','asc');
+    }
+
+    public function assessments(){
+        return $this->hasManyModel('ScreeningHasForm','screening_id')->where('props->form_type','Assessment')->orderBy('props->ordering','asc');
     }
     
     public function plans(){
