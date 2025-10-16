@@ -24,6 +24,11 @@ class ViewSoap extends ApiResource
                     return $subjective->toViewApi()->resolve();
                 });
             }),
+            'assessments' => $this->relationValidation('assessments',function(){
+                return $this->assessments->transform(function($assessment){
+                    return $assessment->toViewApi()->resolve();
+                });
+            }),
             'objectives' => $this->relationValidation('objectives',function(){
                 return $this->objectives->transform(function($objectuve){
                     return $objectuve->toViewApi()->resolve();
