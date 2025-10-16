@@ -32,7 +32,7 @@ class ScreeningHasFormData extends Data implements DataScreeningHasFormData
 
         $form = $new->FormModel();
         if (isset($data->form_id)) $form = $form->findOrFail($data->form_id);
-        $props['prop_form'] = $form->toViewApi()->only(['id','name','flag','label']);
+        $props['prop_form'] = $form->toViewApi()->only(['id','name','flag','label','examination_key']);
         
         return $data;
     }
