@@ -16,6 +16,7 @@ class ViewForm extends ViewUnicode
   public function toArray(\Illuminate\Http\Request $request): array
   {
     $arr = [
+      'examination_key'     => $this->examination_key,
     ];
     $arr = $this->mergeArray(parent::toArray($request),$arr);
     return $arr;
