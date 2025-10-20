@@ -75,35 +75,6 @@ class Examination extends ModulePatient implements ContractsExamination
         $visit_examination_model->setAttribute('form_summaries', $this->__open_forms ?? []);
         $visit_examination_model->save();
 
-        // if (isset($attributes['examination_summary']) && count($attributes) > 0) {
-        //     $attributes['examination_summary']['reference_id']   = static::$__visit_examination->getKey();
-        //     $attributes['examination_summary']['reference_type'] = static::$__visit_examination->getMorphClass();
-        //     $examination_summary = $this->appExaminationSummarySchema()->prepareStoreExaminationSummary($attributes['examination_summary']);
-        //     $new_collection['examination_summary'] = $examination_summary->toViewApi();
-        // }
-
-        // // ADD ADDENDUM
-        // if (isset($attributes['addendum'])) {
-        //     static::$__examination_summary->addendum = $attributes['addendum'];
-        //     static::$__examination_summary->save();
-        // }
-
-        // if (isset($attributes['prescription']) && count($attributes) > 0) {
-        //     request()->merge([
-        //         'warehouse_id' => request()->pharmacy_id ?? null
-        //     ]);
-        //     $this->prepareService($new_collection['prescription'], $attributes['prescription']);
-        // }
-
-        // if (isset($attributes['pharmacy_sale'])) {
-        //     $pharmacy = &$attributes['pharmacy_sale'];
-        //     $pharmacy['warehouse_id'] = $attributes['warehouse_id'];
-        //     $pharmacy['pharmacy_id']  = $attributes['pharmacy_id'];
-        //     $this->pharmacyDispense($new_collection['pharmacy_sale'], $pharmacy);
-        // }
-
-        // static::$__visit_examination->is_commit = Commit::COMMIT->value;
-
         if ($examination_dto->visit_patient_model->reference_type == 'VisitPatient') {
             $this->toPoliExamStart($examination_dto);
         }
@@ -150,7 +121,24 @@ class Examination extends ModulePatient implements ContractsExamination
 
     private function prepareAssessment(array &$exam_data, string $studly_key, ExaminationData $examination_dto){
         $exam_data['morph'] = $studly_key;
-        $exam_data['visit_examination_model'] = $examination_dto->visit_examination_model;
+        $exam_data['visit_examination_model'] = $visit_examination_model = $examination_dto->visit_examination_model;
+        if (!$visit_examination_model->relationLoaded('practitionerEvaluations'))$visit_examination_model->load('practitionerEvaluations');
+        $practitioner_evaluation_ref_ids = array_column($visit_examination_model->practitionerEvaluations->toArray(), 'practitioner_id');
+        $exam_data['practitioner_evaluations'] = $examination_dto->practitioner_evaluations;
+        $exam_data['prop_practitioner_evaluations'] ??= [];
+        foreach ($exam_data['practitioner_evaluations'] as $practitioner_evaluation) {
+            $src = array_search($practitioner_evaluation['practitioner_id'], $practitioner_evaluation_ref_ids);
+            if (!isset($src)){
+                $this->initPractitionerEvaluation($practitioner_evaluation, $visit_examination_model);
+                $visit_examination_model->load('practitionerEvaluations');
+            }
+            $practitioner_model = $visit_examination_model->practitionerEvaluations[$src];
+            $exam_data['prop_practitioner_evaluations'][] = [
+                'id'         => $practitioner_model->getKey(),
+                'name'       => $practitioner_model->name,
+                'updated_at' => now()
+            ];
+        }
         $contract_data = config('app.contracts.'.$studly_key.'Data');
         $contract_data ??= AssessmentData::class;
         $exam_data = $this->requestDTO($contract_data,$exam_data);

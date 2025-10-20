@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class FamilyIllness extends Diagnose
 {
     protected $table = 'assessments';
-
     public $response_model   = 'array';
     public $specific = [
         'name',
@@ -20,6 +19,7 @@ class FamilyIllness extends Diagnose
         'child_position'
     ];
 
+    
     public function getExamResults(?Model $model = null): array
     {
         $model ??= $this;
@@ -31,7 +31,7 @@ class FamilyIllness extends Diagnose
             'disease_id'                => $exam['disease_id'],
             'classification_disease_id' => $exam['classification_disease_id'] ?? null,
             'family_role_id'            => $exam['family_role_id'],
-            'family_role_name'          => $family_role->name,
+            'family_role_name'          => $family_role?->name,
             // 'family_patient_id'         => $model->patient_id ?? null,
             'family_name'               => $exam['family_name'],
             'child_position'            => $exam['child_position'] ?? null

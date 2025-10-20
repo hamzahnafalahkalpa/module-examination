@@ -8,9 +8,4 @@ use Illuminate\Database\Eloquent\Builder;
 class SecondaryDiagnose extends Diagnose implements ContractsSecondaryDiagnose
 {
     protected string $__entity   = 'SecondaryDiagnose';
-    public function diagnose(): Builder
-    {
-        $this->booting();
-        return $this->SecondaryDiagnoseModel()->withParameters('or')->orderBy('props->name', 'asc');
-    }
 }

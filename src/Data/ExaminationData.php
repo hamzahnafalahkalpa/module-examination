@@ -5,7 +5,9 @@ namespace Hanafalah\ModuleExamination\Data;
 use Hanafalah\LaravelSupport\Concerns\Support\HasRequestData;
 use Hanafalah\LaravelSupport\Supports\Data;
 use Hanafalah\ModuleExamination\Contracts\Data\ExaminationData as DataExaminationData;
+use Hanafalah\ModulePatient\Data\PractitionerEvaluationData;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\MapName;
 
@@ -48,6 +50,11 @@ class ExaminationData extends Data implements DataExaminationData
     #[MapInputName('patient_summary_model')]
     #[MapName('patient_summary_model')]
     public ?object $patient_summary_model = null;
+
+    #[MapInputName('practitioner_evaluations')]
+    #[MapName('practitioner_evaluations')]
+    #[DataCollectionOf(PractitionerEvaluationData::class)]
+    public null|object|array $practitioner_evaluations = null;
 
     #[MapInputName('screening_ids')]
     #[MapName('screening_ids')]
@@ -101,7 +108,6 @@ class ExaminationData extends Data implements DataExaminationData
             $data->patient_summary_id = $data->patient_summary_model->getKey();
             $data->screening_ids = array_column($visit_examination->screenings ?? [], 'id');
         }
-            
         $data->response ??= [];
         return $data;
     }

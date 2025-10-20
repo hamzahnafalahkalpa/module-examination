@@ -62,32 +62,31 @@ class Assessment extends Examination implements ContractsAssessment
         ]]));
     }
 
-    protected function setAssessmentProp(array $attributes): void{
-        $specifics ??= $this->{$this->__entity . 'Model'}()->specific;
+    protected function setAssessmentProp(AssessmentData $assessment_dto): void{
+        // $specifics ??= $this->{$this->__entity . 'Model'}()->specific;
         $assessment   = &$this->assessment_model;
-        foreach ($specifics as $key) $assessment->{$key} = $attributes[$key] ?? null;
-        $assessment->save();
+        // foreach ($specifics as $key) $assessment->{$key} = $attributes[$key] ?? null;
+        // $assessment->save();
         //SAVE PRACTITIONER HISTORY
-        if (isset(static::$__practitioner_evaluation)) {
-            $practitioner = &static::$__practitioner_evaluation;
-            $assessment->prop_practitioners ??= [];
-            if (count($assessment->prop_practitioners) == 0) {
-                $this->setPractitioner($assessment, $practitioner);
-            } else {
-                $ids = array_column($assessment->prop_practitioners, 'id');
-                $src = array_search($practitioner->getKey(), $ids);
-                if ($src === false) {
-                    $this->setPractitioner($assessment, $practitioner);
-                } else {
-                    $prop_practitioners = $assessment->prop_practitioners;
-                    $prop_practitioners[$src]['updated_at'] = now();
-                    $assessment->setAttribute('prop_practitioners', $prop_practitioners);
-                }
-            }
-            $assessment->save();
-            $practitioner->is_commit = false;
-            $practitioner->save();
-        }
+        // if (isset($assessment_dto->practitioner_evaluations) && count($assessment_dto->practitioner_evaluations) > 0) {
+        //     // $assessment->prop_practitioners ??= [];
+        //     if (count($assessment->prop_practitioners) == 0) {
+        //         $this->setPractitioner($assessment, $practitioner);
+        //     } else {
+        //         $ids = array_column($assessment->prop_practitioners, 'id');
+        //         $src = array_search($practitioner->getKey(), $ids);
+        //         if ($src === false) {
+        //             $this->setPractitioner($assessment, $practitioner);
+        //         } else {
+        //             $prop_practitioners = $assessment->prop_practitioners;
+        //             $prop_practitioners[$src]['updated_at'] = now();
+        //             $assessment->setAttribute('prop_practitioners', $prop_practitioners);
+        //         }
+        //     }
+        //     $assessment->save();
+        //     $practitioner->is_commit = false;
+        //     $practitioner->save();
+        // }
     }
 
     public function prepareStoreAssessment(AssessmentData $assessment_dto): Model{

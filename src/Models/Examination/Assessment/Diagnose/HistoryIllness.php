@@ -7,9 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class HistoryIllness extends Diagnose
 {
     protected $table = 'assessments';
-
     public $response_model   = 'array';
-
     public $specific = [
         'name',
         'disease_type',
