@@ -146,10 +146,8 @@ class Examination extends ModulePatient implements ContractsExamination
         return $this->dataPreparation($this->schemaContract($contract_exists ? $studly_key : 'Assessment'), $exam_data);
     }
 
-    public function commitExamination(): array{
-        $attributes ??= request()->all();
-        $this->initializeExamination($attributes);
-        $this->toPoliExamStart();
+    public function commitExamination(ExaminationData $examination_dto): array{
+        $this->toPoliExamStart($examination_dto);
         return $this->appPractitionerEvaluationSchema()->commitPractitionerEvaluation();
     }
 
