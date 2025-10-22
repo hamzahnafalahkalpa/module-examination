@@ -2,4 +2,4 @@
 
 namespace Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment;
 
-interface PainScale extends Assessment {}
+interface AssessmentNote extends Assessment {}
