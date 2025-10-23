@@ -1,11 +1,11 @@
 <?php
 
-namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment\Diagnose;
+namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment\Prescription;
 
 use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\Prescription\BasicPrescription as ContractsBasicPrescription;
 use Illuminate\Database\Eloquent\Model;
 
-class BasicPrescription extends Diagnose implements ContractsBasicPrescription
+class BasicPrescription extends TrxPrescription implements ContractsBasicPrescription
 {
     protected string $__entity   = 'BasicPrescription';
 
