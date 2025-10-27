@@ -15,13 +15,6 @@
             "Hanafalah\\ModuleExamination\\": "src/"
         }
     },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Hanafalah\\ModuleExamination\\ModuleExaminationServiceProvider"
-            ]
-        }
-    },
     "authors": [
         {
             "name": "Hamzah",

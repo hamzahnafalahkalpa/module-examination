@@ -7,6 +7,7 @@ use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\Assessm
 use Illuminate\Support\Str;
 use Hanafalah\ModuleExamination\Schemas\Examination;
 use Illuminate\Database\Eloquent\{
+    Builder,
     Model
 };
 use Illuminate\Support\Facades\Storage;
@@ -50,43 +51,6 @@ class Assessment extends Examination implements ContractsAssessment
                 return $this->prepareStore($assessment_dto ?? $this->requestDTO(config('app.contracts.AssessmentData'))); 
            });
         });
-    }
-
-    private function setPractitioner(&$assessment, $practitioner){
-        $prop_practitioner = $assessment->prop_practitioners;
-        $assessment->setAttribute('prop_practitioners', $this->mergeArray($prop_practitioner ?? [], [[
-            'id'         => $practitioner->getKey(),
-            'name'       => $practitioner->name,
-            'role_as'    => $practitioner->role_as,
-            'updated_at' => now()
-        ]]));
-    }
-
-    protected function setAssessmentProp(AssessmentData $assessment_dto): void{
-        // $specifics ??= $this->{$this->__entity . 'Model'}()->specific;
-        $assessment   = &$this->assessment_model;
-        // foreach ($specifics as $key) $assessment->{$key} = $attributes[$key] ?? null;
-        // $assessment->save();
-        //SAVE PRACTITIONER HISTORY
-        // if (isset($assessment_dto->practitioner_evaluations) && count($assessment_dto->practitioner_evaluations) > 0) {
-        //     // $assessment->prop_practitioners ??= [];
-        //     if (count($assessment->prop_practitioners) == 0) {
-        //         $this->setPractitioner($assessment, $practitioner);
-        //     } else {
-        //         $ids = array_column($assessment->prop_practitioners, 'id');
-        //         $src = array_search($practitioner->getKey(), $ids);
-        //         if ($src === false) {
-        //             $this->setPractitioner($assessment, $practitioner);
-        //         } else {
-        //             $prop_practitioners = $assessment->prop_practitioners;
-        //             $prop_practitioners[$src]['updated_at'] = now();
-        //             $assessment->setAttribute('prop_practitioners', $prop_practitioners);
-        //         }
-        //     }
-        //     $assessment->save();
-        //     $practitioner->is_commit = false;
-        //     $practitioner->save();
-        // }
     }
 
     public function prepareStoreAssessment(AssessmentData $assessment_dto): Model{
@@ -144,8 +108,7 @@ class Assessment extends Examination implements ContractsAssessment
 
             if (!isset($validation) && !isset($id)) throw new \Exception('No visit_examination_id/id provided', 422);
             if (isset($validation) && !isset($id) && !isset($flag)) throw new \Exception('Flag is required if id is not provided', 422);
-
-            $model = $this->generalSchemaModel()->with($this->showUsingRelation());
+            $model = $this->assessment()->with($this->showUsingRelation());
             if (isset($id)) {
                 $model = $model->find($id);
             } else {
@@ -172,24 +135,6 @@ class Assessment extends Examination implements ContractsAssessment
         });
     }
 
-    // public function prepareShowPatientEmrByFlag(?array $attributes = null): mixed
-    // {
-    //     $attributes ??= request()->all();
-
-    //     if (!isset($attributes['uuid'])) throw new \Exception('uuid is required', 422);
-    //     $patient                          = $this->schemaContract('patient')->getPatientByUUID($attributes);
-    //     $patient_summary                  = $patient->patientSummary;
-    //     $attributes['patient_summary_id'] = $patient_summary->getKey();
-    //     return $this->prepareShowAssessment(null, $attributes);
-    // }
-
-    // public function showPatientEmrByFlag(): array
-    // {
-    //     return $this->transforming($this->__resources['show'], function () {
-    //         return $this->prepareShowPatientEmrByFlag();
-    //     });
-    // }
-
     public function viewAssessmentList(): array
     {
         $keys = [];
@@ -204,5 +149,14 @@ class Assessment extends Examination implements ContractsAssessment
         }
         ksort($keys);
         return $keys;
+    }
+
+    public function usingEntity(): Model{
+            if (isset(request()->morph)){
+            $model = Str::studly(request()->morph);
+        }else{
+            $model = $this->getEntity();
+        }
+        return $this->{$model.'Model'}();
     }
 }
