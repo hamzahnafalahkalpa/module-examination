@@ -14,7 +14,6 @@ class MedicinePrescriptionData extends TrxPrescriptionData implements DataMedici
         $new->initializePrescription($attribute_exam);
         $new->initializeCardStock($attribute_exam,$attribute_exam['card_stock']);
         $attribute_exam['qty'] ??= $attribute_exam['card_stock']['stock_movement']['qty'] ?? 0;
-
         if (isset($attribute_exam['frequency_unit_id'])){
             $freq_unit = $new->FreqUnitModel()->find($attribute_exam['frequency_unit_id']);
             $assessment_exam['frequency_unit'] = $freq_unit->toViewApiOnlies('id', 'name', 'flag', 'label');

@@ -10,7 +10,7 @@ class MedicToolPrescription extends TrxPrescription implements ContractsMedicToo
 {
     protected string $__entity   = 'MedicToolPrescription';
 
-    public function prepareStore(mixed $medicine_prescription_dto): Model{
-        return parent::prepareStore($medicine_prescription_dto);
-    }
+    // public function prepareStore(mixed $medicine_prescription_dto): Model{
+    //     return parent::prepareStore($medicine_prescription_dto);
+    // }
 }
