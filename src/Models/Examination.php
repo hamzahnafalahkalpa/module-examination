@@ -9,10 +9,11 @@ use Hanafalah\LaravelHasProps\Concerns\HasProps;
 use Hanafalah\LaravelSupport\Models\BaseModel;
 use Hanafalah\ModuleExamination\Concerns\HasPatientSummary;
 use Hanafalah\ModuleExamination\Resources\Examination\Assessment\{ViewAssessment,ShowAssessment};
+use Hanafalah\ModulePatient\Concerns\Patient\HasPatientLib;
 
 class Examination extends BaseModel
 {
-    use HasProps, HasUlids, HasForm, SoftDeletes, HasPatientSummary;
+    use HasProps, HasUlids, HasForm, SoftDeletes, HasPatientSummary, HasPatientLib;
 
     public $incrementing  = false;
     protected $keyType    = "string";
