@@ -46,6 +46,7 @@ return [
         //ex: HIV_AIDS in HUMAN DISEASE, ENGINE TROUBLE in ENGINE DISEASE, etc
     ],
     'warehouse' => null,
+    'transaction_item' => 'TransactionItem',
     'survey_flag_key' => 'flag',
     'survey' => [
         'dynamic_form' => [

@@ -94,7 +94,7 @@ class TrxTreatment extends Assessment implements ContractsTrxTreatment
                         'visit_registration_model' => $assessment_dto->visit_registration_model,
                         'visit_patient_model'      => $assessment_dto->visit_patient_model,
                         'patient_model'            => $assessment_dto->patient_model,
-                        'patient_summary_model'    => $assessment_dto->patient_summary_model,
+                        'patient_summary_model'    => $assessment_dto->patient_summary_model
                     ]));
     }
 

@@ -4,6 +4,7 @@ namespace Hanafalah\ModuleExamination\Data\Examination;
 
 use Hanafalah\ModuleExamination\Contracts\Data\Examination\ExaminationTreatmentData as DataExaminationTreatmentData;
 use Hanafalah\ModuleExamination\Data\ExaminationData;
+use Hanafalah\ModulePayment\Contracts\Data\PosTransactionItemData;
 use Hanafalah\ModuleTransaction\Contracts\Data\TransactionItemData;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\MapName;
@@ -51,7 +52,7 @@ class ExaminationTreatmentData extends ExaminationData implements DataExaminatio
 
     #[MapName('transaction_item')]
     #[MapInputName('transaction_item')]
-    public ?TransactionItemData $transaction_item = null;
+    public ?PosTransactionItemData $transaction_item = null;
 
     #[MapName('props')]
     #[MapInputName('props')]

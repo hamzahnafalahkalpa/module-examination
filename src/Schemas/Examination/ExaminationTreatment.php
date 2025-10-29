@@ -98,8 +98,9 @@ class ExaminationTreatment extends Examination implements ExaminationExamination
             $transaction_item_dto = &$examination_treatment_dto->transaction_item;
             $transaction_item_dto->item_id   = $examination_treatment->reference_id;
             $transaction_item_dto->item_type = $examination_treatment->reference_type;
-            $this->schemaContract('transaction_item')
-                 ->prepareStoreTransactionItem($transaction_item_dto);
+            $entity = config('module-examination.transaction_item');
+            $this->schemaContract($entity)
+                 ->{'prepareStore'.$entity}($transaction_item_dto);
         }
 
         $this->fillingProps($examination_treatment, $examination_treatment_dto->props);
