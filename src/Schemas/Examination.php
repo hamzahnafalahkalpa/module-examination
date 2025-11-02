@@ -121,16 +121,20 @@ class Examination extends ModulePatient implements ContractsExamination
 
     private function prepareAssessment(array &$exam_data, string $studly_key, ExaminationData $examination_dto){
         $exam_data['morph'] = $studly_key;
+        //INITIALIZE VISIT EXAMINATION MODEL
         $exam_data['visit_examination_model'] = $visit_examination_model = $examination_dto->visit_examination_model;
-        if (!$visit_examination_model->relationLoaded('practitionerEvaluations'))$visit_examination_model->load('practitionerEvaluations');
-        $practitioner_evaluation_ref_ids = array_column($visit_examination_model->practitionerEvaluations->toArray(), 'practitioner_id');
-        $exam_data['practitioner_evaluations'] = $examination_dto->practitioner_evaluations;
+
+        //INITIALIZE PRACTITIONER EVALUATION
+        if (!$visit_examination_model->relationLoaded('practitionerEvaluations')) $visit_examination_model->load('practitionerEvaluations');
+        $practitioner_evaluation_ref_ids              = array_column($visit_examination_model->practitionerEvaluations->toArray(), 'practitioner_id');
+        $exam_data['practitioner_evaluations']        = $examination_dto->practitioner_evaluations;
         $exam_data['prop_practitioner_evaluations'] ??= [];
-        foreach ($exam_data['practitioner_evaluations'] as $practitioner_evaluation) {
+        foreach ($exam_data['practitioner_evaluations'] as $index => $practitioner_evaluation) {
             $src = array_search($practitioner_evaluation['practitioner_id'], $practitioner_evaluation_ref_ids);
             if (!isset($src)){
                 $this->initPractitionerEvaluation($practitioner_evaluation, $visit_examination_model);
                 $visit_examination_model->load('practitionerEvaluations');
+                $examination_dto->practitioner_evaluations[$index]['id'] = $practitioner_evaluation->id;
             }
             $practitioner_model = $visit_examination_model->practitionerEvaluations[$src];
             $exam_data['prop_practitioner_evaluations'][] = [
@@ -139,8 +143,10 @@ class Examination extends ModulePatient implements ContractsExamination
                 'updated_at' => now()
             ];
         }
+        
         $contract_data = config('app.contracts.'.$studly_key.'Data');
         $contract_data ??= AssessmentData::class;
+        $exam_data['is_addendum'] = $visit_examination_model->is_addendum;
         $exam_data = $this->requestDTO($contract_data,$exam_data);
         $contract_exists = config('app.contracts.'.$studly_key) !== null;
         return $this->dataPreparation($this->schemaContract($contract_exists ? $studly_key : 'Assessment'), $exam_data);

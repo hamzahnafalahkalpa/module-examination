@@ -14,6 +14,7 @@ class ShowAssessment extends ViewAssessment
   {
     $arr = [
       'exam'            => $this->exam,
+      'addendums'       => $this->addendums,
       'patient_summary' => $this->relationValidation('patientSummary', function () {
         return $this->patientSummary->toViewApi()->resolve();
       })

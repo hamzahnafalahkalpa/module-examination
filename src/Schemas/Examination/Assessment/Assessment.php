@@ -20,11 +20,17 @@ class Assessment extends Examination implements ContractsAssessment
     protected function storePdf(&$attributes, $target_path){
         $attributes['files'] = $this->mustArray($attributes['files']);
         $attributes['paths'] ??= [];
+        $driver = config('filesystems.default','public');
         foreach ($attributes['files'] as $file) {
             if ($file instanceof \Illuminate\Http\UploadedFile) {
                 $filename = $file->getClientOriginalName();
                 $path     = $file->storeAs($target_path, $filename, ['disk' => 's3']);
-                $attributes['paths'][] = Storage::disk('s3')->url($path);
+
+                $ext        = $file->getClientOriginalExtension();
+                $filename  .= '.' . $ext;
+                $data       = [$path, $file, $filename];
+
+                $attributes['paths'][] = Storage::disk($driver)->putFileAs(...$data);
             } else {
                 if (isset($attributes['id'])) $attributes['paths'][] = $file;
             }
@@ -33,7 +39,7 @@ class Assessment extends Examination implements ContractsAssessment
         if (count($paths) > 0) {
             $diff  = array_diff($paths, $attributes['files']);
             if (isset($diff) && count($diff) > 0) {
-                foreach ($diff as $path) Storage::disk('s3')->delete($path);
+                foreach ($diff as $path) if (Storage::disk($driver)->exists($path)) Storage::disk($driver)->delete($path);
             }
         }
 
@@ -67,8 +73,8 @@ class Assessment extends Examination implements ContractsAssessment
         //     }
         // }
         $model = $this->{$assessment_dto->morph.'Model'}();
-        if (isset($attributes->id)) {
-            $assessment = $model->find($attributes->id);
+        if (isset($assessment_dto->id)) {
+            $assessment = $model->find($assessment_dto->id);
         } else {
             $assessment = $model->create([
                 'visit_registration_id'   => $assessment_dto->visit_registration_id,
@@ -79,10 +85,20 @@ class Assessment extends Examination implements ContractsAssessment
                 'parent_id'              => $assessment_dto->parent_id ?? null,
                 'morph'                  => $assessment_dto->morph ?? $model->getMorphClass()
             ]);
-        }
-        $assessment->setAttribute('exam', $assessment_dto->props['exam']);
+        }        
         $this->prepareAfterResolve($assessment);
-        $assessment_dto->props['exam'] = $this->mergeArray($assessment->getExamResults(), $assessment_dto->props['exam']);
+        $assessment_dto->props['exam'] = $current_exam = $this->mergeArray($assessment->getExamResults(), $assessment_dto->props['exam']);
+        $assessment_dto->is_addendum = true;
+        $assessment->setAttribute('exam', $assessment_dto->props['exam']);
+        if ($assessment->response_model != 'array' && $assessment_dto->is_addendum) {
+            $addendums = $assessment->addendums ?? [];
+            array_unshift($addendums, [
+                'addendum_at' => now(),
+                'authors' => $assessment_dto->practitioner_evaluations,
+                'exam' => $current_exam
+            ]);
+            $assessment->setAttribute('addendums', $addendums);
+        }
         $this->fillingProps($assessment,$assessment_dto->props);
         $assessment->save();
         return $this->assessment_model = $assessment;

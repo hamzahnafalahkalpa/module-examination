@@ -32,11 +32,16 @@ class AssessmentData extends ExaminationData implements DataAssessmentData
     #[MapName('morph')]
     public ?string $morph = null;
 
+    #[MapInputName('is_addendum')]
+    #[MapName('is_addendum')]
+    public ?bool $is_addendum = false;
+
     #[MapInputName('props')]
     #[MapName('props')]
     public ?array $props = null;
 
     public static function before(array &$attributes){
+        $attributes['is_addendum'] ??= false;
         if (isset($attributes['visit_examination_model'])){
             $exam_model = $attributes['visit_examination_model'];
             $attributes['examination_id'] = $exam_model->getKey();
