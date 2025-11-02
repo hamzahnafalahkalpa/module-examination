@@ -88,7 +88,6 @@ class Assessment extends Examination implements ContractsAssessment
         }        
         $this->prepareAfterResolve($assessment);
         $assessment_dto->props['exam'] = $current_exam = $this->mergeArray($assessment->getExamResults(), $assessment_dto->props['exam']);
-        $assessment_dto->is_addendum = true;
         $assessment->setAttribute('exam', $assessment_dto->props['exam']);
         if ($assessment->response_model != 'array' && $assessment_dto->is_addendum) {
             $addendums = $assessment->addendums ?? [];
