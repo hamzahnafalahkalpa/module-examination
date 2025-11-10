@@ -190,7 +190,8 @@ class Examination extends ModulePatient implements ContractsExamination
             if (isset($form)) {
                 $this->__open_forms[] = [
                     $form->getKeyName() => $form->getKey(),
-                    'name' => $form->name
+                    'name' => $form->name,
+                    'morph' => $key
                 ];
             }
         }

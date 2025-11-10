@@ -52,6 +52,9 @@ class Prescription extends Examination
     private static function setPaymentDetail($query)
     {
         $visit_examination  = $query->visitExamination;
+        $visit_examination->is_has_prescription = true;
+        $visit_examination->save();
+        
         $visit_registration = $visit_examination->visitRegistration;
         $pharmacy_sale      = $visit_registration->visitPatient;
         if (isset($pharmacy_sale) && $visit_registration->visit_patient_type == 'PharmacySale') {
