@@ -37,7 +37,7 @@ class BasicPrescription extends TrxPrescription implements ContractsBasicPrescri
         if (isset($assessment_exam['medic_tool_prescription'])) {
             $assessment_exam = $temp_exam;
             $assessment_dto->morph = 'MedicToolPrescription';
-            $this->schemaContract('medicine_prescription')->prepareStore($assessment_dto);
+            $this->schemaContract('medic_tool_prescription')->prepareStore($assessment_dto);
         }
         if (isset($assessment_exam['mix_prescription'])) {
             $assessment_exam = $temp_exam;
