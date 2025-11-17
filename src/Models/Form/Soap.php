@@ -18,7 +18,7 @@ class Soap extends Screening
         return ['subjectives','objectives','assessments','plans'];
     }
 
-    protected function isUsingService(): bool{
+    public function isUsingService(): bool{
         return false;
     }
 

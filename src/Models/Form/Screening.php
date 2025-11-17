@@ -25,7 +25,7 @@ class Screening extends Form
         return ['screeningHasForms', 'hasServices'];
     }
 
-    protected function isUsingService(): bool{
+    public function isUsingService(): bool{
         return true;
     }
 
