@@ -20,13 +20,13 @@ class ViewScreening extends ApiResource
             'name'      => $this->name,
             'flag'      => $this->flag,
             'label'     => $this->label,
+            'service_ids'     => $this->service_ids,
             "screening_has_forms" => $this->relationValidation("screeningHasForms", function () {
                 return $this->screeningHasForms->transform(function ($form) {
                     return $form->toViewApi()->resolve();
                 });
             })
         ];
-        $arr = $this->mergeArray(parent::toArray($request), $arr);
         return $arr;
     }
 }

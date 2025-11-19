@@ -15,10 +15,14 @@ class ShowScreening extends ViewScreening
     public function toArray(\Illuminate\Http\Request $request): array
     {
         $arr = [
+            'services' => $this->relationValidation("hasServices", function () {
+                return $this->hasServices->transform(function ($service) {
+                    return $service->toViewApi()->resolve();
+                });
+            })
         ];
         
-        $show = $this->resolveNow(new ShowForm($this));
-        $arr = $this->mergeArray(parent::toArray($request), $show, $arr);
+        $arr = $this->mergeArray(parent::toArray($request), $arr);
         return $arr;
     }
 }
