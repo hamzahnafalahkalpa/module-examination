@@ -13,12 +13,12 @@ class ShowPatientIllness extends ViewPatientIllness
   public function toArray(\Illuminate\Http\Request $request): array
   {
     $arr = [
-      'reference'      => $this->relationValdation('reference', function () {
+      'reference'      => $this->relationValidation('reference', function () {
         return $this->reference->toShowApi()->resolve();
-      }),
-      'disease'        => $this->relationValdation('disease', function () {
+      },$this->prop_reference),
+      'disease'        => $this->relationValidation('disease', function () {
         return $this->disease->toShowApi()->resolve();
-      }),
+      },$this->prop_disease),
       'disease_name'              => $this->disease_name,
       'classification_disease_id' => $this->classification_disease_id
     ];

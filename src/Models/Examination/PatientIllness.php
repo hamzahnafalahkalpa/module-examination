@@ -10,11 +10,6 @@ use Hanafalah\ModuleExamination\Resources\Examination\PatientIllness\{
 
 class PatientIllness extends Examination
 {
-    //reference must be getMorphClass
-    //in : FamilyIllness, InitialDiagnose, PrimaryDiagnose, SecondaryDiagnose
-    //     HistoryIllness
-    //name will bi classification_name if classification_id exists, default is disease_name
-    //examination_summary_id here from people examination summary
     protected $list = [
         'id',
         'reference_type',
@@ -37,30 +32,19 @@ class PatientIllness extends Examination
         'name' => 'string'
     ];
 
-    public function getViewResource()
-    {
-        return ViewPatientIllness::class;
+    public function viewUsingRelation(): array{
+        return ['patient','classificationDisease'];
     }
 
-    public function getShowResource()
-    {
-        return ShowPatientIllness::class;
+    public function showUsingRelation(): array{
+        return ['patient', 'reference','classificationDisease'];
     }
 
-    public function patient()
-    {
-        return $this->belongsToModel('Patient');
-    }
-    public function disease()
-    {
-        return $this->morphTo();
-    }
-    public function reference()
-    {
-        return $this->morphTo();
-    }
-    public function classificationDisease()
-    {
-        return $this->morphTo(__FUNCTION__, 'disease_type', 'classification_disease_id');
-    }
+    public function getViewResource(){return ViewPatientIllness::class;}
+    public function getShowResource(){return ShowPatientIllness::class;}
+
+    public function patient(){return $this->belongsToModel('Patient');}
+    public function disease(){return $this->morphTo();}
+    public function reference(){return $this->morphTo();}
+    public function classificationDisease(){return $this->morphTo(__FUNCTION__, 'disease_type', 'classification_disease_id');}
 }

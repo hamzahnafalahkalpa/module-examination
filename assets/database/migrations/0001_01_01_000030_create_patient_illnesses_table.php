@@ -65,8 +65,7 @@ return new class extends Migration
 
             Schema::table($table_name, function (Blueprint $table) use ($table_name) {
                 $table->foreignIdFor($this->__table::class, 'classification_disease_id')
-                    ->after('disease_name')->nullable()->index()
-                    ->constrained($table_name, 'id', 'cd_pi')
+                    ->after('disease_name')->nullable()->index()                    
                     ->cascadeOnUpdate()->restrictOnDelete();
             });
         }

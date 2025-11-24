@@ -33,7 +33,7 @@ class Examination extends BaseModel
     }
 
     protected static function uncommitVisitExamination($query){
-        if (\method_exists($query, 'visitExamination')) {
+        if (\method_exists($query, 'visitExamination') && isset($query->visit_examination_id)) {
             $visit_examination = $query->visitExamination;
             $visit_examination->is_commit = false;
             $visit_examination->save();

@@ -4,6 +4,7 @@ namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment\Diagnose;
 
 use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\Diagnose\BasicDiagnose as ContractsBasicDiagnose;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class BasicDiagnose extends Diagnose implements ContractsBasicDiagnose
 {
@@ -25,6 +26,7 @@ class BasicDiagnose extends Diagnose implements ContractsBasicDiagnose
             if ($type == 'SecondaryDiagnose') {
                 $assessment_exam['secondary_diagnose'] = $temp_exam;
             }
+            $this->initDiagnose($assessment_dto->props['exam'][Str::snake($type)]);
             $this->prepareStoreAssessment($assessment_dto);
         }else{
             $this->prepareStoreAssessment($assessment_dto);

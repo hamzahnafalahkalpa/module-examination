@@ -1,9 +1,9 @@
 <?php
 
-namespace Hanafalah\ModuleExamination\Data;
+namespace Hanafalah\ModuleExamination\Data\Examination;
 
 use Hanafalah\LaravelSupport\Supports\Data;
-use Hanafalah\ModuleExamination\Contracts\Data\PrescriptionData as DataPrescriptionData;
+use Hanafalah\ModuleExamination\Contracts\Data\Examination\PrescriptionData as DataPrescriptionData;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\MapName;
 

@@ -21,9 +21,18 @@ class ViewPatientIllness extends ApiResource
       'examination_summary_id' => $this->examination_summary_id,
       'patient_summary_id'     => $this->patient_summary_id,
       'disease_type'           => $this->disease_type,
-      'reference'              => $this->relationValdation('reference', function () {
+      'patient'                => $this->relationValidation('patient', function () {
+        return $this->patient->toShowApi()->resolve();
+      },$this->prop_patient),
+      'reference'              => $this->relationValidation('reference', function () {
         return $this->reference->toViewApi()->resolve();
       }),
+      'disease'        => $this->relationValidation('disease', function () {
+        return $this->disease->toShowApi()->resolve();
+      },$this->prop_disease),
+      'classification_disease'        => $this->relationValidation('classificationDisease', function () {
+        return $this->classificationDisease->toShowApi()->resolve();
+      },$this->prop_classification_disease),
       'created_at'   => $this->created_at,
       'updated_at'   => $this->updated_at
     ];

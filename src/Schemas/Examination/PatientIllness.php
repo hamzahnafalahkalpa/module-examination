@@ -3,11 +3,9 @@
 namespace Hanafalah\ModuleExamination\Schemas\Examination;
 
 use Hanafalah\ModuleExamination\Contracts;
+use Hanafalah\ModuleExamination\Contracts\Data\Examination\PatientIllnessData;
 use Hanafalah\ModuleExamination\Schemas\Examination;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class PatientIllness extends Examination implements Contracts\Schemas\Examination\PatientIllness
 {
@@ -22,34 +20,31 @@ class PatientIllness extends Examination implements Contracts\Schemas\Examinatio
         ]
     ];
 
-    public function prepareStorePatientIllness(?array $attributes = null): Model
+    public function prepareStorePatientIllness(PatientIllnessData $patient_illness_dto): Model
     {
-        $attributes ??= request()->all();
-
-        if (isset($attributes['id'])) {
-            $guard = ['id' => $attributes['id']];
+        $add = [
+            'name'                      => $patient_illness_dto->name,
+            'classification_disease_id' => $patient_illness_dto->classification_disease_id,
+            'disease_type'              => $patient_illness_dto->disease_type,
+            'disease_id'                => $patient_illness_dto->disease_id,
+            'disease_name'              => $patient_illness_dto->disease_name,
+        ];
+        if (isset($patient_illness_dto->id)) {
+            $guard = ['id' => $patient_illness_dto->id];
         } else {
-            $guards = [
-                'reference_type',
-                'reference_id',
-                'disease_type',
-                'disease_id',
-                'patient_id',
-                'examination_summary_id',
-                'patient_summary_id',
+            $guard = [
+                'id' => null,
+                'reference_type' => $patient_illness_dto->reference_type,
+                'reference_id' => $patient_illness_dto->reference_id,
+                'patient_id' => $patient_illness_dto->patient_id,
+                'examination_summary_id' => $patient_illness_dto->examination_summary_id,
+                'patient_summary_id' => $patient_illness_dto->patient_summary_id,
             ];
-            $guard = [];
-            foreach ($guards as $guard_value) $guard[$guard_value] = $attributes[$guard_value] ?? null;
         }
 
-        $add = [
-            'classification_disease_id' => $attributes['classification_disease_id'],
-            'disease_name'              => $attributes['disease_name'],
-            'name'                      => $attributes['name']
-        ];
-
         $patient_illness = $this->PatientIllnessModel()->updateOrCreate($guard, $add);
-
+        $this->fillingProps($patient_illness, $patient_illness_dto->props);
+        $patient_illness->save();
         return $this->patient_illness_model = $patient_illness;
     }
 }
