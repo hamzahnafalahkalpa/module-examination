@@ -10,6 +10,7 @@ class MasterVaccineSeeder extends Seeder
 {
     public function run()
     {
+        echo "[DEBUG] Booting ".class_basename($this)."\n";
         $master_vaccine = app(config('database.models.MasterVaccine', MasterVaccine::class));
 
         $vaccine_lists = [

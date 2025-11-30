@@ -30,6 +30,7 @@ class Examination extends ModulePatient implements ContractsExamination
         $visit_examination_model = &$examination_dto->visit_examination_model;
 
         $visit_examination_model->is_has_prescription ??= null;
+        $visit_examination_model->is_prescription_completed ??= null;
         $this->__open_forms      = $visit_examination_model->form_summaries ?? [];
         $this->__screening_forms = $visit_examination_model->screening_summaries ?? [];
         $this->addScreenings($examination_dto);

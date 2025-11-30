@@ -362,6 +362,7 @@ class ExaminationStuffSeeder extends Seeder
         ];
     
     public function run(){
+        echo "[DEBUG] Booting ".class_basename($this)."\n";
         foreach ($this->__stuffs as $key => $stuff) {
             foreach ($stuff as $value) {
                 $value['flag'] = $key;

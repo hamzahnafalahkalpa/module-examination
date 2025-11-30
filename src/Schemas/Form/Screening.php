@@ -14,6 +14,7 @@ class Screening extends Form implements ContractsScreening
 
     public function prepareStoreScreening(ScreeningData $screening_dto): Model{
         $screening = $this->prepareStoreUnicode($screening_dto);
+        $screening->service_ids = $screening_dto->service_ids ?? [];
         if (isset($screening_dto->service_ids) && count($screening_dto->service_ids) > 0) {
             $keep = [];
             foreach ($screening_dto->service_ids as $service_id) {

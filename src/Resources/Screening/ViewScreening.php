@@ -20,7 +20,7 @@ class ViewScreening extends ApiResource
             'name'      => $this->name,
             'flag'      => $this->flag,
             'label'     => $this->label,
-            'service_ids'     => $this->service_ids,
+            'service_ids' => $this->prop_service_ids,
             "screening_has_forms" => $this->relationValidation("screeningHasForms", function () {
                 return $this->screeningHasForms->transform(function ($form) {
                     return $form->toViewApi()->resolve();

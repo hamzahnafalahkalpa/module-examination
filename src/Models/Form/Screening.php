@@ -8,9 +8,16 @@ use Hanafalah\ModuleExamination\Resources\Screening\{
 
 class Screening extends Form
 {    
+    const FLAG_SCREENING = 'SCREENING';
     protected $table = 'unicodes';
 
-    const FLAG_SCREENING = 'SCREENING';
+    protected $casts = [
+        'name'   => 'string',
+        'flag'   => 'string',
+        'label'  => 'string',
+        'reference_type' => 'string',
+        'reference_id'   => 'string'
+    ];
 
     protected static function booted(): void
     {

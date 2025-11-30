@@ -4,14 +4,11 @@ namespace Hanafalah\ModuleExamination\Schemas\Examination;
 
 use Hanafalah\ModuleExamination\Contracts;
 use Hanafalah\ModuleExamination\Schemas\Examination;
-use Hanafalah\ModuleExamination\Resources\Examination\Prescription\{
-    ShowPrescription,
-    ViewPrescription
-};
 use Hanafalah\ModuleMedicService\Enums\Label;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Hanafalah\ModuleExamination\Contracts\Data\Examination\PrescriptionData;
 use Hanafalah\ModulePharmacy\Enums\PharmacySaleVisitRegistration\{
     Activity,
     ActivityStatus
@@ -21,11 +18,6 @@ class Prescription extends Examination implements Contracts\Schemas\Examination\
 {
     protected string $__entity = 'Prescription';
     public $prescription_model;
-
-    protected array $__resources = [
-        'view' => ViewPrescription::class,
-        'show' => ShowPrescription::class
-    ];
 
     protected array $__cache = [
         'index' => [
@@ -101,124 +93,155 @@ class Prescription extends Examination implements Contracts\Schemas\Examination\
         return $this;
     }
 
-    public function prepareStorePrescription(?array $attributes = null): Model
+    public function prepareStorePrescription(PrescriptionData $assessment_dto): Model
     {
-        $attributes ??= request()->all();
-        $attributes['is_for_pharmacy'] ??= false;
-        if (!isset($attributes['card_stocks'])) throw new \Exception('card_stocks is required');
-        if (count($attributes['card_stocks']) == 0) throw new \Exception('card_stocks need at least one item');
-
-        if (isset($attributes['pharmacy_id'])) {
-            $attributes['warehouse_id'] = $attributes['pharmacy_id'];
-        }
-        if (!isset($attributes['warehouse_id'])) throw new \Exception('warehouse_id is required');
-        if (!isset($attributes['warehouse_type'])) {
-            $warehouse = app(config('module-examination.warehouse'))->find($attributes['warehouse_id']);
-            $attributes['warehouse_type'] = $warehouse->getMorphClass();
-        }
-
-        $visit_examination  = $this->VisitExaminationModel()->findOrFail($attributes['visit_examination_id']);
-        $visit_registration = $visit_examination->visitRegistration;
-        $visit_registration->load(['visitPatient' => fn($q) => $q->withoutGlobalScopes()]);
-        $visit_patient      = $visit_registration->visitPatient;
-        $attributes['patient_type_id'] ??= $visit_patient->prop_patienttype['id'] ?? $visit_registration->patient_type_id;
-        if ($visit_registration->visit_patient_type == 'PharmacySale') {
-            $attributes['pharmacy_sale_id'] = $visit_patient->getKey();
-        }
-        $attributes['morphs'] = ['*'];
-        if (!isset($attributes['pharmacy_sale_id'])) {
-            $pharmacy_visit_registration = $this->createVisitRegistration($visit_patient, $visit_registration, $visit_examination, $attributes);
-            if ($pharmacy_visit_registration->wasRecentlyCreated) {
-                $pharmacy_visit_registration = $this->PharmacySaleVisitRegistrationModel()->findOrFail($pharmacy_visit_registration->getKey());
-                $this->toFrontline($pharmacy_visit_registration->visitPatient, $pharmacy_visit_registration);
-            }
-
-            $pharmacy_sale = $pharmacy_visit_registration->visitPatient;
-        } else {
-            $pharmacy_sale = $this->PharmacySaleModel()->findOrFail($attributes['pharmacy_sale_id']);
-            $pharmacy_visit_registration = $pharmacy_sale->visitRegistration;
-        }
-
-        $pharmacy_transaction = $pharmacy_sale->transaction;
-        if (!isset($attributes['pharmacy_sale_id']) && $pharmacy_visit_registration->wasRecentlyCreated) {
-            $pharmacy_transaction->parent_id = $visit_patient->transaction->getKey();
-            $pharmacy_transaction->save();
-        }
-        if (isset($pharmacy_sale->reference_type) && !$attributes['is_for_pharmacy']) {
-            $this->updatePharmacyPaymentSummary($pharmacy_sale, $visit_patient->paymentSummary);
-        }
-
-        $guard = [
-            'reference_type'         => $attributes['reference_type'],
-            'reference_id'           => $attributes['reference_id'],
-            'visit_examination_id'   => $attributes['visit_examination_id'],
-            'examination_summary_id' => $attributes['examination_summary_id'],
-            'patient_summary_id'     => $attributes['patient_summary_id'],
-        ];
-
-        $attributes['price'] ??= 0;
         $add = [
-            'qty'   => $attributes['qty'],
-            'name'  => $attributes['name'],
-            'price' => $attributes['price'] ?? 0,
-            'cogs'  => $attributes['cogs'] ?? 0
+            'name'                    => $assessment_dto->name,
+            'pharmacy_sale_id'        => $assessment_dto->pharmacy_sale_id,
+            'visit_examination_id'    => $assessment_dto->visit_examination_id,
+            'examination_summary_id'  => $assessment_dto->examination_summary_id,
+            'patient_summary_id'      => $assessment_dto->patient_summary_id,
+            'reference_type'         => $assessment_dto->reference_type,
+            'reference_id'           => $assessment_dto->reference_id,
+            'qty'                    => $assessment_dto->qty,
+            'cogs'                   => $assessment_dto->cogs,
+            'price'                  => $assessment_dto->price,
         ];
-        $prescription = $this->PrescriptionModel()->updateOrCreate($guard, $add);
-        if (!$attributes['is_for_pharmacy']) {
-            $this->cardStockProcess($attributes, $pharmacy_transaction);
-            $visit_examination_id = $pharmacy_visit_registration->visitExamination->getKey();
-            $assessment = $this->AssessmentModel()->with('child')->findOrFail($attributes['assessment_id']);
-            if (isset($assessment->card_stock)) {
-                $assessment->setAttribute('card_stock', $attributes['card_stocks'][0]);
-            } else {
-                $assessment->setAttribute('card_stocks', $attributes['card_stocks']);
-            }
-            $assessment->qty         = $attributes['qty'];
-            $assessment->price       = $attributes['price'];
-            $assessment->total_debt  = $attributes['price'] * $attributes['qty'];
-            $assessment->save();
-            if ($visit_registration->visit_patient_type != 'PharmacySale') {
-                $new_assessment = $assessment->child ?? $assessment->replicate();
-
-                if ($prescription->reference_type == $this->MixMedicinePrescriptionModel()->getMorphClass()) {
-                    $card_stock_attr = $attributes['card_stocks'];
-                    $new_assessment->setAttribute('card_stocks', $card_stock_attr);
-                } else {
-                    $card_stock_attr = $attributes['card_stocks'][0];
-                    $new_assessment->setAttribute('card_stock', $card_stock_attr);
-                }
-                if (!isset($assessment->child)) {
-                    $new_assessment->parent_id = $assessment->getKey();
-                    $new_assessment->visit_examination_id = $visit_examination_id;
-                    $new_assessment->examination_summary_id = static::$__examination_summary->getKey();
-                    $new_assessment->save();
-                    $attributes['pharmacy_sale_id']       = $pharmacy_sale->getKey();
-                    $attributes['reference_id']           = $new_assessment->getKey();
-                    $attributes['reference_type']         = $new_assessment->morph;
-                    $attributes['warehouse_id']         ??= request()->pharmacy_id ?? request()->warehouse_id ?? null;
-                    $attributes['assessment_id']        ??= $new_assessment->getKey();
-                    $attributes['visit_examination_id']   = $visit_examination_id;
-                    $attributes['patient_id']             = $visit_patient->patient_id;
-                    $attributes['is_for_pharmacy']        = true;
-                    $this->prepareStorePrescription($attributes);
-                } else {
-                    $guard = [
-                        'reference_type'         => $new_assessment->morph,
-                        'reference_id'           => $new_assessment->getKey(),
-                        'visit_examination_id'   => $new_assessment->visit_examination_id,
-                        'examination_summary_id' => $new_assessment->examination_summary_id,
-                        'patient_summary_id'     => $new_assessment->patient_summary_id
-                    ];
-                    $prescription = $this->PrescriptionModel()->updateOrCreate($guard, $add);
-                    $new_assessment->qty         = $attributes['qty'];
-                    $new_assessment->price       = $attributes['price'];
-                    $new_assessment->total_debt  = $attributes['price'] * $attributes['qty'];
-                    $new_assessment->save();
-                    $this->cardStockProcess($attributes, $pharmacy_transaction);
-                }
-            }
+        if (isset($assessment_dto->id)) {
+            $guard = ['id' => $assessment_dto->id];
+            $create = [$guard,$add];
+        }else{
+            $create = [$add];
         }
 
+        $prescription = $this->usingEntity()->updateOrCreate(...$create);
+        if (isset($assessment_dto->transaction_item)) {
+            $transaction_item_dto = &$assessment_dto->transaction_item;
+            $transaction_item_dto->item_id   = $prescription->reference_id;
+            $transaction_item_dto->item_type = $prescription->reference_type;
+            $entity = config('module-examination.transaction_item');
+            $transaction_item = $this->schemaContract($entity)
+                 ->{'prepareStore'.$entity}($transaction_item_dto);
+            $prescription->setRelation('transactionItem', $transaction_item);
+        }
+
+
+        // $attributes['is_for_pharmacy'] ??= false;
+        // if (!isset($attributes['card_stocks'])) throw new \Exception('card_stocks is required');
+        // if (count($attributes['card_stocks']) == 0) throw new \Exception('card_stocks need at least one item');
+
+        // if (isset($attributes['pharmacy_id'])) {
+        //     $attributes['warehouse_id'] = $attributes['pharmacy_id'];
+        // }
+        // if (!isset($attributes['warehouse_id'])) throw new \Exception('warehouse_id is required');
+        // if (!isset($attributes['warehouse_type'])) {
+        //     $warehouse = app(config('module-examination.warehouse'))->find($attributes['warehouse_id']);
+        //     $attributes['warehouse_type'] = $warehouse->getMorphClass();
+        // }
+
+        // $visit_examination  = $this->VisitExaminationModel()->findOrFail($attributes['visit_examination_id']);
+        // $visit_registration = $visit_examination->visitRegistration;
+        // $visit_registration->load(['visitPatient' => fn($q) => $q->withoutGlobalScopes()]);
+        // $visit_patient      = $visit_registration->visitPatient;
+        // $attributes['patient_type_id'] ??= $visit_patient->prop_patienttype['id'] ?? $visit_registration->patient_type_id;
+        // if ($visit_registration->visit_patient_type == 'PharmacySale') {
+        //     $attributes['pharmacy_sale_id'] = $visit_patient->getKey();
+        // }
+        // $attributes['morphs'] = ['*'];
+        // if (!isset($attributes['pharmacy_sale_id'])) {
+        //     $pharmacy_visit_registration = $this->createVisitRegistration($visit_patient, $visit_registration, $visit_examination, $attributes);
+        //     if ($pharmacy_visit_registration->wasRecentlyCreated) {
+        //         $pharmacy_visit_registration = $this->PharmacySaleVisitRegistrationModel()->findOrFail($pharmacy_visit_registration->getKey());
+        //         $this->toFrontline($pharmacy_visit_registration->visitPatient, $pharmacy_visit_registration);
+        //     }
+
+        //     $pharmacy_sale = $pharmacy_visit_registration->visitPatient;
+        // } else {
+        //     $pharmacy_sale = $this->PharmacySaleModel()->findOrFail($attributes['pharmacy_sale_id']);
+        //     $pharmacy_visit_registration = $pharmacy_sale->visitRegistration;
+        // }
+
+        // $pharmacy_transaction = $pharmacy_sale->transaction;
+        // if (!isset($attributes['pharmacy_sale_id']) && $pharmacy_visit_registration->wasRecentlyCreated) {
+        //     $pharmacy_transaction->parent_id = $visit_patient->transaction->getKey();
+        //     $pharmacy_transaction->save();
+        // }
+        // if (isset($pharmacy_sale->reference_type) && !$attributes['is_for_pharmacy']) {
+        //     $this->updatePharmacyPaymentSummary($pharmacy_sale, $visit_patient->paymentSummary);
+        // }
+
+        // $guard = [
+        //     'reference_type'         => $attributes['reference_type'],
+        //     'reference_id'           => $attributes['reference_id'],
+        //     'visit_examination_id'   => $attributes['visit_examination_id'],
+        //     'examination_summary_id' => $attributes['examination_summary_id'],
+        //     'patient_summary_id'     => $attributes['patient_summary_id'],
+        // ];
+
+        // $attributes['price'] ??= 0;
+        // $add = [
+        //     'qty'   => $attributes['qty'],
+        //     'name'  => $attributes['name'],
+        //     'price' => $attributes['price'] ?? 0,
+        //     'cogs'  => $attributes['cogs'] ?? 0
+        // ];
+        // $prescription = $this->PrescriptionModel()->updateOrCreate($guard, $add);
+        // if (!$attributes['is_for_pharmacy']) {
+        //     $this->cardStockProcess($attributes, $pharmacy_transaction);
+        //     $visit_examination_id = $pharmacy_visit_registration->visitExamination->getKey();
+        //     $assessment = $this->AssessmentModel()->with('child')->findOrFail($attributes['assessment_id']);
+        //     if (isset($assessment->card_stock)) {
+        //         $assessment->setAttribute('card_stock', $attributes['card_stocks'][0]);
+        //     } else {
+        //         $assessment->setAttribute('card_stocks', $attributes['card_stocks']);
+        //     }
+        //     $assessment->qty         = $attributes['qty'];
+        //     $assessment->price       = $attributes['price'];
+        //     $assessment->total_debt  = $attributes['price'] * $attributes['qty'];
+        //     $assessment->save();
+        //     if ($visit_registration->visit_patient_type != 'PharmacySale') {
+        //         $new_assessment = $assessment->child ?? $assessment->replicate();
+
+        //         if ($prescription->reference_type == $this->MixMedicinePrescriptionModel()->getMorphClass()) {
+        //             $card_stock_attr = $attributes['card_stocks'];
+        //             $new_assessment->setAttribute('card_stocks', $card_stock_attr);
+        //         } else {
+        //             $card_stock_attr = $attributes['card_stocks'][0];
+        //             $new_assessment->setAttribute('card_stock', $card_stock_attr);
+        //         }
+        //         if (!isset($assessment->child)) {
+        //             $new_assessment->parent_id = $assessment->getKey();
+        //             $new_assessment->visit_examination_id = $visit_examination_id;
+        //             $new_assessment->examination_summary_id = static::$__examination_summary->getKey();
+        //             $new_assessment->save();
+        //             $attributes['pharmacy_sale_id']       = $pharmacy_sale->getKey();
+        //             $attributes['reference_id']           = $new_assessment->getKey();
+        //             $attributes['reference_type']         = $new_assessment->morph;
+        //             $attributes['warehouse_id']         ??= request()->pharmacy_id ?? request()->warehouse_id ?? null;
+        //             $attributes['assessment_id']        ??= $new_assessment->getKey();
+        //             $attributes['visit_examination_id']   = $visit_examination_id;
+        //             $attributes['patient_id']             = $visit_patient->patient_id;
+        //             $attributes['is_for_pharmacy']        = true;
+        //             $this->prepareStorePrescription($attributes);
+        //         } else {
+        //             $guard = [
+        //                 'reference_type'         => $new_assessment->morph,
+        //                 'reference_id'           => $new_assessment->getKey(),
+        //                 'visit_examination_id'   => $new_assessment->visit_examination_id,
+        //                 'examination_summary_id' => $new_assessment->examination_summary_id,
+        //                 'patient_summary_id'     => $new_assessment->patient_summary_id
+        //             ];
+        //             $prescription = $this->PrescriptionModel()->updateOrCreate($guard, $add);
+        //             $new_assessment->qty         = $attributes['qty'];
+        //             $new_assessment->price       = $attributes['price'];
+        //             $new_assessment->total_debt  = $attributes['price'] * $attributes['qty'];
+        //             $new_assessment->save();
+        //             $this->cardStockProcess($attributes, $pharmacy_transaction);
+        //         }
+        //     }
+        // }
+        $this->fillingProps($prescription, $assessment_dto->props);
+        $prescription->save();
         return $this->prescription_model = $prescription;
     }
 

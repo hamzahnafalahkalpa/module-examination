@@ -2,8 +2,6 @@
 
 namespace Hanafalah\ModuleExamination\Resources\Screening;
 
-use Hanafalah\ModuleExamination\Resources\Form\ShowForm;
-
 class ShowScreening extends ViewScreening
 {
     /**
@@ -15,8 +13,8 @@ class ShowScreening extends ViewScreening
     public function toArray(\Illuminate\Http\Request $request): array
     {
         $arr = [
-            'services' => $this->relationValidation("hasServices", function () {
-                return $this->hasServices->transform(function ($service) {
+            'services' => $this->relationValidation('hasServices',function(){
+                return $this->hasServices->transform(function($service){
                     return $service->toViewApi()->resolve();
                 });
             })

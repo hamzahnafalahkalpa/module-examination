@@ -32,12 +32,12 @@ class Prescription extends Examination
     protected static function booted(): void
     {
         parent::booted();
-        static::created(function ($query) {
-            static::setPaymentDetail($query);
-        });
-        static::updated(function ($query) {
-            static::setPaymentDetail($query);
-        });
+        // static::created(function ($query) {
+        //     static::setPaymentDetail($query);
+        // });
+        // static::updated(function ($query) {
+        //     static::setPaymentDetail($query);
+        // });
         static::deleted(function ($query) {
             $transaction_item = $query->transactionItem;
             if (isset($transaction_item)) {
@@ -53,6 +53,7 @@ class Prescription extends Examination
     {
         $visit_examination  = $query->visitExamination;
         $visit_examination->is_has_prescription = true;
+        $visit_examination->is_prescription_completed = false;
         $visit_examination->save();
         
         $visit_registration = $visit_examination->visitRegistration;
