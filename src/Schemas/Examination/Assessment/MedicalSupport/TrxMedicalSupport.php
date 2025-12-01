@@ -13,12 +13,14 @@ class TrxMedicalSupport extends Assessment implements ContractsTrxMedicalSupport
     public $trx_medical_support;
 
     public function prepareStore(AssessmentData $assessment_dto): Model{
-        $support = $this->prepareStoreAssessment($assessment_dto);
         $assessment_exam = &$assessment_dto->props['exam'];
         
         if (isset($assessment_exam['files']) && count($assessment_exam['files']) > 0) {
             $assessment_exam = $this->storePdf($assessment_exam, Str::snake(class_basename($this)));
         }
+        $support = $this->prepareStoreAssessment($assessment_dto);
+        // $this->fillingProps($support, $assessment_dto->props);
+        // $support->save();
         return $this->assessment_model = $this->trx_medical_support = $support;
     }
 }

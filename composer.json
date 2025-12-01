@@ -13,7 +13,10 @@
     "autoload": {
         "psr-4": {
             "Hanafalah\\ModuleExamination\\": "src/"
-        }
+        },
+        "files": [
+            "src/helper.php"
+        ]
     },
     "authors": [
         {

@@ -24,15 +24,13 @@ class Assessment extends Examination implements ContractsAssessment
         foreach ($attributes['files'] as $file) {
             if ($file instanceof \Illuminate\Http\UploadedFile) {
                 $filename = $file->getClientOriginalName();
-                $path     = $file->storeAs($target_path, $filename, ['disk' => 's3']);
-
-                $ext        = $file->getClientOriginalExtension();
-                $filename  .= '.' . $ext;
-                $data       = [$path, $file, $filename];
-
+                $data     = [$target_path, $file, $filename];
                 $attributes['paths'][] = Storage::disk($driver)->putFileAs(...$data);
             } else {
-                if (isset($attributes['id'])) $attributes['paths'][] = $file;
+                if (isset($attributes['id'])) {
+                    $file = Str::replace(medical_support_url(''),'',$file);
+                    $attributes['paths'][] = $file;
+                }
             }
         }
         $paths = $this->assessment_model->paths ?? [];
@@ -42,7 +40,7 @@ class Assessment extends Examination implements ContractsAssessment
                 foreach ($diff as $path) if (Storage::disk($driver)->exists($path)) Storage::disk($driver)->delete($path);
             }
         }
-
+        $attributes['files'] = [];
         return $attributes;
     }
 
