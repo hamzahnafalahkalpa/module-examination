@@ -123,12 +123,15 @@ class Assessment extends Examination implements ContractsAssessment
 
             if (!isset($validation) && !isset($id)) throw new \Exception('No visit_examination_id/id provided', 422);
             if (isset($validation) && !isset($id) && !isset($flag)) throw new \Exception('Flag is required if id is not provided', 422);
-            $model = $this->assessment()->with($this->showUsingRelation());
+            // $model = $this->assessment()->with($this->showUsingRelation());
+            $flag = $attributes['morph'] ?? $attributes['search_morph'];
+            $flag = Str::studly($flag);
+            $model = $this->{$flag.'Model'}();
+            if (method_exists($model,'showUsingRelation')) $model = $model->with($model->showUsingRelation());
             if (isset($id)) {
                 $model = $model->find($id);
-            } else {
-                $flag = $attributes['morph'];
-                $flag = Str::studly($flag);
+            } else {  
+                $model = $model->where('morph',$flag);
                 if (isset($patient_summary_id)) {
                     $model = $model->paginate(20);
                 } else {
