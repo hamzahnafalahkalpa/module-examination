@@ -15,8 +15,7 @@ class ShowTrxMedicalSupport extends ViewTrxMedicalSupport
   public function toArray(\Illuminate\Http\Request $request): array
   {
     $arr = [];
-    $show = $this->resolveNow(new ShowAssessment($this));
-    $arr = $this->mergeArray(parent::toArray($request),$show,$arr);
+    $arr = $this->mergeArray(parent::toArray($request),$arr);
     return $arr;
   }
 }
