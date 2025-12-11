@@ -21,6 +21,7 @@ class ViewAssessment extends ApiResource
       'dynamic_form'       => $this->dynamic_form,
       'practitioner_evaluations' => $this->prop_practitioner_evaluations ?? [],
       'is_settled'         => ($this->is_settled ?? 0) == 1,
+      'addendums'          => $this->addendums,
       'created_at'         => $this->created_at,
       'updated_at'         => $this->updated_at
     ];
