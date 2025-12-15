@@ -51,6 +51,14 @@ class ExaminationData extends Data implements DataExaminationData
     #[MapName('patient_summary_model')]
     public ?object $patient_summary_model = null;
 
+    #[MapInputName('examination_summary_id')]
+    #[MapName('examination_summary_id')]
+    public mixed $examination_summary_id = null;
+
+    #[MapInputName('examination_summary_model')]
+    #[MapName('examination_summary_model')]
+    public ?object $examination_summary_model = null;
+
     #[MapInputName('practitioner_evaluations')]
     #[MapName('practitioner_evaluations')]
     #[DataCollectionOf(PractitionerEvaluationData::class)]

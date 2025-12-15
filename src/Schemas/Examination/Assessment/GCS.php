@@ -10,7 +10,7 @@ class GCS extends Assessment implements AssessmentGCS
 {
     protected string $__entity   = 'GCS';
 
-    public function prepareStore(AssessmentData $assessment_dto): Model{
+    public function prepareStore(AssessmentData &$assessment_dto): Model{
         $assessment_exam = &$assessment_dto->props['exam'];
         $gcs = $this->GcsStuffModel();
         if (isset($assessment_exam['eyes_id'])) $gcs = $gcs->findOrFail($assessment_exam['eyes_id']);

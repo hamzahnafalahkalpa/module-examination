@@ -12,18 +12,20 @@ class Diagnose extends Assessment implements ContractsDiagnose
 {
     public $disease_model;
 
-    public function prepareStore(mixed $assessment_dto): Model{
+    public function prepareStore(mixed &$assessment_dto): Model{
         $assessment_exam = &$assessment_dto->props['exam'];
         $this->initDiagnose($assessment_exam);
         $assessment_dto->morph = $this->__entity;
-        $this->prepareStoreAssessment($assessment_dto);
+        $assessment = $this->pepareStore($assessment_dto);
         $disease = $this->disease_model;
         $classification_disease = $disease->classificationDisease;
         $assessment_exam['disease_type']              = $disease->getMorphClass();
         $assessment_exam['disease']                   = $disease->toViewApi()->resolve();
         $assessment_exam['name']                      = $classification_disease->name ?? $disease->name;
         $assessment_exam['classification_disease_id'] = $classification_disease->id ?? null;
-        $this->addPatientIllness($assessment_dto);
+        if (in_array($assessment->morph,['InitialDiagnose','PrimaryDiagnose','SecondaryDiagnose'])){
+            $this->addPatientIllness($assessment_dto);
+        }
         $this->assessment_model->save();
         return $this->assessment_model;
     }
@@ -51,7 +53,7 @@ class Diagnose extends Assessment implements ContractsDiagnose
     }
 
     public function addPatientIllness(AssessmentData $assessment_dto): Model{
-        return $this->schemaContract('patient_illness')->prepareStorePatientIllness($this->requestDTO(config('app.contracts.PatientIllnessData'), [
+        $patient_illness = $this->schemaContract('patient_illness')->prepareStorePatientIllness($this->requestDTO(config('app.contracts.PatientIllnessData'), [
             'reference_type' => $this->assessment_model->morph,
             'reference_id' => $this->assessment_model->getKey(),
             'reference_model' => $this->assessment_model,
@@ -62,6 +64,13 @@ class Diagnose extends Assessment implements ContractsDiagnose
             'patient_summary_id'      => $assessment_dto->patient_summary_id,
             'visit_examination_model' => $assessment_dto->visit_examination_model
         ]));
+
+        $payment_summary_model = $assessment_dto->patient_summary_model;
+        $patient_illnesses = $payment_summary_model->patient_illnesses ?? [];
+        array_unshift($patient_illnesses, $patient_illness->exam);
+        $patient_illnesses = array_slice($patient_illnesses, 0, 10);
+        $payment_summary_model->setAttribute('patient_illnesses', $patient_illnesses);
+        $payment_summary_model->save();
     }
 
     public function diagnose(mixed $conditionals = null): Builder{

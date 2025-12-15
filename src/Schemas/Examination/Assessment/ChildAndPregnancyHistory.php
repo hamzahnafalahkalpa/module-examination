@@ -10,7 +10,7 @@ class ChildAndPregnancyHistory extends Assessment implements AssessmentChildAndP
 {
     protected string $__entity   = 'ChildAndPregnancyHistory';
 
-    public function prepareStore(AssessmentData $assessment_dto): Model{
+    public function prepareStore(AssessmentData &$assessment_dto): Model{
         $assessment_exam = &$assessment_dto->props['exam'];
         $labor_type = $this->LaborTypeStuffModel();
         if (isset($assessment_exam['labor_type_id'])){

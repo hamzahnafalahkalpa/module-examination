@@ -15,20 +15,20 @@ class ViewBasicPrescription extends ApiResource
   public function toArray(\Illuminate\Http\Request $request): array
   {
     $exam = $this->exam;
-    switch (true) {
-      case isset($exam['medicine_prescription']):
-        $exam = $exam['medicine_prescription'];
-        $exam['type'] = 'MedicinePrescription';
-      break;
-      case isset($exam['medic_tool_prescription']):
-        $exam = $exam['medic_tool_prescription'];
-        $exam['type'] = 'MedicToolPrescription';
-      break;
-      case isset($exam['mix_prescription']):
-        $exam = $exam['mix_prescription'];
-        $exam['type'] = 'MixPrescription';
-      break;
-    }
+    // switch (true) {
+    //   case isset($exam['medicine_prescription']):
+    //     $exam = $exam['medicine_prescription'];
+    //     $exam['type'] = 'MedicinePrescription';
+    //   break;
+    //   case isset($exam['medic_tool_prescription']):
+    //     $exam = $exam['medic_tool_prescription'];
+    //     $exam['type'] = 'MedicToolPrescription';
+    //   break;
+    //   case isset($exam['mix_prescription']):
+    //     $exam = $exam['mix_prescription'];
+    //     $exam['type'] = 'MixPrescription';
+    //   break;
+    // }
     $arr = [
       'id'                 => $this->id,
       'morph'              => $this->morph,

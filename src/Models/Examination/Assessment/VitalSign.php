@@ -20,5 +20,4 @@ class VitalSign extends Assessment {
             'ARMPIT', 'EAR', 'INFRARED', 'ORAL', 'RECTAL'
         ];
     }
-
 }

@@ -10,7 +10,7 @@ class ImmunizationHistory extends Assessment implements AssessmentImmunizationHi
 {
     protected string $__entity   = 'ImmunizationHistory';
 
-    public function prepareStore(AssessmentData $assessment_dto): Model{
+    public function prepareStore(AssessmentData &$assessment_dto): Model{
         $assessment_exam = &$assessment_dto->props['exam'];
         $immunization = $this->ImmunizationStuffModel();
         if (isset($assessment_exam['immunization_id'])){

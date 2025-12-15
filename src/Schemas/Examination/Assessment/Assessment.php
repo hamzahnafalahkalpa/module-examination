@@ -7,7 +7,6 @@ use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\Assessm
 use Illuminate\Support\Str;
 use Hanafalah\ModuleExamination\Schemas\Examination;
 use Illuminate\Database\Eloquent\{
-    Builder,
     Model
 };
 use Illuminate\Support\Facades\Storage;
@@ -44,7 +43,7 @@ class Assessment extends Examination implements ContractsAssessment
         return $attributes;
     }
 
-    public function prepareStore(AssessmentData $assessment_dto): Model{
+    public function prepareStore(AssessmentData &$assessment_dto): Model{
         $assessment = $this->prepareStoreAssessment($assessment_dto);
         return $this->assessment_model = $assessment;
     }
@@ -57,7 +56,7 @@ class Assessment extends Examination implements ContractsAssessment
         });
     }
 
-    public function prepareStoreAssessment(AssessmentData $assessment_dto): Model{
+    public function prepareStoreAssessment(AssessmentData &$assessment_dto): Model{
         // if (isset($visit_registration->medic_service_id) && $visit_registration->status == RegistrationStatus::DRAFT->value) {
         //     $medic_service = $this->getMedicService($visit_registration->medic_service_id);
         //     if ($medic_service->flag == Label::OUTPATIENT->value) {
@@ -84,7 +83,7 @@ class Assessment extends Examination implements ContractsAssessment
                 'morph'                  => $assessment_dto->morph ?? $model->getMorphClass()
             ]);
         }        
-        $this->prepareAfterResolve($assessment);
+        $this->prepareAfterResolve($assessment, $assessment_dto);
         $assessment_dto->props['exam'] = $current_exam = $this->mergeArray($assessment->getExamResults(), $assessment_dto->props['exam']);
         $assessment->setAttribute('exam', $assessment_dto->props['exam']);
         if ($assessment->response_model != 'array' && $assessment_dto->is_addendum) {
@@ -98,10 +97,58 @@ class Assessment extends Examination implements ContractsAssessment
         }
         $this->fillingProps($assessment,$assessment_dto->props);
         $assessment->save();
+
+        $visit_examination_model = $assessment_dto->visit_examination_model ??= $this->VisitExaminationModel()->findOrFail($assessment_dto->examination_id);
+        $visit_exam_resolve = $visit_examination_model->withoutRelations()->load(['visitRegistration','visitPatient']);
+        $visit_exam_resolve = $visit_exam_resolve->toShowApi()->resolve();
+        
+        $patient_model = $assessment_dto->patient_model ??= $this->PatientModel()->findOrFail($assessment_dto->patient_id);
+        $assessment_dto->patient_summary_model = $this->schemaContract('patient_summary')->prepareStorePatientSummary($this->requestDTO(config('app.contracts.PatientSummaryData'),[
+            'patient_id' => $patient_model->getKey(),
+            'patient_model' => $patient_model,
+            'reference_type' => $patient_model->reference_type,
+            'reference_id' => $patient_model->reference_id,
+            'reference_model' => $patient_model->reference,
+            'assessment_model' => $assessment,
+            'last_visit' => $visit_exam_resolve
+        ]));
+        $visit_registration = $assessment_dto->visit_registration_model ??= $this->VisitRegistrationModel()->findOrFail($assessment_dto->visit_registration_id);
+        $visit_patient_model = $assessment_dto->visit_patient_model ??= $this->VisitPatientModel()->findOrFail($visit_registration->visit_patient_id);
+
+        $assessment_dto->examination_summary_model = $examination_summary_model = $this->schemaContract('examination_summary')->prepareStoreExaminationSummary($this->requestDTO(config('app.contracts.ExaminationSummaryData'),[
+            'patient_id' => $patient_model->getKey(),
+            'patient_model' => $patient_model,
+            'reference_type' => $visit_examination_model->getMorphClass(),
+            'reference_id' => $visit_examination_model->getKey(),
+            'reference_model' => $visit_examination_model,
+            'assessment_model' => $assessment,
+            'last_visit' => $visit_exam_resolve
+        ]));
+        $assessment_dto->examination_summary_id = $examination_summary_model->getKey();
+
+        $this->schemaContract('examination_summary')->prepareStoreExaminationSummary($this->requestDTO(config('app.contracts.ExaminationSummaryData'),[
+            'patient_id' => $patient_model->getKey(),
+            'patient_model' => $patient_model,
+            'reference_type' => $visit_registration->getMorphClass(),
+            'reference_id' => $visit_registration->getKey(),
+            'reference_model' => $visit_registration,
+            'assessment_model' => $assessment,
+            'last_visit' => $visit_exam_resolve
+        ]));
+
+        $this->schemaContract('examination_summary')->prepareStoreExaminationSummary($this->requestDTO(config('app.contracts.ExaminationSummaryData'),[
+            'patient_id' => $patient_model->getKey(),
+            'patient_model' => $patient_model,
+            'reference_type' => $visit_patient_model->getMorphClass(),
+            'reference_id' => $visit_patient_model->getKey(),
+            'reference_model' => $visit_patient_model,
+            'assessment_model' => $assessment,
+            'last_visit' => $visit_exam_resolve
+        ]));
         return $this->assessment_model = $assessment;
     }
 
-    protected function prepareAfterResolve(Model &$assessment_model): void{
+    protected function prepareAfterResolve(Model &$assessment_model, mixed &$assessment_dto): void{
         if (method_exists($assessment_model,'getAfterResolve')){
             $assessment_model = $assessment_model->getAfterResolve();
         }
@@ -121,7 +168,6 @@ class Assessment extends Examination implements ContractsAssessment
 
             if (!isset($validation) && !isset($id)) throw new \Exception('No visit_examination_id/id provided', 422);
             if (isset($validation) && !isset($id) && !isset($flag)) throw new \Exception('Flag is required if id is not provided', 422);
-            // $model = $this->assessment()->with($this->showUsingRelation());
             $flag = $attributes['morph'] ?? $attributes['search_morph'];
             $flag = Str::studly($flag);
             $model = $this->{$flag.'Model'}();

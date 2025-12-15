@@ -11,7 +11,7 @@ class HearingLossHistory extends Assessment implements AssessmentHearingLossHist
 {
     protected string $__entity   = 'HearingLossHistory';
 
-    public function prepareStore(AssessmentData $assessment_dto): Model{
+    public function prepareStore(AssessmentData &$assessment_dto): Model{
         $assessment_exam = &$assessment_dto->props['exam'];
         $trouble_history = $this->HearingLossStuffModel();
         if (isset($assessment_exam['trouble_history_id'])){

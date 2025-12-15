@@ -11,7 +11,7 @@ class SingleTest extends Assessment implements ContractsSingleTest
 {
     protected string $__entity   = 'SingleTest';
 
-    public function prepareStore(AssessmentData $assessment_dto): Model{
+    public function prepareStore(AssessmentData &$assessment_dto): Model{
         $assessment_exam = &$assessment_dto->props['exam'];
         $category = $this->SingleTestStuffModel();
         if (isset($assessment_exam['category_id'])){

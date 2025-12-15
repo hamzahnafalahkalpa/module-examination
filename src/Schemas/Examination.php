@@ -40,6 +40,7 @@ class Examination extends ModulePatient implements ContractsExamination
             'examination_summary'=> null,
             'prescription'       => null,
             'support'            => null,
+            'legal_doc'          => null,
             'treatments'         => [],
             'pharmacy_sale'      => [],
         ];
@@ -87,7 +88,6 @@ class Examination extends ModulePatient implements ContractsExamination
 
         $response = &$examination_dto->response[$exam_key];
         $current_exam = $examination_dto->{$exam_key};
-
         foreach ($current_exam as $key => &$exam) {
             if (isset($exam['data'])){
                 $studly_key = Str::studly($key);

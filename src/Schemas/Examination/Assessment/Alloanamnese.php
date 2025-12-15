@@ -11,7 +11,7 @@ class Alloanamnese extends Assessment implements ContractsAlloanamnese
     protected string $__entity   = 'Alloanamnese';
     public $alloanamnese_model;
 
-    public function prepareStore(AssessmentData $assessment_dto): Model{
+    public function prepareStore(AssessmentData &$assessment_dto): Model{
         $assessment_exam = &$assessment_dto->props['exam'];
         $assessment_exam['is_alloanamnese'] ??= false;
 

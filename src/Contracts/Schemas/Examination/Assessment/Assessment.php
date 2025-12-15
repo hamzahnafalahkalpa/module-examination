@@ -2,7 +2,12 @@
 
 namespace Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment;
 
+use Hanafalah\ModuleExamination\Contracts\Data\AssessmentData;
 use Hanafalah\ModuleExamination\Contracts\Schemas\Examination;
+use Illuminate\Database\Eloquent\{
+    Model
+};
+
 
 /**
  * @see \Hanafalah\ModuleExamination\Schemas\Assessment
@@ -20,4 +25,6 @@ use Hanafalah\ModuleExamination\Contracts\Schemas\Examination;
  * @method array viewAssessmentPaginate(?PaginateData $paginate_dto = null)
  * @method array storeAssessment(?AssessmentData $assessment_dto = null)
  */
-interface Assessment extends Examination{}
+interface Assessment extends Examination{
+    public function prepareStoreAssessment(AssessmentData &$assessment_dto): Model;
+}

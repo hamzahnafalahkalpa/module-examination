@@ -10,7 +10,7 @@ class BasicDiagnose extends Diagnose implements ContractsBasicDiagnose
 {
     protected string $__entity   = 'BasicDiagnose';
 
-    public function prepareStore(mixed $assessment_dto): Model{
+    public function prepareStore(mixed &$assessment_dto): Model{
         $temp_exam = $assessment_dto->props['exam'];
         $assessment_exam = &$assessment_dto->props['exam'];
         if (isset($assessment_exam['type'])){
@@ -27,22 +27,23 @@ class BasicDiagnose extends Diagnose implements ContractsBasicDiagnose
                 $assessment_exam['secondary_diagnose'] = $temp_exam;
             }
             $this->initDiagnose($assessment_dto->props['exam'][Str::snake($type)]);
-            $this->prepareStoreAssessment($assessment_dto);
+            parent::prepareStore($assessment_dto);
         }else{
-            $this->prepareStoreAssessment($assessment_dto);
-        }
-        if (isset($assessment_exam['initial_diagnose'])) {
-            $assessment_exam = $temp_exam;
-            $this->schemaContract('initial_diagnose')->prepareStore($assessment_dto);
-        }
-        if (isset($assessment_exam['primary_diagnose'])) {
-            $assessment_exam = $temp_exam;
-            $this->schemaContract('primary_diagnose')->prepareStore($assessment_dto);
-        }
-        if (isset($assessment_exam['secondary_diagnose'])) {
-            $assessment_exam = $temp_exam;
-            $this->schemaContract('secondary_diagnose')->prepareStore($assessment_dto);
-        }
+            parent::prepareStore($assessment_dto);
+        }        
+
+        // if (isset($assessment_exam['initial_diagnose'])) {
+        //     $assessment_exam = $temp_exam;
+        //     $this->schemaContract('initial_diagnose')->prepareStore($assessment_dto);
+        // }
+        // if (isset($assessment_exam['primary_diagnose'])) {
+        //     $assessment_exam = $temp_exam;
+        //     $this->schemaContract('primary_diagnose')->prepareStore($assessment_dto);
+        // }
+        // if (isset($assessment_exam['secondary_diagnose'])) {
+        //     $assessment_exam = $temp_exam;
+        //     $this->schemaContract('secondary_diagnose')->prepareStore($assessment_dto);
+        // }
         return $this->assessment_model;
     }
 }

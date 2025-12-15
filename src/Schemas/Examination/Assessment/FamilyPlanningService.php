@@ -10,7 +10,7 @@ class FamilyPlanningService extends Assessment implements AssessmentFamilyPlanni
 {
     protected string $__entity   = 'FamilyPlanningService';
 
-    public function prepareStore(AssessmentData $assessment_dto): Model{
+    public function prepareStore(AssessmentData &$assessment_dto): Model{
         $assessment_exam = &$assessment_dto->props['exam'];
         $contraception_type = $this->ContraceptionStuffModel();
         if (isset($assessment_exam['contraception_type_id'])){

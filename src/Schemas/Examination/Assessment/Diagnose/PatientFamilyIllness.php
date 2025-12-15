@@ -9,7 +9,7 @@ class PatientFamilyIllness extends Diagnose implements ContractsPatientFamilyIll
 {
     protected string $__entity   = 'PatientFamilyIllness';
 
-    public function prepareStore(mixed $assessment_dto): Model{
+    public function prepareStore(mixed &$assessment_dto): Model{
         $temp_exam = $assessment_dto->props['exam'];
         $assessment_exam = &$assessment_dto->props['exam'];
         if (isset($assessment_exam['type'])){
