@@ -15,20 +15,20 @@ class ViewBasicDiagnose extends ApiResource
   public function toArray(\Illuminate\Http\Request $request): array
   {
     $exam = $this->exam;
-    switch (true) {
-      case isset($exam['initial_diagnose']):
-        $exam = $exam['initial_diagnose'];
-        $exam['type'] = 'InitialDiagnose';
-      break;
-      case isset($exam['primary_diagnose']):
-        $exam = $exam['primary_diagnose'];
-        $exam['type'] = 'PrimaryDiagnose';
-      break;
-      case isset($exam['secondary_diagnose']):
-        $exam = $exam['secondary_diagnose'];
-        $exam['type'] = 'SecondaryDiagnose';
-      break;
-    }
+    // switch (true) {
+    //   case isset($exam['initial_diagnose']):
+    //     $exam = $exam['initial_diagnose'];
+    //     $exam['type'] = 'InitialDiagnose';
+    //   break;
+    //   case isset($exam['primary_diagnose']):
+    //     $exam = $exam['primary_diagnose'];
+    //     $exam['type'] = 'PrimaryDiagnose';
+    //   break;
+    //   case isset($exam['secondary_diagnose']):
+    //     $exam = $exam['secondary_diagnose'];
+    //     $exam['type'] = 'SecondaryDiagnose';
+    //   break;
+    // }
     $arr = [
       'id'                 => $this->id,
       'morph'              => $this->morph,

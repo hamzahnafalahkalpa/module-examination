@@ -21,24 +21,24 @@ class Examination extends BaseModel
 
     protected $list = ['id', 'visit_examination_id', 'examination_summary_id', 'patient_summary_id', 'props'];
 
-    protected static function booted(): void
-    {
-        parent::booted();
-        static::created(function ($query) {
-            static::uncommitVisitExamination($query);
-        });
-        static::updated(function ($query) {
-            static::uncommitVisitExamination($query);
-        });
-    }
+    // protected static function booted(): void
+    // {
+    //     parent::booted();
+    //     static::created(function ($query) {
+    //         static::uncommitVisitExamination($query);
+    //     });
+    //     static::updated(function ($query) {
+    //         static::uncommitVisitExamination($query);
+    //     });
+    // }
 
-    protected static function uncommitVisitExamination($query){
-        if (\method_exists($query, 'visitExamination')) {
-            $visit_examination = $query->visitExamination;
-            $visit_examination->is_commit = false;
-            $visit_examination->save();
-        }
-    }
+    // protected static function uncommitVisitExamination($query){
+    //     if (\method_exists($query, 'visitExamination') && $query->visitExamination){
+    //         $visit_examination = $query->visitExamination;
+    //         $visit_examination->is_commit = false;
+    //         $visit_examination->save();
+    //     }
+    // }
 
     public function getViewResource(){return ViewAssessment::class;}
     public function getShowResource(){return ShowAssessment::class;}

@@ -11,22 +11,22 @@ class BasicDiagnose extends Diagnose implements ContractsBasicDiagnose
     protected string $__entity   = 'BasicDiagnose';
 
     public function prepareStore(mixed &$assessment_dto): Model{
-        $temp_exam = $assessment_dto->props['exam'];
+        // $temp_exam = $assessment_dto->props['exam'];
         $assessment_exam = &$assessment_dto->props['exam'];
         if (isset($assessment_exam['type'])){
-            $type = $assessment_exam['type'];
-            unset($temp_exam['type']);
-            $assessment_exam = [];
-            if ($type == 'InitialDiagnose') {
-                $assessment_exam['initial_diagnose'] = $temp_exam;
-            }
-            if ($type == 'PrimaryDiagnose') {
-                $assessment_exam['primary_diagnose'] = $temp_exam;
-            }
-            if ($type == 'SecondaryDiagnose') {
-                $assessment_exam['secondary_diagnose'] = $temp_exam;
-            }
-            $this->initDiagnose($assessment_dto->props['exam'][Str::snake($type)]);
+            // $type = $assessment_exam['type'];
+            // unset($temp_exam['type']);
+            // $assessment_exam = [];
+            // if ($type == 'InitialDiagnose') {
+            //     $assessment_exam['initial_diagnose'] = $temp_exam;
+            // }
+            // if ($type == 'PrimaryDiagnose') {
+            //     $assessment_exam['primary_diagnose'] = $temp_exam;
+            // }
+            // if ($type == 'SecondaryDiagnose') {
+            //     $assessment_exam['secondary_diagnose'] = $temp_exam;
+            // }
+            // $this->initDiagnose($assessment_dto->props['exam'][Str::snake($type)]);
             parent::prepareStore($assessment_dto);
         }else{
             parent::prepareStore($assessment_dto);

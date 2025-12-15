@@ -16,14 +16,14 @@ class Diagnose extends Assessment implements ContractsDiagnose
         $assessment_exam = &$assessment_dto->props['exam'];
         $this->initDiagnose($assessment_exam);
         $assessment_dto->morph = $this->__entity;
-        $assessment = $this->pepareStore($assessment_dto);
+        $assessment = parent::prepareStore($assessment_dto);
         $disease = $this->disease_model;
         $classification_disease = $disease->classificationDisease;
         $assessment_exam['disease_type']              = $disease->getMorphClass();
         $assessment_exam['disease']                   = $disease->toViewApi()->resolve();
         $assessment_exam['name']                      = $classification_disease->name ?? $disease->name;
         $assessment_exam['classification_disease_id'] = $classification_disease->id ?? null;
-        if (in_array($assessment->morph,['InitialDiagnose','PrimaryDiagnose','SecondaryDiagnose'])){
+        if (in_array($assessment->morph,['BasicDiagnose','InitialDiagnose','PrimaryDiagnose','SecondaryDiagnose'])){
             $this->addPatientIllness($assessment_dto);
         }
         $this->assessment_model->save();
@@ -67,10 +67,14 @@ class Diagnose extends Assessment implements ContractsDiagnose
 
         $payment_summary_model = $assessment_dto->patient_summary_model;
         $patient_illnesses = $payment_summary_model->patient_illnesses ?? [];
-        array_unshift($patient_illnesses, $patient_illness->exam);
+        $patient_illness_resource = $patient_illness->toViewApi()->resolve();
+        unset($patient_illness_resource['patient']);
+        unset($patient_illness_resource['reference']);
+        array_unshift($patient_illnesses, $patient_illness_resource);
         $patient_illnesses = array_slice($patient_illnesses, 0, 10);
         $payment_summary_model->setAttribute('patient_illnesses', $patient_illnesses);
         $payment_summary_model->save();
+        return $patient_illness;
     }
 
     public function diagnose(mixed $conditionals = null): Builder{

@@ -42,7 +42,7 @@ class PatientIllness extends Examination implements Contracts\Schemas\Examinatio
             ];
         }
 
-        $patient_illness = $this->PatientIllnessModel()->updateOrCreate($guard, $add);
+        $patient_illness = $this->usingEntity()->updateOrCreate($guard, $add);
         $this->fillingProps($patient_illness, $patient_illness_dto->props);
         $patient_illness->save();
         return $this->patient_illness_model = $patient_illness;
