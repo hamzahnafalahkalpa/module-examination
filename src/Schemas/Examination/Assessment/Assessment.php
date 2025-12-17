@@ -170,7 +170,7 @@ class Assessment extends Examination implements ContractsAssessment
             if (isset($validation) && !isset($id) && !isset($flag)) throw new \Exception('Flag is required if id is not provided', 422);
             $flag = $attributes['morph'] ?? $attributes['search_morph'];
             $flag = Str::studly($flag);
-            $model = $this->{$flag.'Model'}();
+            $model = $this->{$flag.'Model'}()->withParameters()->conditionals($this->mergeCondition([]));
             if (method_exists($model,'showUsingRelation')) $model = $model->with($model->showUsingRelation());
             if (isset($id)) {
                 $model = $model->find($id);
