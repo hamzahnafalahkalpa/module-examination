@@ -79,25 +79,32 @@ class ExaminationTreatmentData extends ExaminationData implements DataExaminatio
             $attributes['reference_type'] ??= $reference_model->getMophClass();
         }
 
-        $attributes['transaction_item'] ??= [
-            'item_id'    => $attributes['reference_id'],
-            'item_type'  => $attributes['reference_type'],
-            'item_model' => $attributes['reference_model'] ?? null,
-            'transaction_id' => null,
-            'payment_detail' => [
-                'payment_summary_id'  => null,
-                'transaction_item_id' => null,
-                'qty'        => $attributes['qty'],
-                'price'      => $attributes['price'],
-                'amount'     => $amount,
-                'debt'       => $amount,
-                'cogs'       => $treatment->cogs ?? 0,
-                'tax'        => $tax,
-                'additional' => $additional
-            ]
-        ];
-        $attributes['name'] ??= $treatment->name;
-        $attributes['transaction_item']['name'] ??= $attributes['name'];
+        $visit_examination_model = $attributes['visit_examination_model'] ?? $new->VisitExaminationModel()->findOrFail($attributes['visit_examination_id']);
+        $visit_registration = $attributes['visit_registration_model'] ?? $visit_examination_model->visitRegistration;
+
+        if ($visit_registration->prop_medic_service['label'] !== 'POSYANDU'){
+            $attributes['transaction_item'] ??= [
+                'item_id'    => $attributes['reference_id'],
+                'item_type'  => $attributes['reference_type'],
+                'item_model' => $attributes['reference_model'] ?? null,
+                'transaction_id' => null,
+                'payment_detail' => [
+                    'payment_summary_id'  => null,
+                    'transaction_item_id' => null,
+                    'qty'        => $attributes['qty'],
+                    'price'      => $attributes['price'],
+                    'amount'     => $amount,
+                    'debt'       => $amount,
+                    'cogs'       => $treatment->cogs ?? 0,
+                    'tax'        => $tax,
+                    'additional' => $additional
+                ]
+            ];
+            $attributes['name'] ??= $treatment->name;
+            $attributes['transaction_item']['name'] ??= $attributes['name'];
+        }else{
+            $attributes['name'] ??= $treatment->name;
+        }
     }
 
     public static function after(mixed $data): self{

@@ -9,6 +9,7 @@ class Survey extends Form
     protected $table = 'unicodes';
 
     const TYPE_INPUT_TEXT    = 'InputText';
+    const TYPE_MULTIPLE_FORM = 'MultipleForm';
     const TYPE_INPUT_NUMBER  = 'InputNumber';
     const TYPE_INPUT_OTP     = 'InputOtp';
     const TYPE_TEXT_EDITOR   = 'TextEditor';
