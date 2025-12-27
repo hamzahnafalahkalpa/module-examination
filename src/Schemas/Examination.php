@@ -40,7 +40,7 @@ class Examination extends ModulePatient implements ContractsExamination
             'examination_summary'=> null,
             'prescription'       => null,
             'support'            => null,
-            'legal_doc'          => null,
+            'medical_legal_doc'  => null,
             'treatments'         => [],
             'pharmacy_sale'      => [],
         ];

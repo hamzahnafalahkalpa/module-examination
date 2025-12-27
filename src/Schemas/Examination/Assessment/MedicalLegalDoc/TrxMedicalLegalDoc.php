@@ -15,6 +15,9 @@ class TrxMedicalLegalDoc extends Assessment implements MedicalLegalDocTrxMedical
     public function prepareStore(mixed &$assessment_dto): Model{
         $assessment_exam = &$assessment_dto->props['exam'];
         
+        $document_type = $this->DocumentTypeModel()->findOrFail($assessment_exam['document_type_id']);
+        $assessment_exam['document_type'] = $document_type->toViewApiOnlies('id','name','label');
+
         if (isset($assessment_exam['files']) && count($assessment_exam['files']) > 0) {
             $assessment_exam = $this->storePdf($assessment_exam, Str::snake(class_basename($this)));
         }

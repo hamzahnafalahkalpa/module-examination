@@ -17,6 +17,8 @@ class ViewAssessment extends ApiResource
     $arr = [
       'id'                 => $this->id,
       'morph'              => $this->morph,
+      'examination_type'   => $this->examination_type,
+      'examination_id'   => $this->examination_id,
       'exam'               => $this->exam,
       'dynamic_form'       => $this->dynamic_form,
       'practitioner_evaluations' => $this->prop_practitioner_evaluations ?? [],
