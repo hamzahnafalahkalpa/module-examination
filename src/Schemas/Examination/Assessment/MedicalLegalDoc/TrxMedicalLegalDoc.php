@@ -24,6 +24,14 @@ class TrxMedicalLegalDoc extends Assessment implements MedicalLegalDocTrxMedical
         $support = parent::prepareStore($assessment_dto);
         // $this->fillingProps($support, $assessment_dto->props);
         // $support->save();
+
+        $visit_patient_model = $assessment_dto->visit_patient_model ?? $assessment_dto->visit_examination_model->visitPatient;
+        $visit_patient_model->is_has_medical_legal_doc = true;
+        $visit_patient_model->save();
+
+        $visit_registration = $assessment_dto->visit_registration_model ?? $assessment_dto->visit_examination_model->visitRegistration;
+        $visit_registration->is_has_medical_legal_doc = true;
+        $visit_registration->save();
         return $this->assessment_model = $this->trx_medical_legal_doc = $support;
     }
 }
