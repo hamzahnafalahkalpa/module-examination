@@ -2,7 +2,6 @@
 
 namespace Hanafalah\ModuleExamination\Schemas\Examination\Assessment\MedicalLegalDoc;
 
-use Hanafalah\ModuleExamination\Contracts\Data\AssessmentData;
 use Hanafalah\ModuleExamination\Contracts\Schemas\Examination\Assessment\MedicalLegalDoc\TrxMedicalLegalDoc as MedicalLegalDocTrxMedicalLegalDoc;
 use Hanafalah\ModuleExamination\Schemas\Examination\Assessment\Assessment;
 use Illuminate\Database\Eloquent\Model;
