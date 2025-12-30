@@ -52,19 +52,21 @@ class PatientSummary extends PackageManagement implements ContractsPatientSummar
         return $this->patient_summary_model = $patient_summary;
     }
 
-    protected function setEmrData(mixed $patient_summary_dto, $patient_summary){
-        $assessment_model = $patient_summary_dto->assessment_model;
-        $patient_summary_dto->props['emr'] = $patient_summary->emr ?? [];
-        $emr = $patient_summary_dto->props['emr'];
-        if ($assessment_model->response_model == 'array'){
-            $datas = $patient_summary_dto->{$assessment_model->morph} ?? [];
-            array_unshift($datas, $assessment_model->toShowApi()->resolve());
-            $datas = array_slice($datas, 0, 10);
-            $emr[$assessment_model->morph] = $datas;
-        }else{
-            $emr[$assessment_model->morph] = $assessment_model->toShowApi()->resolve();
+    protected function setEmrData(mixed &$patient_summary_dto, $patient_summary){
+        if (isset($patient_summary_dto->assessment_model)){
+            $assessment_model = $patient_summary_dto->assessment_model;
+            $patient_summary_dto->props['emr'] = $patient_summary->emr ?? [];
+            $emr = $patient_summary_dto->props['emr'];
+            if ($assessment_model->response_model == 'array'){
+                $datas = $patient_summary_dto->{$assessment_model->morph} ?? [];
+                array_unshift($datas, $assessment_model->toShowApi()->resolve());
+                $datas = array_slice($datas, 0, 10);
+                $emr[$assessment_model->morph] = $datas;
+            }else{
+                $emr[$assessment_model->morph] = $assessment_model->toShowApi()->resolve();
+            }
+            $patient_summary_dto->props['emr'] = $emr;
         }
-        $patient_summary_dto->props['emr'] = $emr;
     }
 
     protected function getPatientSummaryTemplate(): array{
