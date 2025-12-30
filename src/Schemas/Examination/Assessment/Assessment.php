@@ -145,6 +145,7 @@ class Assessment extends Examination implements ContractsAssessment
             'assessment_model' => $assessment,
             'last_visit' => $visit_exam_resolve
         ]));
+
         return $this->assessment_model = $assessment;
     }
 
