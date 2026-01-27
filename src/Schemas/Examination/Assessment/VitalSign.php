@@ -69,8 +69,8 @@ class VitalSign extends Assessment implements AssessmentVitalSign
             $temperature_level = 'ABNORMAL';
         }
 
-        $assessment_dto->props['temperature_status'] = $temperature_status;
-        $assessment_dto->props['temperature_level'] = $temperature_level;
+        $assessment_exam['temperature_status'] = $temperature_status;
+        $assessment_exam['temperature_level'] = $temperature_level;
 
         // Expert system decision for oxygen saturation assessment
         $oxygen_saturation = $assessment_exam['oxygen_saturation'] ?? 0;
@@ -89,9 +89,9 @@ class VitalSign extends Assessment implements AssessmentVitalSign
             $oxygen_level = 'MILD';
         }
 
-        $assessment_dto->props['oxygen_status'] = $oxygen_status;
-        $assessment_dto->props['oxygen_level'] = $oxygen_level;
-        $assessment_dto->props['blood_pressure_status'] = $blood_pressure_status;
-        $assessment_dto->props['hypertension_level'] = $hypertension_level;
+        $assessment_exam['oxygen_status'] = $oxygen_status;
+        $assessment_exam['oxygen_level'] = $oxygen_level;
+        $assessment_exam['blood_pressure_status'] = $blood_pressure_status;
+        $assessment_exam['hypertension_level'] = $hypertension_level;
     }
 }
