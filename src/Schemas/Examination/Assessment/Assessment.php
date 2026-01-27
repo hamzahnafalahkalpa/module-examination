@@ -83,8 +83,10 @@ class Assessment extends Examination implements ContractsAssessment
                 'morph'                  => $assessment_dto->morph ?? $model->getMorphClass()
             ]);
         }        
+        $this->fillingProps($assessment,$assessment_dto->props);
         $this->prepareAfterResolve($assessment, $assessment_dto);
-        $assessment_dto->props['exam'] = $current_exam = $this->mergeArray($assessment->getExamResults(), $assessment_dto->props['exam']);
+        $assessment->setAttribute('exam',json_decode(json_encode($assessment->exam),true));
+        $assessment_dto->props['exam'] = $current_exam = $this->mergeArray($assessment->getExamResults($assessment), $assessment_dto->props['exam']);
         $assessment->setAttribute('exam', $assessment_dto->props['exam']);
         if ($assessment->response_model != 'array' && $assessment_dto->is_addendum) {
             $addendums = $assessment->addendums ?? [];
@@ -95,7 +97,7 @@ class Assessment extends Examination implements ContractsAssessment
             ]);
             $assessment->setAttribute('addendums', $addendums);
         }
-        $this->fillingProps($assessment,$assessment_dto->props);
+        // $this->fillingProps($assessment,$assessment_dto->props);
         $assessment->save();
 
         $visit_examination_model = $assessment_dto->visit_examination_model ??= $this->VisitExaminationModel()->findOrFail($assessment_dto->examination_id);
