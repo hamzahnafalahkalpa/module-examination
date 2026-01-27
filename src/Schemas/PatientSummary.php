@@ -58,14 +58,26 @@ class PatientSummary extends PackageManagement implements ContractsPatientSummar
             $patient_summary_dto->props['emr'] = $patient_summary->emr ?? [];
             $emr = $patient_summary_dto->props['emr'];
             if ($assessment_model->response_model == 'array'){
-                $datas = $patient_summary_dto->{$assessment_model->morph} ?? [];
-                array_unshift($datas, $assessment_model->toShowApi()->resolve());
-                $datas = array_slice($datas, 0, 10);
-                $emr[$assessment_model->morph] = $datas;
+                $emr_config = config('module-examination.assessment.emr',[]);
+                if (!isset($emr_config[$patient_summary->reference_id])){
+                    $emr_config[$patient_summary->reference_id] = [
+                        $assessment_model->morph => []
+                    ];                
+                }
+                $emr_config[$patient_summary->reference_id][$assessment_model->morph][] = $assessment_model->toShowApi()->resolve();
+                config([
+                    'module-examination.assessment.emr' => $emr_config
+                ]);
+                // $datas = $patient_summary_dto->{$assessment_model->morph} ?? [];
+                // array_unshift($datas, $assessment_model->toShowApi()->resolve());
+                // if (in_array($patient_summary->reference_type,['Patient','People']))
+                // $datas = array_slice($datas, 0, 10);
+                // if ($assessment_model->morph == 'BasicDiagnose') dd($datas);
+                // $emr[$assessment_model->morph] = $datas;
             }else{
                 $emr[$assessment_model->morph] = $assessment_model->toShowApi()->resolve();
+                $patient_summary_dto->props['emr'] = $emr;
             }
-            $patient_summary_dto->props['emr'] = $emr;
         }
     }
 
