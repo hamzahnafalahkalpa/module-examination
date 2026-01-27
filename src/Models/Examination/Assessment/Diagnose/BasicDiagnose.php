@@ -9,6 +9,7 @@ use Hanafalah\ModuleExamination\Resources\Examination\Assessment\Diagnose\BasicD
 class BasicDiagnose extends Diagnose
 {
     protected $table = 'assessments';
+    public $response_model  = 'array';
     public $specific = [
         'initial_diagnose','primary_diagnose','secondary_diagnose'
     ];
