@@ -105,17 +105,6 @@ class Assessment extends Examination implements ContractsAssessment
         $visit_exam_resolve = $visit_exam_resolve->toShowApi()->resolve();
         
         $patient_model = $assessment_dto->patient_model ??= $this->PatientModel()->findOrFail($assessment_dto->patient_id);
-        // $assessment_dto->patient_summary_model = $this->schemaContract('patient_summary')->prepareStorePatientSummary($this->requestDTO(config('app.contracts.PatientSummaryData'),[
-        //     'patient_id' => $patient_model->getKey(),
-        //     'patient_model' => $patient_model,
-        //     'reference_type' => $patient_model->reference_type,
-        //     'reference_id' => $patient_model->reference_id,
-        //     'reference_model' => $patient_model->reference,
-        //     'assessment_model' => $assessment,
-        //     'last_visit' => $visit_exam_resolve
-        // ]));
-        // $visit_registration = $assessment_dto->visit_registration_model ??= $this->VisitRegistrationModel()->findOrFail($assessment_dto->visit_registration_id);
-        // $visit_patient_model = $assessment_dto->visit_patient_model ??= $this->VisitPatientModel()->findOrFail($visit_registration->visit_patient_id);
 
         $assessment_dto->examination_summary_model = $examination_summary_model = $this->schemaContract('examination_summary')->prepareStoreExaminationSummary($this->requestDTO(config('app.contracts.ExaminationSummaryData'),[
             'patient_id' => $patient_model->getKey(),
@@ -127,26 +116,6 @@ class Assessment extends Examination implements ContractsAssessment
             'last_visit' => $visit_exam_resolve
         ]));
         $assessment_dto->examination_summary_id = $examination_summary_model->getKey();
-
-        // $this->schemaContract('examination_summary')->prepareStoreExaminationSummary($this->requestDTO(config('app.contracts.ExaminationSummaryData'),[
-        //     'patient_id' => $patient_model->getKey(),
-        //     'patient_model' => $patient_model,
-        //     'reference_type' => $visit_registration->getMorphClass(),
-        //     'reference_id' => $visit_registration->getKey(),
-        //     'reference_model' => $visit_registration,
-        //     'assessment_model' => $assessment,
-        //     'last_visit' => $visit_exam_resolve
-        // ]));
-
-        // $this->schemaContract('examination_summary')->prepareStoreExaminationSummary($this->requestDTO(config('app.contracts.ExaminationSummaryData'),[
-        //     'patient_id' => $patient_model->getKey(),
-        //     'patient_model' => $patient_model,
-        //     'reference_type' => $visit_patient_model->getMorphClass(),
-        //     'reference_id' => $visit_patient_model->getKey(),
-        //     'reference_model' => $visit_patient_model,
-        //     'assessment_model' => $assessment,
-        //     'last_visit' => $visit_exam_resolve
-        // ]));
 
         return $this->assessment_model = $assessment;
     }
