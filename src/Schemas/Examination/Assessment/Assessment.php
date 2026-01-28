@@ -116,7 +116,6 @@ class Assessment extends Examination implements ContractsAssessment
             'last_visit' => $visit_exam_resolve
         ]));
         $assessment_dto->examination_summary_id = $examination_summary_model->getKey();
-
         return $this->assessment_model = $assessment;
     }
 
