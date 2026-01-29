@@ -25,6 +25,24 @@ class Assessment extends Examination implements ContractsAssessment
                 $filename = $file->getClientOriginalName();
                 $data     = [$target_path, $file, $filename];
                 $attributes['paths'][] = Storage::disk($driver)->putFileAs(...$data);
+            } elseif (is_string($file) && Str::startsWith($file, 'data:')) {
+                // === handle base64 ===
+                [$meta, $fileBase64] = explode(',', $file, 2);
+                $fileBase64 = base64_decode($fileBase64);
+
+                // cari mime type & extension dari metadata
+                preg_match('/^data:(.*?);base64$/', $meta, $matches);
+                $mimeType   = $matches[1] ?? 'application/octet-stream';
+                $extension  = explode('/', $mimeType)[1] ?? 'bin';
+
+                $filename ??= Str::orderedUuid();
+                $filename  .= '.' . $extension;
+                $data = [
+                    $target_path, 
+                    $fileBase64,
+                    $filename
+                ];
+                $attributes['paths'][] = Storage::disk($driver)->putFileAs(...$data);
             } else {
                 if (isset($attributes['id'])) {
                     $file = Str::replace(medical_support_url(''),'',$file);
