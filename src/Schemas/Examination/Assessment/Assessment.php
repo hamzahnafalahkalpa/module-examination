@@ -38,11 +38,13 @@ class Assessment extends Examination implements ContractsAssessment
                 $filename ??= Str::orderedUuid();
                 $filename  .= '.' . $extension;
                 $data = [
-                    $target_path, 
-                    $fileBase64,
-                    $filename
+                    $target_path.'/'.$filename, 
+                    $fileBase64
                 ];
-                $attributes['paths'][] = Storage::disk($driver)->putFileAs(...$data);
+                Storage::disk($driver)->put(...$data);
+                $result = ltrim($target_path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . ltrim($filename, DIRECTORY_SEPARATOR);
+                $result = ltrim($result, '/');
+                $attributes['paths'][] = $result;
             } else {
                 if (isset($attributes['id'])) {
                     $file = Str::replace(medical_support_url(''),'',$file);
