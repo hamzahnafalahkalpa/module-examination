@@ -87,40 +87,45 @@ class Examination extends ModulePatient implements ContractsExamination
         $examination_dto->response[$exam_key] = [];
 
         $response = &$examination_dto->response[$exam_key];
-        $current_exam = $examination_dto->{$exam_key};
-        foreach ($current_exam as $key => &$exam) {
+        $current_exam = &$examination_dto->{$exam_key};        
+        foreach ($current_exam as $key => &$exam) {            
             if (isset($exam['data'])){
                 $studly_key = Str::studly($key);
                 if ($exam_key == 'assessments') $this->setToOpenForm($studly_key);
 
                 $response = (object) $response;
-                $exam_data = $exam['data'];
+                $exam_data = &$exam['data'];
                 if (array_is_list($exam_data)){
                     $response->{$key} = (object) ['data' => []];
                     $current_response = &$response->{$key};
                     $key = $studly_key;
-                    foreach ($exam_data as $data) {
+                    foreach ($exam_data as &$data) {
                         $result = $this->prepareAssessment($data,$key,$examination_dto);
+                        $data = $result->exam;
                         if (is_bool($result)) continue;
                         $current_response->data[] = ($examination_dto->in_view_response) ? $result->toViewApi()->resolve() : $result->toShowApi()->resolve();
-                    }
+                    }                    
                     $current_response->data = new Collection($current_response->data);
                 }else{
                     $response->{$key} = (object) ['data' => new stdClass];
                     $result = $this->prepareAssessment($exam_data,$studly_key,$examination_dto);
+                    $exam_data = $result->exam;
                     if (is_bool($result)) continue;
                     $response->{$key}->data = ($examination_dto->in_view_response) ? $result->toViewApi()->resolve() : $result->toShowApi()->resolve();
                 }
             }else{
-                $result = $this->prepareAssessment($exam,$morph,$examination_dto);
-                if (is_bool($result)) continue;
+                $result = $this->prepareAssessment($exam,$morph,$examination_dto);                
+                $exam = $result->exam;
+                if (is_bool($result)) {
+                    continue;
+                }
                 $response[] = ($examination_dto->in_view_response) ? $result->toViewApi()->resolve() : $result->toShowApi()->resolve();
             }
         }
         if (array_is_list($current_exam)) $response = new Collection($response);
     }
 
-    private function prepareAssessment(array &$exam_data, string $studly_key, ExaminationData $examination_dto){
+    private function prepareAssessment(array &$exam_data, string $studly_key, ExaminationData &$examination_dto){
         $exam_data['morph'] = $studly_key;
         //INITIALIZE VISIT EXAMINATION MODEL
         $exam_data['visit_examination_model'] = $visit_examination_model = $examination_dto->visit_examination_model;
@@ -150,7 +155,9 @@ class Examination extends ModulePatient implements ContractsExamination
         $exam_data['is_addendum'] = $visit_examination_model->is_addendum;
         $exam_data = $this->requestDTO($contract_data,$exam_data);
         $contract_exists = config('app.contracts.'.$studly_key) !== null;
-        return $this->dataPreparation($this->schemaContract($contract_exists ? $studly_key : 'Assessment'), $exam_data);
+        $result = $this->dataPreparation($this->schemaContract($contract_exists ? $studly_key : 'Assessment'), $exam_data);
+        $result->setAttribute('exam',$exam_data->props['exam']);
+        return $result;
     }
 
     public function commitExamination(ExaminationData $examination_dto): array{
@@ -198,7 +205,7 @@ class Examination extends ModulePatient implements ContractsExamination
         }
     }
 
-    protected function dataPreparation($class, $assessment_dto){
+    protected function dataPreparation($class, &$assessment_dto){
         if (isset($data->is_delete) && $data->is_delete) {
             return $class->prepareRemoveAssessment($data);
         } else {
