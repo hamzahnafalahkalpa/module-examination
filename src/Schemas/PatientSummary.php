@@ -41,11 +41,16 @@ class PatientSummary extends PackageManagement implements ContractsPatientSummar
             $create = [$add];
         }
         $patient_summary = $this->usingEntity()->updateOrCreate(...$create);
-
+        
         $patient_model = $patient_summary_dto->patient_model ??= $this->PatientModel()->findOrFail($patient_summary_dto->patient_id);
         $patient_summary_dto->props['prop_patient'] = $patient_model->toShowApi()->resolve();
 
         $this->setEmrData($patient_summary_dto, $patient_summary);
+        if (isset($patient_summary_dto->props['test']) && $patient_summary_dto->props['test']){
+            $last_visit = $patient_summary_dto->props['last_visit'];
+            unset($last_visit['visit_registration'],$last_visit['visit_patient']);
+            $patient_summary_dto->props['last_visit'] = $last_visit;
+        }
         $this->fillingProps($patient_summary, $patient_summary_dto->props);
         $patient_summary->save();
 
