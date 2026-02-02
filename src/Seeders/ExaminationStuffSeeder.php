@@ -79,8 +79,8 @@ class ExaminationStuffSeeder extends Seeder
                         ['label' => 'DELIRIUM', 'name' => 'Delirium', 'ordering' => 3, 'description' => 'Pasien sadar, tetapi memiliki gangguan kesadaran yang akut dan fluktuatif'],
                         ['label' => 'SOMNOLENCE', 'name' => 'Somnolence', 'ordering' => 4, 'description' => 'Pasien sadara, tetapi sulit untuk dibangungkan, terlihat lesu dan tidak responsif, dapat dibangunkan dengan rangsangan yang kuat'],
                         ['label' => 'SOPOR', 'name' => 'Sopor', 'ordering' => 5, 'description' => 'Pasien sadar, tetapi sulit untuk dibangungkan, terlihat lesu dan tidak responsif, tidak dapat dibangunkan dengan rangsangan yang kuat'],
-                        ['label' => 'SEMI COMA', 'name' => 'Sopor', 'ordering' => 6, 'description' => 'Pasien sadar, tetapi sulit untuk dibangungkan, terlihat lesu dan tidak responsif, tidak dapat dibangunkan dengan rangsangan yang kuat, tetapi masih memiliki refleks makan'],
-                        ['label' => 'COMA', 'name' => 'Sopor', 'ordering' => 7, 'description' => 'Pasien tidak sadar, tidak memiliki respon terhadap rangsangan apapun']
+                        ['label' => 'SEMI COMA', 'name' => 'Semi Coma', 'ordering' => 6, 'description' => 'Pasien sadar, tetapi sulit untuk dibangungkan, terlihat lesu dan tidak responsif, tidak dapat dibangunkan dengan rangsangan yang kuat, tetapi masih memiliki refleks makan'],
+                        ['label' => 'COMA', 'name' => 'Coma', 'ordering' => 7, 'description' => 'Pasien tidak sadar, tidak memiliki respon terhadap rangsangan apapun']
                     ]
                 ]
             ],
