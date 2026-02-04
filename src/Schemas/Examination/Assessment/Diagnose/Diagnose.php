@@ -23,9 +23,9 @@ class Diagnose extends Assessment implements ContractsDiagnose
         $assessment_exam['disease']                   = $disease->toViewApi()->resolve();
         $assessment_exam['name']                      = $classification_disease->name ?? $disease->name;
         $assessment_exam['classification_disease_id'] = $classification_disease->id ?? null;
-        if (in_array($assessment->morph,['BasicDiagnose','InitialDiagnose','PrimaryDiagnose','SecondaryDiagnose'])){
-            $this->addPatientIllness($assessment_dto);
-        }
+        // if (in_array($assessment->morph,['BasicDiagnose','InitialDiagnose','PrimaryDiagnose','SecondaryDiagnose'])){
+        //     $this->addPatientIllness($assessment_dto);
+        // }
         $this->assessment_model->save();
         return $this->assessment_model;
     }
