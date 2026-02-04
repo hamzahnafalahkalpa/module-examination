@@ -256,7 +256,7 @@ class FormSeeder extends Seeder{
                 ]
             ],
             $this->modelMorph('PainScale') => [
-                'name' => 'Sekala Nyeri',
+                'name' => 'Skala Nyeri',
                 'type'    => 'Objective'
             ],
             $this->modelMorph('PhysicalActivity') => [
