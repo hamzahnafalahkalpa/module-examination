@@ -14,9 +14,6 @@ class Anthropometry extends Assessment implements AssessmentAnthropometry
     public function prepareStore(AssessmentData &$assessment_dto): Model
     {
         $anthropometry = parent::prepareStore($assessment_dto);
-        $patient_summary_model = $assessment_dto->patient_summary_model;
-        $patient_summary_model->setAttribute('anthropometry', $anthropometry->exam);
-        $patient_summary_model->save();
         return $this->assessment_model = $anthropometry;
     }
 

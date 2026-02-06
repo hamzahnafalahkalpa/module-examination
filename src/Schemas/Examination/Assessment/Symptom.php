@@ -14,12 +14,6 @@ class Symptom extends Assessment implements AssessmentSymptom
 
     public function prepareStore(AssessmentData &$assessment_dto): Model{
         $symptom = parent::prepareStore($assessment_dto);
-        $patient_summary_model = $assessment_dto->patient_summary_model;
-        $symptoms = $patient_summary_model->symptoms ?? [];
-        array_unshift($symptoms, $symptom->exam);
-        $symptoms = array_slice($symptoms, 0, 10);
-        $patient_summary_model->setAttribute('symptoms', $symptoms);
-        $patient_summary_model->save();
         return $symptom;
     }
 }

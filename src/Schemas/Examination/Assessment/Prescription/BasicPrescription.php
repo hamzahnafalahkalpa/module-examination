@@ -44,12 +44,6 @@ class BasicPrescription extends TrxPrescription implements ContractsBasicPrescri
             }
         }
 
-        $payment_summary_model = $assessment_dto->patient_summary_model;
-        $medications = $payment_summary_model->medications ?? [];
-        array_unshift($medications, $assessment->exam);
-        $medications = array_slice($medications, 0, 10);
-        $payment_summary_model->setAttribute('medications', $medications);
-        $payment_summary_model->save();
         // if (isset($assessment_exam['medicine_prescription'])) {
         //     $assessment_exam = $temp_exam;
         //     $assessment_dto->morph = 'MedicinePrescription';

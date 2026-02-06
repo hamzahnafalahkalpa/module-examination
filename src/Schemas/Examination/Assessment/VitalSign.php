@@ -14,9 +14,6 @@ class VitalSign extends Assessment implements AssessmentVitalSign
     public function prepareStore(AssessmentData &$assessment_dto): Model
     {
         $vital_sign = parent::prepareStore($assessment_dto);
-        $patient_summary_model = $assessment_dto->patient_summary_model;
-        $patient_summary_model->setAttribute('vital_sign', $vital_sign->exam);
-        $patient_summary_model->save();
         return $this->assessment_model = $vital_sign;
     }
 

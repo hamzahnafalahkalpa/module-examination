@@ -75,13 +75,6 @@ class TrxTreatment extends Assessment implements ContractsTrxTreatment
             $assessment_exam = $this->storePdf($assessment_exam, 'treatment_' . $treatment_model->reference_type);
         }
         $this->trx_treatment_model = $treatment = parent::prepareStore($assessment_dto);
-        
-        $patient_summary_model = $assessment_dto->patient_summary_model;
-        $treatments = $patient_summary_model->treatments ?? [];
-        array_unshift($treatments, $treatment->exam);
-        $treatments = array_slice($treatments, 0, 10);
-        $patient_summary_model->setAttribute('treatments', $treatments);
-        $patient_summary_model->save();
 
         $this->addExaminationTreatment($assessment_dto,$treatment,$treatment_model);
         return $this->assessment_model = $treatment;
