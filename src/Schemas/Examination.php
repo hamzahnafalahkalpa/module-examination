@@ -206,8 +206,8 @@ class Examination extends ModulePatient implements ContractsExamination
     }
 
     protected function dataPreparation($class, &$assessment_dto){
-        if (isset($data->is_delete) && $data->is_delete) {
-            return $class->prepareRemoveAssessment($data);
+        if (isset($assessment_dto->is_delete) && $assessment_dto->is_delete) {
+            return $class->prepareRemoveAssessment($assessment_dto);
         } else {
             return $class->prepareStore($assessment_dto);
         }
