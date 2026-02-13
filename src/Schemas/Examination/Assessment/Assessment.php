@@ -204,6 +204,18 @@ class Assessment extends Examination implements ContractsAssessment
         return $keys;
     }
 
+    public function prepareRemoveAssessment(AssessmentData $assessment_dto)
+    {
+        if (isset($assessment_dto->is_addendum) && $assessment_dto->is_addendum){
+
+        }else{
+            $result = $this->AssessmentModel()->findOrFail($assessment_dto->id)->delete();
+            $entity = $this->snakeEntity();
+            $this->forgetTagsEntity($entity);
+        }
+        return $result;
+    }
+
     public function usingEntity(): Model{
             if (isset(request()->morph)){
             $model = Str::studly(request()->morph);

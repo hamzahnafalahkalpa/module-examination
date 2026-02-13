@@ -101,16 +101,16 @@ class Examination extends ModulePatient implements ContractsExamination
                     $key = $studly_key;
                     foreach ($exam_data as &$data) {
                         $result = $this->prepareAssessment($data,$key,$examination_dto);
-                        $data = $result->exam;
                         if (is_bool($result)) continue;
+                        $data = $result->exam;
                         $current_response->data[] = ($examination_dto->in_view_response) ? $result->toViewApi()->resolve() : $result->toShowApi()->resolve();
                     }                    
                     $current_response->data = new Collection($current_response->data);
                 }else{
                     $response->{$key} = (object) ['data' => new stdClass];
                     $result = $this->prepareAssessment($exam_data,$studly_key,$examination_dto);
-                    $exam_data = $result->exam;
                     if (is_bool($result)) continue;
+                    $exam_data = $result->exam;
                     $response->{$key}->data = ($examination_dto->in_view_response) ? $result->toViewApi()->resolve() : $result->toShowApi()->resolve();
                 }
             }else{
@@ -156,7 +156,9 @@ class Examination extends ModulePatient implements ContractsExamination
         $exam_data = $this->requestDTO($contract_data,$exam_data);
         $contract_exists = config('app.contracts.'.$studly_key) !== null;
         $result = $this->dataPreparation($this->schemaContract($contract_exists ? $studly_key : 'Assessment'), $exam_data);
-        $result->setAttribute('exam',$exam_data->props['exam']);
+        if (!is_bool($result)) {
+            $result->setAttribute('exam',$exam_data->props['exam']);
+        }
         return $result;
     }
 
@@ -206,7 +208,7 @@ class Examination extends ModulePatient implements ContractsExamination
     }
 
     protected function dataPreparation($class, &$assessment_dto){
-        if (isset($assessment_dto->is_delete) && $assessment_dto->is_delete) {
+        if (isset($assessment_dto->props['is_delete']) && $assessment_dto->props['is_delete']) {
             return $class->prepareRemoveAssessment($assessment_dto);
         } else {
             return $class->prepareStore($assessment_dto);
