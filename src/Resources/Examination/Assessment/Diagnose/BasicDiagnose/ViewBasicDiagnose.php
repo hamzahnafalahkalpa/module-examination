@@ -3,6 +3,7 @@
 namespace Hanafalah\ModuleExamination\Resources\Examination\Assessment\Diagnose\BasicDiagnose;
 
 use Hanafalah\LaravelSupport\Resources\ApiResource;
+use Illuminate\Support\Str;
 
 class ViewBasicDiagnose extends ApiResource
 {
@@ -29,6 +30,7 @@ class ViewBasicDiagnose extends ApiResource
     //     $exam['type'] = 'SecondaryDiagnose';
     //   break;
     // }
+    $exam['diagnose_type'] = Str::headline($exam['type']);
     $arr = [
       'id'                 => $this->id,
       'morph'              => $this->morph,

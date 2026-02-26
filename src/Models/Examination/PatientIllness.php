@@ -33,7 +33,7 @@ class PatientIllness extends Examination
     ];
 
     public function viewUsingRelation(): array{
-        return ['patient','classificationDisease'];
+        return ['patient','reference','classificationDisease'];
     }
 
     public function showUsingRelation(): array{
