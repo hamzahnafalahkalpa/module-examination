@@ -21,6 +21,9 @@ class ViewPatientSummary extends ViewSummary
       'patient_id'         => $this->patient_id, 
       'reference_type'     => $this->reference_type, 
       'reference_id'       => $this->reference_id, 
+      'screening'          => $this->screening ?? [
+        'is_has_screening' => null
+      ]
     ];
     $template = config('module-examination.patient_summary_template',[]);
 
